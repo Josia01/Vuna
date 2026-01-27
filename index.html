@@ -212,10 +212,10 @@
             font-weight: bold;
         }
 
-        .sell-btn {
+        .login-btn {
             display: none; /* Hidden on mobile */
-            background: linear-gradient(135deg, var(--accent), #f5c518);
-            color: var(--dark);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
             border: none;
             padding: 8px 15px;
             border-radius: 50px;
@@ -697,6 +697,14 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
 
+        /* Categories and Flash Sale side-by-side layout */
+        .categories-flash-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
         /* Footer for Mobile */
         footer {
             background-color: var(--dark);
@@ -816,7 +824,7 @@
                 font-size: 0.75rem;
             }
             
-            .sell-btn {
+            .login-btn {
                 display: block;
             }
             
@@ -881,6 +889,20 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             
+            .categories-flash-container {
+                flex-direction: row;
+            }
+            
+            .categories-section {
+                flex: 1;
+                margin-bottom: 0;
+            }
+            
+            .flash-sale {
+                flex: 1;
+                margin-bottom: 0;
+            }
+            
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -914,7 +936,7 @@
                 font-size: 0.85rem;
             }
             
-            .sell-btn {
+            .login-btn {
                 padding: 10px 25px;
                 font-size: 1rem;
             }
@@ -935,7 +957,7 @@
             
             .sidebar {
                 display: block;
-                width: 250px;
+                width: 200px;
                 background-color: white;
                 border-radius: 10px;
                 padding: 0;
@@ -989,6 +1011,10 @@
                 height: 180px;
             }
             
+            .categories-flash-container {
+                gap: 30px;
+            }
+            
             .footer-content {
                 grid-template-columns: repeat(4, 1fr);
             }
@@ -1006,6 +1032,10 @@
             
             .product-img {
                 height: 200px;
+            }
+            
+            .sidebar {
+                width: 220px;
             }
         }
     </style>
@@ -1072,7 +1102,7 @@
                             <span class="cart-count">8</span>
                             <span class="action-text">Cart</span>
                         </a>
-                        <a href="sell.html" class="sell-btn" id="sell-link">Sell</a>
+                        <a href="login.html" class="login-btn" id="login-link">Login</a>
                         <button class="mobile-menu-btn">
                             <i class="fas fa-bars"></i>
                         </button>
@@ -1139,7 +1169,7 @@
 
         <!-- Main Content -->
         <div class="container main-content">
-            <!-- Sidebar (Filter Options) -->
+            <!-- Sidebar (Filter Options) - Moved to far left -->
             <aside class="sidebar">
                 <div class="sidebar-section">
                     <h3>Farm Type</h3>
@@ -1193,179 +1223,182 @@
                     </div>
                 </section>
 
-                <!-- Flash Sale Section -->
-                <section class="flash-sale">
-                    <div class="sale-header">
-                        <div>
-                            <h2 class="sale-title">⚡ Flash Sale</h2>
-                            <p>Limited time offers ending soon!</p>
-                        </div>
-                        <div class="sale-timer">
-                            <div class="timer-box">
-                                <div class="timer-value" id="hours">12</div>
-                                <div class="timer-label">HOURS</div>
-                            </div>
-                            <div class="timer-box">
-                                <div class="timer-value" id="minutes">45</div>
-                                <div class="timer-label">MINUTES</div>
-                            </div>
-                            <div class="timer-box">
-                                <div class="timer-value" id="seconds">22</div>
-                                <div class="timer-label">SECONDS</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="products-grid">
-                        <!-- Flash Sale Product 1 -->
-                        <div class="product-card">
-                            <div class="product-badge badge-sale">40% OFF</div>
-                            <div class="product-img">
-                                <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Ethiopian Coffee">
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Ethiopian Yirgacheffe Coffee Beans</h3>
-                                <div class="product-rating">
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span>(124)</span>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="price-section">
-                                        <div class="current-price">$19.99</div>
-                                        <div class="original-price">$33.32</div>
-                                    </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
-                                </div>
-                            </div>
+                <!-- Categories and Flash Sale side-by-side -->
+                <div class="categories-flash-container">
+                    <!-- Categories Section -->
+                    <section class="categories-section">
+                        <div class="section-header">
+                            <h2 class="section-title">📁 Shop by Category</h2>
+                            <a href="#" class="view-all">All Categories</a>
                         </div>
                         
-                        <!-- Flash Sale Product 2 -->
-                        <div class="product-card">
-                            <div class="product-badge badge-sale">35% OFF</div>
-                            <div class="product-img">
-                                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Shea Butter">
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Pure Ghanaian Shea Butter</h3>
-                                <div class="product-rating">
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span>(89)</span>
+                        <div class="categories-grid">
+                            <!-- Category 1 -->
+                            <div class="category-card">
+                                <div class="category-img">
+                                    <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Coffee">
                                 </div>
-                                <div class="product-footer">
-                                    <div class="price-section">
-                                        <div class="current-price">$15.73</div>
-                                        <div class="original-price">$24.20</div>
-                                    </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                <div class="category-info">
+                                    <h3 class="category-name">Coffee & Tea</h3>
+                                    <div class="category-count">48 Products</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Category 2 -->
+                            <div class="category-card">
+                                <div class="category-img">
+                                    <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Spices">
+                                </div>
+                                <div class="category-info">
+                                    <h3 class="category-name">Spices</h3>
+                                    <div class="category-count">36 Products</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Category 3 -->
+                            <div class="category-card">
+                                <div class="category-img">
+                                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Fruits">
+                                </div>
+                                <div class="category-info">
+                                    <h3 class="category-name">Fresh Fruits</h3>
+                                    <div class="category-count">72 Products</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Category 4 -->
+                            <div class="category-card">
+                                <div class="category-img">
+                                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=1174&q=80" alt="Grains">
+                                </div>
+                                <div class="category-info">
+                                    <h3 class="category-name">Grains & Cereals</h3>
+                                    <div class="category-count">29 Products</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Category 5 -->
+                            <div class="category-card">
+                                <div class="category-img">
+                                    <img src="https://images.unsplash.com/photo-1629731680315-324b328052e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Nuts">
+                                </div>
+                                <div class="category-info">
+                                    <h3 class="category-name">Nuts & Seeds</h3>
+                                    <div class="category-count">41 Products</div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Flash Sale Product 3 -->
-                        <div class="product-card">
-                            <div class="product-badge badge-new">NEW</div>
-                            <div class="product-img">
-                                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Cocoa Beans">
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Ivory Coast Cocoa Beans</h3>
-                                <div class="product-rating">
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span>(67)</span>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="price-section">
-                                        <div class="current-price">$31.50</div>
-                                    </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
-                <!-- Categories Section -->
-                <section class="categories-section">
-                    <div class="section-header">
-                        <h2 class="section-title">📁 Shop by Category</h2>
-                        <a href="#" class="view-all">All Categories</a>
-                    </div>
-                    
-                    <div class="categories-grid">
-                        <!-- Category 1 -->
-                        <div class="category-card">
-                            <div class="category-img">
-                                <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Coffee">
+                    <!-- Flash Sale Section -->
+                    <section class="flash-sale">
+                        <div class="sale-header">
+                            <div>
+                                <h2 class="sale-title">⚡ Flash Sale</h2>
+                                <p>Limited time offers ending soon!</p>
                             </div>
-                            <div class="category-info">
-                                <h3 class="category-name">Coffee & Tea</h3>
-                                <div class="category-count">48 Products</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Category 2 -->
-                        <div class="category-card">
-                            <div class="category-img">
-                                <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Spices">
-                            </div>
-                            <div class="category-info">
-                                <h3 class="category-name">Spices</h3>
-                                <div class="category-count">36 Products</div>
+                            <div class="sale-timer">
+                                <div class="timer-box">
+                                    <div class="timer-value" id="hours">12</div>
+                                    <div class="timer-label">HOURS</div>
+                                </div>
+                                <div class="timer-box">
+                                    <div class="timer-value" id="minutes">45</div>
+                                    <div class="timer-label">MINUTES</div>
+                                </div>
+                                <div class="timer-box">
+                                    <div class="timer-value" id="seconds">22</div>
+                                    <div class="timer-label">SECONDS</div>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Category 3 -->
-                        <div class="category-card">
-                            <div class="category-img">
-                                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Fruits">
+                        <div class="products-grid">
+                            <!-- Flash Sale Product 1 -->
+                            <div class="product-card">
+                                <div class="product-badge badge-sale">40% OFF</div>
+                                <div class="product-img">
+                                    <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Ethiopian Coffee">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Ethiopian Yirgacheffe Coffee Beans</h3>
+                                    <div class="product-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span>(124)</span>
+                                    </div>
+                                    <div class="product-footer">
+                                        <div class="price-section">
+                                            <div class="current-price">$19.99</div>
+                                            <div class="original-price">$33.32</div>
+                                        </div>
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="category-info">
-                                <h3 class="category-name">Fresh Fruits</h3>
-                                <div class="category-count">72 Products</div>
+                            
+                            <!-- Flash Sale Product 2 -->
+                            <div class="product-card">
+                                <div class="product-badge badge-sale">35% OFF</div>
+                                <div class="product-img">
+                                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Shea Butter">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Pure Ghanaian Shea Butter</h3>
+                                    <div class="product-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>(89)</span>
+                                    </div>
+                                    <div class="product-footer">
+                                        <div class="price-section">
+                                            <div class="current-price">$15.73</div>
+                                            <div class="original-price">$24.20</div>
+                                        </div>
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Flash Sale Product 3 -->
+                            <div class="product-card">
+                                <div class="product-badge badge-new">NEW</div>
+                                <div class="product-img">
+                                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Cocoa Beans">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Ivory Coast Cocoa Beans</h3>
+                                    <div class="product-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span>(67)</span>
+                                    </div>
+                                    <div class="product-footer">
+                                        <div class="price-section">
+                                            <div class="current-price">$31.50</div>
+                                        </div>
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- Category 4 -->
-                        <div class="category-card">
-                            <div class="category-img">
-                                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=1174&q=80" alt="Grains">
-                            </div>
-                            <div class="category-info">
-                                <h3 class="category-name">Grains & Cereals</h3>
-                                <div class="category-count">29 Products</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Category 5 -->
-                        <div class="category-card">
-                            <div class="category-img">
-                                <img src="https://images.unsplash.com/photo-1629731680315-324b328052e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Nuts">
-                            </div>
-                            <div class="category-info">
-                                <h3 class="category-name">Nuts & Seeds</h3>
-                                <div class="category-count">41 Products</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
 
                 <!-- Best Selling Products -->
                 <section class="products-section" id="products">
