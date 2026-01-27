@@ -427,6 +427,48 @@
             font-weight: 700;
         }
 
+        /* Categories Section */
+        .categories-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .category-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
         /* Products Grid for Mobile */
         .products-section {
             background-color: white;
@@ -493,6 +535,11 @@
             color: white;
         }
 
+        .badge-hot {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
         .product-img {
             height: 140px;
             overflow: hidden;
@@ -555,7 +602,12 @@
             font-size: 0.8rem;
         }
 
-        .add-to-cart {
+        .product-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .add-to-cart, .buy-now {
             background-color: var(--accent);
             color: var(--dark);
             border: none;
@@ -567,6 +619,47 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .buy-now {
+            background-color: var(--primary);
+            color: white;
+            width: auto;
+            padding: 0 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #ccc;
+            transition: all 0.3s;
+        }
+
+        .wishlist-btn.active {
+            color: var(--sale);
+        }
+
+        /* Stock indicator */
+        .stock-info {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            margin-top: 5px;
         }
 
         /* Seller Spotlight for Mobile */
@@ -607,84 +700,101 @@
             object-fit: cover;
         }
 
-        /* Bulk Orders for Mobile */
-        .bulk-orders {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 30px 0;
-            margin-bottom: 20px;
-        }
-
-        .bulk-content {
-            display: block;
-        }
-
-        .bulk-text h2 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .bulk-features {
-            list-style: none;
-            margin: 15px 0;
-        }
-
-        .bulk-features li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-        }
-
-        .bulk-form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
+        /* Special Offers Banner */
+        .special-offers {
+            background: linear-gradient(135deg, #ff9f43, var(--accent));
             color: var(--dark);
-            margin-top: 20px;
+            padding: 30px 0;
+            margin: 20px 0;
+            border-radius: 10px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .offer-content {
+            text-align: center;
         }
 
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--gray);
-            border-radius: 5px;
+        .offer-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .offer-content p {
+            margin-bottom: 20px;
             font-size: 1rem;
         }
 
-        /* Shipping Section for Mobile */
-        .shipping {
-            padding: 30px 0;
-            background-color: #f9faf7;
-        }
-
-        .shipping-content {
-            display: block;
-        }
-
-        .shipping-text h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .shipping-map {
-            height: 250px;
-            background-color: var(--light);
+        /* Customer Reviews */
+        .reviews-section {
+            background-color: white;
             border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            margin-top: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .map-overlay h3 {
-            font-size: 1.3rem;
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .review-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 10px;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .review-name {
+            font-weight: 600;
+        }
+
+        .review-rating {
+            color: var(--accent);
+        }
+
+        /* Recently Viewed */
+        .recently-viewed {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .recent-products {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .recent-product {
+            min-width: 150px;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
         }
 
         /* Footer for Mobile */
@@ -858,31 +968,25 @@
                 grid-row: span 2;
             }
             
+            .categories-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
             .products-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 20px;
+            }
+            
+            .buy-now {
+                display: flex;
             }
             
             .seller-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .bulk-content {
-                display: flex;
-                gap: 30px;
-            }
-            
-            .bulk-form {
-                margin-top: 0;
-            }
-            
-            .shipping-content {
-                display: flex;
-                gap: 30px;
-            }
-            
-            .shipping-map {
-                margin-top: 0;
+            .reviews-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
             
             .footer-content {
@@ -987,6 +1091,16 @@
             
             .product-img {
                 height: 180px;
+            }
+            
+            /* Product hover effects for desktop */
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .product-card:hover .buy-now {
+                display: flex;
             }
             
             .footer-content {
@@ -1207,6 +1321,7 @@
                         <!-- Flash Sale Product 1 -->
                         <div class="product-card">
                             <div class="product-badge badge-sale">40% OFF</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Ethiopian Coffee">
                             </div>
@@ -1222,12 +1337,16 @@
                                     </div>
                                     <span>(124)</span>
                                 </div>
+                                <div class="stock-info">Only 15 left!</div>
                                 <div class="product-footer">
                                     <div class="price-section">
                                         <div class="current-price">$19.99</div>
                                         <div class="original-price">$33.32</div>
                                     </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1235,6 +1354,7 @@
                         <!-- Flash Sale Product 2 -->
                         <div class="product-card">
                             <div class="product-badge badge-sale">35% OFF</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Shea Butter">
                             </div>
@@ -1250,12 +1370,16 @@
                                     </div>
                                     <span>(89)</span>
                                 </div>
+                                <div class="stock-info">In stock</div>
                                 <div class="product-footer">
                                     <div class="price-section">
                                         <div class="current-price">$15.73</div>
                                         <div class="original-price">$24.20</div>
                                     </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1263,6 +1387,7 @@
                         <!-- Flash Sale Product 3 -->
                         <div class="product-card">
                             <div class="product-badge badge-new">NEW</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Cocoa Beans">
                             </div>
@@ -1278,11 +1403,199 @@
                                     </div>
                                     <span>(67)</span>
                                 </div>
+                                <div class="stock-info">Limited stock</div>
                                 <div class="product-footer">
                                     <div class="price-section">
                                         <div class="current-price">$31.50</div>
                                     </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Categories Section -->
+                <section class="categories-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🛍️ Shop by Category</h2>
+                        <a href="categories.html" class="view-all">All Categories</a>
+                    </div>
+                    <div class="categories-grid">
+                        <a href="#" class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-coffee"></i>
+                            </div>
+                            <div class="category-name">Coffee & Tea</div>
+                        </a>
+                        <a href="#" class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-pepper-hot"></i>
+                            </div>
+                            <div class="category-name">Spices</div>
+                        </a>
+                        <a href="#" class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-apple-alt"></i>
+                            </div>
+                            <div class="category-name">Fruits</div>
+                        </a>
+                        <a href="#" class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="category-name">Grains</div>
+                        </a>
+                        <a href="#" class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-wine-bottle"></i>
+                            </div>
+                            <div class="category-name">Oils</div>
+                        </a>
+                        <a href="#" class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-mortar-pestle"></i>
+                            </div>
+                            <div class="category-name">Herbs</div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- New Arrivals Section -->
+                <section class="products-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🆕 New Arrivals</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="products-grid">
+                        <!-- New Arrival Product 1 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1629731680315-324b328052e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Dates">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Premium Moroccan Dates</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(78)</span>
+                                </div>
+                                <div class="stock-info">New in stock</div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$37.50</div>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- New Arrival Product 2 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1528821128470-4929934e4e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Cashews">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Tanzanian Cashew Nuts</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span>(34)</span>
+                                </div>
+                                <div class="stock-info">Fresh harvest</div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$28.99</div>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- New Arrival Product 3 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Vanilla">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Madagascar Vanilla Beans</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(22)</span>
+                                </div>
+                                <div class="stock-info">Limited edition</div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$42.75</div>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- New Arrival Product 4 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Baobab">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Senegalese Baobab Powder</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span>(18)</span>
+                                </div>
+                                <div class="stock-info">In stock</div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$24.99</div>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1299,6 +1612,8 @@
                     <div class="products-grid">
                         <!-- Product 1 -->
                         <div class="product-card">
+                            <div class="product-badge badge-hot">HOT</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="African Spices">
                             </div>
@@ -1314,17 +1629,23 @@
                                     </div>
                                     <span>(42)</span>
                                 </div>
+                                <div class="stock-info">Bestseller</div>
                                 <div class="product-footer">
                                     <div class="price-section">
                                         <div class="current-price">$32.99</div>
                                     </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Product 2 -->
                         <div class="product-card">
+                            <div class="product-badge badge-hot">HOT</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Honey">
                             </div>
@@ -1340,44 +1661,22 @@
                                     </div>
                                     <span>(156)</span>
                                 </div>
+                                <div class="stock-info">Bestseller</div>
                                 <div class="product-footer">
                                     <div class="price-section">
                                         <div class="current-price">$24.50</div>
                                     </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Product 3 -->
                         <div class="product-card">
-                            <div class="product-img">
-                                <img src="https://images.unsplash.com/photo-1629731680315-324b328052e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Dates">
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Premium Moroccan Dates</h3>
-                                <div class="product-rating">
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span>(78)</span>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="price-section">
-                                        <div class="current-price">$37.50</div>
-                                    </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 4 -->
-                        <div class="product-card">
-                            <div class="product-badge badge-sale">15% OFF</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Mangoes">
                             </div>
@@ -1393,14 +1692,115 @@
                                     </div>
                                     <span>(203)</span>
                                 </div>
+                                <div class="stock-info">Seasonal</div>
                                 <div class="product-footer">
                                     <div class="price-section">
                                         <div class="current-price">$28.99</div>
                                         <div class="original-price">$34.10</div>
                                     </div>
-                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-sale">15% OFF</div>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1585307510183-030c5a6d48ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Tea">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Kenyan Purple Tea Leaves</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(67)</span>
+                                </div>
+                                <div class="stock-info">Popular</div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$18.99</div>
+                                        <div class="original-price">$22.34</div>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                        <button class="buy-now">Buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Customer Reviews Section -->
+                <section class="reviews-section">
+                    <div class="section-header">
+                        <h2 class="section-title">⭐ Customer Reviews</h2>
+                        <a href="reviews.html" class="view-all">All Reviews</a>
+                    </div>
+                    <div class="reviews-grid">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer">
+                                </div>
+                                <div>
+                                    <div class="review-name">Sarah Johnson</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"The Ethiopian coffee is incredible! Fresh, aromatic, and ethically sourced. Will definitely order again!"</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Customer">
+                                </div>
+                                <div>
+                                    <div class="review-name">Michael Chen</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"Fast shipping and amazing quality. The shea butter has transformed my skin care routine."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Customer">
+                                </div>
+                                <div>
+                                    <div class="review-name">Amina Diallo</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"As someone from West Africa, I can attest to the authenticity of these products. Truly home away from home!"</p>
                         </div>
                     </div>
                 </section>
@@ -1428,65 +1828,54 @@
                             <p>Morocco</p>
                             <div class="rating-count">⭐ 4.9</div>
                         </div>
+                        <div class="seller-card">
+                            <div class="seller-avatar">
+                                <img src="https://images.unsplash.com/photo-1566492031773-4f4e4467f673?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Fruit Farmer">
+                            </div>
+                            <h4>Joseph's Fruit Orchard</h4>
+                            <p>Kenya</p>
+                            <div class="rating-count">⭐ 4.7</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Special Offers Banner -->
+                <section class="special-offers">
+                    <div class="container">
+                        <div class="offer-content">
+                            <h2>Seasonal Sale - Up to 50% OFF</h2>
+                            <p>Limited time offers on fresh seasonal produce. Ends soon!</p>
+                            <a href="#" class="btn btn-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recently Viewed Section -->
+                <section class="recently-viewed">
+                    <div class="section-header">
+                        <h2 class="section-title">📜 Recently Viewed</h2>
+                        <a href="#" class="view-all">Clear History</a>
+                    </div>
+                    <div class="recent-products">
+                        <div class="recent-product">
+                            <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Shea Butter" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; margin-bottom: 8px;">
+                            <div style="font-size: 0.8rem; font-weight: 600;">Shea Butter</div>
+                            <div style="font-size: 0.9rem; color: var(--primary); font-weight: 700;">$15.73</div>
+                        </div>
+                        <div class="recent-product">
+                            <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Vanilla" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; margin-bottom: 8px;">
+                            <div style="font-size: 0.8rem; font-weight: 600;">Vanilla Beans</div>
+                            <div style="font-size: 0.9rem; color: var(--primary); font-weight: 700;">$42.75</div>
+                        </div>
+                        <div class="recent-product">
+                            <img src="https://images.unsplash.com/photo-1585307510183-030c5a6d48ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Tea" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; margin-bottom: 8px;">
+                            <div style="font-size: 0.8rem; font-weight: 600;">Purple Tea</div>
+                            <div style="font-size: 0.9rem; color: var(--primary); font-weight: 700;">$18.99</div>
+                        </div>
                     </div>
                 </section>
             </main>
         </div>
-
-        <!-- Bulk Orders Section -->
-        <section class="bulk-orders" id="bulk">
-            <div class="container">
-                <div class="bulk-content">
-                    <div class="bulk-text">
-                        <h2>Bulk Orders for Businesses</h2>
-                        <p>Get wholesale prices for restaurants, retailers, and distributors.</p>
-                        <ul class="bulk-features">
-                            <li><i class="fas fa-check-circle"></i> Volume discounts up to 40%</li>
-                            <li><i class="fas fa-check-circle"></i> Custom packaging</li>
-                            <li><i class="fas fa-check-circle"></i> Direct farmer connections</li>
-                        </ul>
-                    </div>
-                    <div class="bulk-form">
-                        <h3>Request Quote</h3>
-                        <form id="bulkForm">
-                            <div class="form-group">
-                                <input type="text" placeholder="Business Name" required>
-                            </div>
-                            <div class="form-group">
-                                <select required>
-                                    <option value="">Product Category</option>
-                                    <option value="coffee">Coffee & Tea</option>
-                                    <option value="spices">Spices</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Get Quote</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Shipping Section -->
-        <section class="shipping" id="shipping">
-            <div class="container">
-                <div class="shipping-content">
-                    <div class="shipping-text">
-                        <h2>Global Logistics Network</h2>
-                        <p>Vuna connects African farmers with international markets. Refrigerated shipping ensures freshness.</p>
-                        <p><strong>Shipping:</strong> 7-14 days to most destinations</p>
-                        <p><strong>Destinations:</strong> 50+ countries worldwide</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                    </div>
-                    <div class="shipping-map">
-                        <div class="map-overlay">
-                            <h3>Shipping From Africa</h3>
-                            <p>Direct to global destinations</p>
-                            <i class="fas fa-globe-africa" style="font-size: 3rem; margin-top: 20px;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
     <!-- Footer -->
@@ -1582,15 +1971,34 @@
                 });
             });
 
-            // Bulk form submission
-            const bulkForm = document.getElementById('bulkForm');
-            if (bulkForm) {
-                bulkForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    showNotification('Bulk order request sent! We\'ll contact you soon.');
-                    this.reset();
+            // Buy now functionality
+            const buyNowButtons = document.querySelectorAll('.buy-now');
+            buyNowButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                    showNotification(`Redirecting to checkout for ${productName}`);
+                    // In a real app, this would redirect to checkout
                 });
-            }
+            });
+
+            // Wishlist toggle functionality
+            const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        this.classList.add('active');
+                        showNotification('Added to wishlist');
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        this.classList.remove('active');
+                        showNotification('Removed from wishlist');
+                    }
+                });
+            });
 
             // Newsletter form submission
             const newsletterForm = document.querySelector('.newsletter-form');
@@ -1698,6 +2106,23 @@
                         if (categoryNav) categoryNav.style.display = 'none';
                     }
                 }
+            });
+
+            // Track recently viewed products
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.wishlist-btn') && 
+                        !e.target.closest('.add-to-cart') && 
+                        !e.target.closest('.buy-now')) {
+                        const productName = this.querySelector('.product-name').textContent;
+                        const productImage = this.querySelector('.product-img img').src;
+                        const productPrice = this.querySelector('.current-price').textContent;
+                        
+                        // In a real app, this would save to localStorage
+                        console.log(`Viewed product: ${productName}`);
+                    }
+                });
             });
         });
     </script>
