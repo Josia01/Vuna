@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vuna - African Agricultural Marketplace</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">   REMOVE BULK ORDER AND GLOBAL LOGISTICS SECTION AT THE BOTTOM. ALSO ADD A SECTION OF CATEGORIES BEFORE BEST SELLING. AND MORE THINGS TO MAKE IT LOOKING LIKE A ECOMMERCE WEBSITE
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -427,6 +427,65 @@
             font-weight: 700;
         }
 
+        /* Categories Section */
+        .categories-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .category-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .category-img {
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-info {
+            padding: 15px 10px;
+        }
+
+        .category-name {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .category-count {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
         /* Products Grid for Mobile */
         .products-section {
             background-color: white;
@@ -472,6 +531,11 @@
             position: relative;
         }
 
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
         .product-badge {
             position: absolute;
             top: 10px;
@@ -491,6 +555,11 @@
         .badge-new {
             background-color: var(--new);
             color: white;
+        }
+
+        .badge-popular {
+            background-color: var(--accent);
+            color: var(--dark);
         }
 
         .product-img {
@@ -567,6 +636,12 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary);
+            color: white;
         }
 
         /* Seller Spotlight for Mobile */
@@ -590,6 +665,12 @@
             border-radius: 8px;
             padding: 15px;
             text-align: center;
+            transition: all 0.3s;
+        }
+
+        .seller-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .seller-avatar {
@@ -607,84 +688,13 @@
             object-fit: cover;
         }
 
-        /* Bulk Orders for Mobile */
-        .bulk-orders {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 30px 0;
-            margin-bottom: 20px;
-        }
-
-        .bulk-content {
-            display: block;
-        }
-
-        .bulk-text h2 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .bulk-features {
-            list-style: none;
-            margin: 15px 0;
-        }
-
-        .bulk-features li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-        }
-
-        .bulk-form {
+        /* New Arrivals Section */
+        .new-arrivals {
             background: white;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 10px;
-            color: var(--dark);
-            margin-top: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--gray);
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        /* Shipping Section for Mobile */
-        .shipping {
-            padding: 30px 0;
-            background-color: #f9faf7;
-        }
-
-        .shipping-content {
-            display: block;
-        }
-
-        .shipping-text h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .shipping-map {
-            height: 250px;
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .map-overlay h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
 
         /* Footer for Mobile */
@@ -858,6 +868,10 @@
                 grid-row: span 2;
             }
             
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
             .products-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 20px;
@@ -865,24 +879,6 @@
             
             .seller-grid {
                 grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .bulk-content {
-                display: flex;
-                gap: 30px;
-            }
-            
-            .bulk-form {
-                margin-top: 0;
-            }
-            
-            .shipping-content {
-                display: flex;
-                gap: 30px;
-            }
-            
-            .shipping-map {
-                margin-top: 0;
             }
             
             .footer-content {
@@ -980,6 +976,10 @@
                 grid-template-columns: 2fr 1fr 1fr;
             }
             
+            .categories-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
             .products-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 25px;
@@ -1049,6 +1049,8 @@
                                 <option>Coffee</option>
                                 <option>Spices</option>
                                 <option>Fruits</option>
+                                <option>Grains</option>
+                                <option>Nuts</option>
                             </select>
                             <input type="text" class="search-input" placeholder="Search African produce...">
                             <button class="search-btn"><i class="fas fa-search"></i></button>
@@ -1086,6 +1088,7 @@
                         <li><a href="#"><i class="fas fa-pepper-hot"></i> Spices</a></li>
                         <li><a href="#"><i class="fas fa-apple-alt"></i> Fruits</a></li>
                         <li><a href="#"><i class="fas fa-seedling"></i> Grains</a></li>
+                        <li><a href="#"><i class="fas fa-wheat-alt"></i> Nuts & Seeds</a></li>
                     </ul>
                 </nav>
             </div>
@@ -1155,6 +1158,16 @@
                         <span class="filter-tag">Organic</span>
                         <span class="filter-tag">Rainforest</span>
                         <span class="filter-tag">UTZ</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Price Range</h3>
+                    <div class="filter-tags">
+                        <span class="filter-tag">Under $20</span>
+                        <span class="filter-tag">$20 - $50</span>
+                        <span class="filter-tag">$50 - $100</span>
+                        <span class="filter-tag">Over $100</span>
                     </div>
                 </div>
             </aside>
@@ -1289,6 +1302,71 @@
                     </div>
                 </section>
 
+                <!-- Categories Section -->
+                <section class="categories-section">
+                    <div class="section-header">
+                        <h2 class="section-title">📁 Shop by Category</h2>
+                        <a href="#" class="view-all">All Categories</a>
+                    </div>
+                    
+                    <div class="categories-grid">
+                        <!-- Category 1 -->
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Coffee">
+                            </div>
+                            <div class="category-info">
+                                <h3 class="category-name">Coffee & Tea</h3>
+                                <div class="category-count">48 Products</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Category 2 -->
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Spices">
+                            </div>
+                            <div class="category-info">
+                                <h3 class="category-name">Spices</h3>
+                                <div class="category-count">36 Products</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Category 3 -->
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Fruits">
+                            </div>
+                            <div class="category-info">
+                                <h3 class="category-name">Fresh Fruits</h3>
+                                <div class="category-count">72 Products</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Category 4 -->
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=1174&q=80" alt="Grains">
+                            </div>
+                            <div class="category-info">
+                                <h3 class="category-name">Grains & Cereals</h3>
+                                <div class="category-count">29 Products</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Category 5 -->
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://images.unsplash.com/photo-1629731680315-324b328052e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Nuts">
+                            </div>
+                            <div class="category-info">
+                                <h3 class="category-name">Nuts & Seeds</h3>
+                                <div class="category-count">41 Products</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Best Selling Products -->
                 <section class="products-section" id="products">
                     <div class="section-header">
@@ -1299,6 +1377,7 @@
                     <div class="products-grid">
                         <!-- Product 1 -->
                         <div class="product-card">
+                            <div class="product-badge badge-popular">POPULAR</div>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="African Spices">
                             </div>
@@ -1325,6 +1404,7 @@
                         
                         <!-- Product 2 -->
                         <div class="product-card">
+                            <div class="product-badge badge-popular">POPULAR</div>
                             <div class="product-img">
                                 <img src="https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Honey">
                             </div>
@@ -1402,6 +1482,177 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Olive Oil">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Tunisian Extra Virgin Olive Oil</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(92)</span>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$42.99</div>
+                                    </div>
+                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=1180&q=80" alt="Cashews">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Tanzanian Cashew Nuts</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span>(67)</span>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$26.75</div>
+                                    </div>
+                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- New Arrivals Section -->
+                <section class="new-arrivals">
+                    <div class="section-header">
+                        <h2 class="section-title">🆕 New Arrivals</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="products-grid">
+                        <!-- New Product 1 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=1180&q=80" alt="Plantains">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Ghanaian Plantain Chips</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(18)</span>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$12.99</div>
+                                    </div>
+                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- New Product 2 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1621272030356-42108d7ea5b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Tea">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Rooibos Tea from South Africa</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span>(31)</span>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$18.50</div>
+                                    </div>
+                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- New Product 3 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1603561596112-0a132aad4d5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Baobab">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Baobab Fruit Powder</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(25)</span>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$22.99</div>
+                                    </div>
+                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- New Product 4 -->
+                        <div class="product-card">
+                            <div class="product-badge badge-new">NEW</div>
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1615484477201-8bdb0d8e69b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Quinoa">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Ethiopian Teff Grain</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>(14)</span>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="price-section">
+                                        <div class="current-price">$16.75</div>
+                                    </div>
+                                    <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -1428,65 +1679,18 @@
                             <p>Morocco</p>
                             <div class="rating-count">⭐ 4.9</div>
                         </div>
+                        <div class="seller-card">
+                            <div class="seller-avatar">
+                                <img src="https://images.unsplash.com/photo-1587519645593-ba2b16b4d1c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Fruit Farmer">
+                            </div>
+                            <h4>Juma's Fruit Orchard</h4>
+                            <p>Kenya</p>
+                            <div class="rating-count">⭐ 4.7</div>
+                        </div>
                     </div>
                 </section>
             </main>
         </div>
-
-        <!-- Bulk Orders Section -->
-        <section class="bulk-orders" id="bulk">
-            <div class="container">
-                <div class="bulk-content">
-                    <div class="bulk-text">
-                        <h2>Bulk Orders for Businesses</h2>
-                        <p>Get wholesale prices for restaurants, retailers, and distributors.</p>
-                        <ul class="bulk-features">
-                            <li><i class="fas fa-check-circle"></i> Volume discounts up to 40%</li>
-                            <li><i class="fas fa-check-circle"></i> Custom packaging</li>
-                            <li><i class="fas fa-check-circle"></i> Direct farmer connections</li>
-                        </ul>
-                    </div>
-                    <div class="bulk-form">
-                        <h3>Request Quote</h3>
-                        <form id="bulkForm">
-                            <div class="form-group">
-                                <input type="text" placeholder="Business Name" required>
-                            </div>
-                            <div class="form-group">
-                                <select required>
-                                    <option value="">Product Category</option>
-                                    <option value="coffee">Coffee & Tea</option>
-                                    <option value="spices">Spices</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Get Quote</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Shipping Section -->
-        <section class="shipping" id="shipping">
-            <div class="container">
-                <div class="shipping-content">
-                    <div class="shipping-text">
-                        <h2>Global Logistics Network</h2>
-                        <p>Vuna connects African farmers with international markets. Refrigerated shipping ensures freshness.</p>
-                        <p><strong>Shipping:</strong> 7-14 days to most destinations</p>
-                        <p><strong>Destinations:</strong> 50+ countries worldwide</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                    </div>
-                    <div class="shipping-map">
-                        <div class="map-overlay">
-                            <h3>Shipping From Africa</h3>
-                            <p>Direct to global destinations</p>
-                            <i class="fas fa-globe-africa" style="font-size: 3rem; margin-top: 20px;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
     <!-- Footer -->
@@ -1582,16 +1786,6 @@
                 });
             });
 
-            // Bulk form submission
-            const bulkForm = document.getElementById('bulkForm');
-            if (bulkForm) {
-                bulkForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    showNotification('Bulk order request sent! We\'ll contact you soon.');
-                    this.reset();
-                });
-            }
-
             // Newsletter form submission
             const newsletterForm = document.querySelector('.newsletter-form');
             if (newsletterForm) {
@@ -1686,6 +1880,18 @@
                     }, 300);
                 }, 3000);
             }
+
+            // Category cards hover effect
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
 
             // Update countdown every second
             setInterval(updateCountdown, 1000);
