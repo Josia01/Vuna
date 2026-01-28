@@ -34,6 +34,8 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Header */
@@ -184,8 +186,9 @@
             text-decoration: underline;
         }
 
-        /* Main Container */
-        .container {
+        /* Main Content */
+        .main-container {
+            flex: 1;
             max-width: 1400px;
             margin: 20px auto;
             padding: 0 20px;
@@ -657,80 +660,6 @@
             font-size: 0.9rem;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 40px 0 25px;
-            width: 100%;
-            margin-top: 60px;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-column h3 {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column ul li a {
-            color: #cccccc;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .footer-column ul li a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaaaaa;
-            font-size: 0.85rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 25px 20px 0;
-        }
-
         /* Empty Cart */
         .empty-cart {
             text-align: center;
@@ -777,6 +706,117 @@
             box-shadow: 0 6px 18px rgba(45, 80, 22, 0.3);
         }
 
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0 25px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-column h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #cccccc;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaaaaa;
+            font-size: 0.8rem;
+            max-width: 1400px;
+            margin: 30px auto 0;
+            padding: 25px 20px 0;
+        }
+
+        .footer-bottom a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            opacity: 0.8;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .cart-item {
@@ -809,6 +849,21 @@
             .user-actions {
                 margin-left: auto;
             }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        /* Additional Fixes */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 10000;
+            animation: slideInRight 0.4s ease;
         }
     </style>
 </head>
@@ -860,7 +915,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="container">
+    <div class="main-container">
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Shopping Cart</h1>
@@ -1140,55 +1195,79 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
+            <!-- Column 1: About -->
             <div class="footer-column">
                 <div class="logo" style="margin-bottom: 15px;">
                     <i class="fas fa-seedling"></i>
                     <h1 style="color: white; font-size: 1.8rem;">VU<span style="color: var(--accent);">NA</span></h1>
                 </div>
-                <p style="color: #cccccc; margin-bottom: 20px;">Connecting African producers with global markets since 2022. Empowering farmers, delighting customers.</p>
+                <p>Connecting African farmers with global markets. Fresh produce, fair prices, sustainable farming.</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
+            <!-- Column 2: Quick Links -->
             <div class="footer-column">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                    <li><a href="index.html#products"><i class="fas fa-chevron-right"></i> Products</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Categories</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Farmers</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">Farmers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="login.html">Login/Signup</a></li>
                 </ul>
             </div>
             
+            <!-- Column 3: Customer Service -->
             <div class="footer-column">
                 <h3>Customer Service</h3>
                 <ul>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Info</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Returns & Refunds</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> FAQs</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Shipping Information</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Track Order</a></li>
                 </ul>
             </div>
             
+            <!-- Column 4: Contact Info -->
             <div class="footer-column">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Disclaimer</a></li>
-                </ul>
+                <h3>Contact Information</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i> 123 Farm Road,<br>
+                    Nairobi, Kenya
+                </p>
+                <p>
+                    <i class="fas fa-phone"></i> +254 700 000 000
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i> info@vuna.com
+                </p>
+                <p>
+                    <i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM<br>
+                    Sat: 9AM-4PM
+                </p>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2023 Vuna Marketplace. All rights reserved. | <a href="#" style="color: var(--accent);">Privacy</a> | <a href="#" style="color: var(--accent);">Terms</a></p>
+            <p>&copy; 2023 Vuna Marketplace. All rights reserved.</p>
+            <p style="margin-top: 5px;">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Cookie Policy</a> | 
+                <a href="#">Sitemap</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 0.7rem; color: #888;">
+                Vuna is committed to sustainable farming and fair trade practices.
+            </p>
         </div>
     </footer>
 
@@ -1629,7 +1708,7 @@
                 border-radius: 10px;
                 box-shadow: 0 5px 20px rgba(0,0,0,0.15);
                 z-index: 10000;
-                animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                animation: slideInRight 0.4s ease;
                 max-width: 350px;
                 display: flex;
                 align-items: center;
@@ -1657,7 +1736,7 @@
             
             // Remove after 4 seconds
             setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53)';
+                notification.style.animation = 'slideOutRight 0.4s ease';
                 setTimeout(() => {
                     if (notification.parentNode) {
                         document.body.removeChild(notification);
