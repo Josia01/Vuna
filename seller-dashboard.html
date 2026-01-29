@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Dashboard | Vuna - African Agricultural Marketplace</title>
+    <title>Buyer Dashboard | Vuna - African Agricultural Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -27,6 +27,8 @@
             --error: #e74c3c;
             --info: #3498db;
             --sidebar-width: 260px;
+            --buyer-primary: #1a5fb4;
+            --buyer-secondary: #3584e4;
         }
 
         body {
@@ -87,13 +89,13 @@
             color: var(--accent);
         }
 
-        .seller-info {
+        .buyer-info {
             padding: 20px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .seller-avatar {
+        .buyer-avatar {
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -101,36 +103,46 @@
             margin: 0 auto 15px;
             border: 3px solid var(--accent);
             box-shadow: 0 4px 10px rgba(233, 184, 36, 0.3);
+            background: linear-gradient(45deg, var(--buyer-primary), var(--buyer-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
         }
 
-        .seller-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .seller-name {
+        .buyer-name {
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 5px;
         }
 
-        .seller-store {
+        .buyer-tier {
             color: var(--accent);
             font-size: 0.9rem;
             margin-bottom: 10px;
-        }
-
-        .seller-rating {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
+        }
+
+        .buyer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             font-size: 0.9rem;
             color: #ccc;
         }
 
-        .seller-rating i {
+        .buyer-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .buyer-stats i {
             color: var(--accent);
         }
 
@@ -153,11 +165,11 @@
         .nav-item:hover {
             background: rgba(255, 255, 255, 0.05);
             color: white;
-            border-left-color: var(--secondary);
+            border-left-color: var(--buyer-secondary);
         }
 
         .nav-item.active {
-            background: rgba(45, 80, 22, 0.2);
+            background: rgba(26, 95, 180, 0.2);
             color: white;
             border-left-color: var(--accent);
         }
@@ -230,13 +242,13 @@
         }
 
         .page-title h1 {
-            color: var(--primary);
+            color: var(--buyer-primary);
             font-size: 1.8rem;
             font-weight: 800;
         }
 
         .page-title span {
-            color: var(--secondary);
+            color: var(--buyer-secondary);
             font-weight: 500;
             font-size: 1rem;
             margin-top: 5px;
@@ -262,7 +274,7 @@
 
         .notification-btn:hover {
             background: var(--light);
-            color: var(--primary);
+            color: var(--buyer-primary);
         }
 
         .notification-badge {
@@ -281,8 +293,8 @@
             font-weight: 700;
         }
 
-        .add-product-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .quick-action-btn {
+            background: linear-gradient(135deg, var(--buyer-primary), var(--buyer-secondary));
             color: white;
             border: none;
             padding: 12px 24px;
@@ -293,12 +305,12 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.2);
+            box-shadow: 0 4px 12px rgba(26, 95, 180, 0.2);
         }
 
-        .add-product-btn:hover {
+        .quick-action-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(45, 80, 22, 0.3);
+            box-shadow: 0 6px 18px rgba(26, 95, 180, 0.3);
         }
 
         /* Stats Cards */
@@ -348,7 +360,7 @@
         }
 
         .stat-value {
-            color: var(--primary);
+            color: var(--buyer-primary);
             font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 5px;
@@ -367,8 +379,54 @@
             color: var(--error);
         }
 
-        /* Products Section */
-        .products-section {
+        /* Quick Actions */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quick-action-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--light);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--buyer-secondary);
+        }
+
+        .quick-action-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--buyer-primary), var(--buyer-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .quick-action-title {
+            font-weight: 700;
+            color: var(--buyer-primary);
+        }
+
+        /* Orders Section */
+        .orders-section {
             background: white;
             border-radius: 12px;
             padding: 30px;
@@ -385,7 +443,7 @@
 
         .section-title {
             font-size: 1.4rem;
-            color: var(--primary);
+            color: var(--buyer-primary);
             font-weight: 700;
         }
 
@@ -409,51 +467,51 @@
 
         .action-btn:hover {
             background: var(--light);
-            border-color: var(--secondary);
-            color: var(--primary);
+            border-color: var(--buyer-secondary);
+            color: var(--buyer-primary);
         }
 
         .action-btn.primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--buyer-primary), var(--buyer-secondary));
             color: white;
-            border-color: var(--primary);
+            border-color: var(--buyer-primary);
         }
 
         .action-btn.primary:hover {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--buyer-secondary), var(--buyer-primary));
         }
 
-        /* Products Table */
-        .products-table-container {
+        /* Orders Table */
+        .orders-table-container {
             overflow-x: auto;
         }
 
-        .products-table {
+        .orders-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .products-table th {
+        .orders-table th {
             background: var(--light);
             padding: 15px;
             text-align: left;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--buyer-primary);
             border-bottom: 2px solid var(--gray);
         }
 
-        .products-table td {
+        .orders-table td {
             padding: 15px;
             border-bottom: 1px solid var(--light);
         }
 
-        .product-info {
+        .order-info {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .product-image {
+        .order-image {
             width: 60px;
             height: 60px;
             border-radius: 8px;
@@ -461,19 +519,19 @@
             background: var(--light);
         }
 
-        .product-image img {
+        .order-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .product-details h4 {
+        .order-details h4 {
             color: var(--dark);
             margin-bottom: 5px;
         }
 
-        .product-details p {
-            color: var(--secondary);
+        .order-details p {
+            color: var(--buyer-secondary);
             font-size: 0.85rem;
         }
 
@@ -484,17 +542,22 @@
             font-weight: 600;
         }
 
-        .status-active {
+        .status-delivered {
             background: rgba(39, 174, 96, 0.1);
             color: var(--success);
         }
 
-        .status-pending {
+        .status-shipping {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--info);
+        }
+
+        .status-processing {
             background: rgba(243, 156, 18, 0.1);
             color: var(--warning);
         }
 
-        .status-out {
+        .status-cancelled {
             background: rgba(231, 76, 60, 0.1);
             color: var(--error);
         }
@@ -515,25 +578,232 @@
             transition: all 0.3s;
         }
 
-        .action-edit {
+        .action-view {
             background: rgba(52, 152, 219, 0.1);
             color: var(--info);
         }
 
-        .action-edit:hover {
+        .action-view:hover {
             background: rgba(52, 152, 219, 0.2);
         }
 
-        .action-delete {
-            background: rgba(231, 76, 60, 0.1);
+        .action-track {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+
+        .action-track:hover {
+            background: rgba(39, 174, 96, 0.2);
+        }
+
+        .action-review {
+            background: rgba(233, 184, 36, 0.1);
+            color: var(--accent);
+        }
+
+        .action-review:hover {
+            background: rgba(233, 184, 36, 0.2);
+        }
+
+        /* Wishlist Section */
+        .wishlist-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .wishlist-card {
+            border: 1px solid var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .wishlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--buyer-secondary);
+        }
+
+        .wishlist-image {
+            height: 150px;
+            overflow: hidden;
+            background: var(--light);
+        }
+
+        .wishlist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .wishlist-card:hover .wishlist-image img {
+            transform: scale(1.05);
+        }
+
+        .wishlist-content {
+            padding: 20px;
+        }
+
+        .wishlist-content h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .wishlist-price {
+            color: var(--buyer-primary);
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .wishlist-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .wishlist-add-cart {
+            background: linear-gradient(135deg, var(--buyer-primary), var(--buyer-secondary));
+            color: white;
+        }
+
+        .wishlist-add-cart:hover {
+            background: linear-gradient(135deg, var(--buyer-secondary), var(--buyer-primary));
+        }
+
+        .wishlist-remove {
+            background: var(--light);
             color: var(--error);
+            border: 1px solid var(--gray);
         }
 
-        .action-delete:hover {
-            background: rgba(231, 76, 60, 0.2);
+        .wishlist-remove:hover {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
         }
 
-        /* Product Form Modal */
+        /* Recently Viewed */
+        .recently-viewed-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            border: 1px solid var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--buyer-secondary);
+        }
+
+        .product-image {
+            height: 120px;
+            overflow: hidden;
+            background: var(--light);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 15px;
+        }
+
+        .product-content h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            color: var(--buyer-primary);
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .product-action {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--buyer-primary), var(--buyer-secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .product-action:hover {
+            background: linear-gradient(135deg, var(--buyer-secondary), var(--buyer-primary));
+        }
+
+        /* Support Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -552,7 +822,7 @@
             background: white;
             border-radius: 16px;
             width: 90%;
-            max-width: 800px;
+            max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -579,7 +849,7 @@
         }
 
         .modal-header h2 {
-            color: var(--primary);
+            color: var(--buyer-primary);
             font-size: 1.6rem;
         }
 
@@ -598,24 +868,6 @@
 
         .modal-content {
             padding: 30px;
-        }
-
-        .form-section {
-            margin-bottom: 30px;
-        }
-
-        .form-section h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
         }
 
         .form-group {
@@ -643,104 +895,14 @@
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--primary);
+            border-color: var(--buyer-primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+            box-shadow: 0 0 0 3px rgba(26, 95, 180, 0.1);
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Image Upload */
-        .image-upload-section {
-            background: var(--light);
-            border: 2px dashed var(--gray);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .image-upload-section:hover {
-            border-color: var(--secondary);
-            background: rgba(122, 156, 89, 0.05);
-        }
-
-        .image-upload-icon {
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        .image-upload-text h4 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .image-upload-text p {
-            color: var(--text);
-            opacity: 0.7;
-            margin-bottom: 20px;
-        }
-
-        .upload-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .upload-btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-
-        .image-preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .image-preview {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid var(--gray);
-        }
-
-        .image-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .remove-image {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(231, 76, 60, 0.9);
-            color: white;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 0.8rem;
+            min-height: 120px;
         }
 
         .form-actions {
@@ -769,30 +931,85 @@
 
         .btn-secondary:hover {
             background: var(--light);
-            border-color: var(--secondary);
+            border-color: var(--buyer-secondary);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--buyer-primary), var(--buyer-secondary));
             color: white;
             border: none;
-            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.2);
+            box-shadow: 0 4px 12px rgba(26, 95, 180, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(45, 80, 22, 0.3);
+            box-shadow: 0 6px 18px rgba(26, 95, 180, 0.3);
         }
 
-        /* Orders Section */
-        .orders-grid {
+        /* Track Order Modal */
+        .tracking-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .tracking-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .step-icon.completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .step-icon.active {
+            background: var(--buyer-primary);
+            color: white;
+        }
+
+        .step-icon.pending {
+            background: var(--light);
+            color: var(--text);
+            border: 2px solid var(--gray);
+        }
+
+        .step-info {
+            flex: 1;
+        }
+
+        .step-info h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .step-info p {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Address Book */
+        .address-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
 
-        .order-card {
+        .address-card {
             background: white;
             border-radius: 12px;
             padding: 20px;
@@ -801,84 +1018,71 @@
             transition: all 0.3s;
         }
 
-        .order-card:hover {
+        .address-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--buyer-secondary);
         }
 
-        .order-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .address-card.default {
+            border-color: var(--buyer-primary);
+            background: rgba(26, 95, 180, 0.05);
+        }
+
+        .default-badge {
+            display: inline-block;
+            background: var(--buyer-primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--light);
         }
 
-        .order-id {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .order-date {
-            color: var(--text);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        .order-products {
+        .address-card h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
         }
 
-        .order-product-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 6px;
-            overflow: hidden;
+        .address-card h4 i {
+            color: var(--buyer-secondary);
         }
 
-        .order-product-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .address-card p {
+            color: var(--text);
+            margin-bottom: 8px;
+            line-height: 1.5;
         }
 
-        .order-footer {
+        .address-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 10px;
             margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--light);
         }
 
-        .order-total {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        /* Analytics Chart */
-        .chart-container {
+        .address-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--gray);
             background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .chart-placeholder {
-            height: 300px;
-            background: var(--light);
-            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--secondary);
-            font-size: 1.2rem;
+            gap: 5px;
+        }
+
+        .address-btn:hover {
+            background: var(--light);
+            border-color: var(--buyer-secondary);
+            color: var(--buyer-primary);
         }
 
         /* Responsive Design */
@@ -906,6 +1110,10 @@
                 grid-template-columns: 1fr;
             }
             
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -927,6 +1135,11 @@
                 width: 100%;
                 justify-content: space-between;
             }
+            
+            .wishlist-grid,
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .mobile-menu-toggle {
@@ -934,7 +1147,7 @@
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: var(--primary);
+            color: var(--buyer-primary);
             cursor: pointer;
             padding: 10px;
         }
@@ -952,15 +1165,24 @@
                 </a>
             </div>
             
-            <div class="seller-info">
-                <div class="seller-avatar">
-                    <img src="https://images.unsplash.com/photo-1586773860418-dc22f8b874bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Seller Avatar">
+            <div class="buyer-info">
+                <div class="buyer-avatar">
+                    AK
                 </div>
-                <div class="seller-name">Kofi Mensah</div>
-                <div class="seller-store">Kofi's Coffee Farm</div>
-                <div class="seller-rating">
-                    <i class="fas fa-star"></i>
-                    <span>4.8 (124 reviews)</span>
+                <div class="buyer-name">Amina K.</div>
+                <div class="buyer-tier">
+                    <i class="fas fa-crown"></i>
+                    Premium Buyer
+                </div>
+                <div class="buyer-stats">
+                    <span>
+                        <i class="fas fa-shopping-bag"></i>
+                        24 Orders
+                    </span>
+                    <span>
+                        <i class="fas fa-star"></i>
+                        4.9 Rating
+                    </span>
                 </div>
             </div>
             
@@ -969,28 +1191,31 @@
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="nav-label">Dashboard</span>
                 </div>
-                <div class="nav-item" data-page="products">
-                    <i class="fas fa-box"></i>
-                    <span class="nav-label">Products</span>
-                    <span class="nav-badge">24</span>
-                </div>
                 <div class="nav-item" data-page="orders">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="nav-label">Orders</span>
-                    <span class="nav-badge">8</span>
-                </div>
-                <div class="nav-item" data-page="analytics">
-                    <i class="fas fa-chart-line"></i>
-                    <span class="nav-label">Analytics</span>
-                </div>
-                <div class="nav-item" data-page="inventory">
-                    <i class="fas fa-warehouse"></i>
-                    <span class="nav-label">Inventory</span>
-                </div>
-                <div class="nav-item" data-page="messages">
-                    <i class="fas fa-envelope"></i>
-                    <span class="nav-label">Messages</span>
+                    <span class="nav-label">My Orders</span>
                     <span class="nav-badge">3</span>
+                </div>
+                <div class="nav-item" data-page="wishlist">
+                    <i class="fas fa-heart"></i>
+                    <span class="nav-label">Wishlist</span>
+                    <span class="nav-badge">6</span>
+                </div>
+                <div class="nav-item" data-page="tracking">
+                    <i class="fas fa-truck"></i>
+                    <span class="nav-label">Track Order</span>
+                </div>
+                <div class="nav-item" data-page="address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="nav-label">Address Book</span>
+                </div>
+                <div class="nav-item" data-page="reviews">
+                    <i class="fas fa-star"></i>
+                    <span class="nav-label">My Reviews</span>
+                </div>
+                <div class="nav-item" data-page="support">
+                    <i class="fas fa-headset"></i>
+                    <span class="nav-label">Support</span>
                 </div>
                 <div class="nav-item" data-page="settings">
                     <i class="fas fa-cog"></i>
@@ -1013,8 +1238,8 @@
                 </button>
                 
                 <div class="page-title">
-                    <h1 id="pageTitle">Seller Dashboard</h1>
-                    <span id="pageSubtitle">Welcome back, Kofi</span>
+                    <h1 id="pageTitle">Buyer Dashboard</h1>
+                    <span id="pageSubtitle">Welcome back, Amina</span>
                 </div>
                 
                 <div class="top-actions">
@@ -1022,9 +1247,9 @@
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge">3</span>
                     </button>
-                    <button class="add-product-btn" id="addProductBtn">
-                        <i class="fas fa-plus"></i>
-                        Add Product
+                    <button class="quick-action-btn" onclick="openModal('supportModal')">
+                        <i class="fas fa-headset"></i>
+                        Contact Support
                     </button>
                 </div>
             </div>
@@ -1035,408 +1260,541 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--success);">
-                            <i class="fas fa-coins"></i>
+                            <i class="fas fa-shopping-bag"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-title">Total Revenue</div>
-                            <div class="stat-value">$12,458</div>
+                            <div class="stat-title">Active Orders</div>
+                            <div class="stat-value">3</div>
                             <div class="stat-change change-positive">
-                                <i class="fas fa-arrow-up"></i> 12.5% this month
+                                <i class="fas fa-arrow-up"></i> 1 new order
                             </div>
                         </div>
                     </div>
                     
                     <div class="stat-card">
                         <div class="stat-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--info);">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-heart"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-title">Total Orders</div>
-                            <div class="stat-value">142</div>
+                            <div class="stat-title">Wishlist Items</div>
+                            <div class="stat-value">6</div>
                             <div class="stat-change change-positive">
-                                <i class="fas fa-arrow-up"></i> 8.2% this month
+                                <i class="fas fa-arrow-up"></i> 2 new items
                             </div>
                         </div>
                     </div>
                     
                     <div class="stat-card">
                         <div class="stat-icon" style="background: rgba(233, 184, 36, 0.1); color: var(--accent);">
-                            <i class="fas fa-eye"></i>
+                            <i class="fas fa-star"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-title">Product Views</div>
-                            <div class="stat-value">2,845</div>
+                            <div class="stat-title">Total Reviews</div>
+                            <div class="stat-value">12</div>
                             <div class="stat-change change-positive">
-                                <i class="fas fa-arrow-up"></i> 15.3% this month
+                                <i class="fas fa-arrow-up"></i> 3 pending reviews
                             </div>
                         </div>
                     </div>
                     
                     <div class="stat-card">
-                        <div class="stat-icon" style="background: rgba(231, 76, 60, 0.1); color: var(--error);">
-                            <i class="fas fa-percentage"></i>
+                        <div class="stat-icon" style="background: rgba(26, 95, 180, 0.1); color: var(--buyer-primary);">
+                            <i class="fas fa-coins"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-title">Conversion Rate</div>
-                            <div class="stat-value">4.8%</div>
-                            <div class="stat-change change-negative">
-                                <i class="fas fa-arrow-down"></i> 1.2% this month
+                            <div class="stat-title">Reward Points</div>
+                            <div class="stat-value">1,850</div>
+                            <div class="stat-change change-positive">
+                                <i class="fas fa-arrow-up"></i> 150 new points
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- Quick Actions -->
+                <div class="section-header">
+                    <h2 class="section-title">Quick Actions</h2>
+                </div>
+                
+                <div class="quick-actions-grid">
+                    <div class="quick-action-card" onclick="navigateTo('tracking')">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="quick-action-title">Track Order</div>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="navigateTo('wishlist')">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="quick-action-title">View Wishlist</div>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="openModal('supportModal')">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="quick-action-title">Get Support</div>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="window.location.href='index.html'">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="quick-action-title">Continue Shopping</div>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="navigateTo('address')">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="quick-action-title">Manage Addresses</div>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="navigateTo('reviews')">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="quick-action-title">Write Reviews</div>
+                    </div>
+                </div>
+                
                 <!-- Recent Orders -->
-                <div class="products-section">
+                <div class="orders-section">
                     <div class="section-header">
                         <h2 class="section-title">Recent Orders</h2>
                         <div class="section-actions">
-                            <button class="action-btn">View All</button>
-                            <button class="action-btn primary">Export</button>
+                            <button class="action-btn" onclick="navigateTo('orders')">View All Orders</button>
                         </div>
                     </div>
                     
-                    <div class="orders-grid">
-                        <!-- Order 1 -->
-                        <div class="order-card">
-                            <div class="order-header">
-                                <div class="order-id">#ORD-7842</div>
-                                <div class="order-date">Today, 10:30 AM</div>
-                            </div>
-                            <div class="order-products">
-                                <div class="order-product-img">
-                                    <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Coffee">
-                                </div>
-                                <div>
-                                    <h4>Ethiopian Yirgacheffe Coffee</h4>
-                                    <p>Quantity: 2 × 1kg</p>
-                                </div>
-                            </div>
-                            <div class="order-footer">
-                                <span class="status-badge status-active">Shipped</span>
-                                <div class="order-total">$39.98</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Order 2 -->
-                        <div class="order-card">
-                            <div class="order-header">
-                                <div class="order-id">#ORD-7841</div>
-                                <div class="order-date">Yesterday, 3:15 PM</div>
-                            </div>
-                            <div class="order-products">
-                                <div class="order-product-img">
-                                    <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Spices">
-                                </div>
-                                <div>
-                                    <h4>African Spice Collection</h4>
-                                    <p>Quantity: 1 × Set</p>
-                                </div>
-                            </div>
-                            <div class="order-footer">
-                                <span class="status-badge status-pending">Processing</span>
-                                <div class="order-total">$32.99</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Order 3 -->
-                        <div class="order-card">
-                            <div class="order-header">
-                                <div class="order-id">#ORD-7840</div>
-                                <div class="order-date">2 days ago</div>
-                            </div>
-                            <div class="order-products">
-                                <div class="order-product-img">
-                                    <img src="https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Honey">
-                                </div>
-                                <div>
-                                    <h4>Pure Ethiopian Honey</h4>
-                                    <p>Quantity: 3 × 500g</p>
-                                </div>
-                            </div>
-                            <div class="order-footer">
-                                <span class="status-badge status-active">Delivered</span>
-                                <div class="order-total">$73.50</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Products Page -->
-            <div id="productsPage" class="page-content" style="display: none;">
-                <div class="products-section">
-                    <div class="section-header">
-                        <h2 class="section-title">All Products</h2>
-                        <div class="section-actions">
-                            <button class="action-btn">Filter</button>
-                            <button class="action-btn">Export</button>
-                            <button class="action-btn primary" id="addProductBtn2">
-                                <i class="fas fa-plus"></i> Add Product
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="products-table-container">
-                        <table class="products-table">
+                    <div class="orders-table-container">
+                        <table class="orders-table">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
-                                    <th>Stock</th>
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="productsTableBody">
-                                <!-- Products will be dynamically added here -->
+                            <tbody id="ordersTableBody">
+                                <!-- Orders will be dynamically added here -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                
+                <!-- Wishlist Preview -->
+                <div class="wishlist-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Wishlist Preview</h2>
+                        <div class="section-actions">
+                            <button class="action-btn primary" onclick="navigateTo('wishlist')">View All</button>
+                        </div>
+                    </div>
+                    
+                    <div class="wishlist-grid" id="wishlistPreview">
+                        <!-- Wishlist items will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <!-- Recently Viewed -->
+                <div class="recently-viewed-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recently Viewed</h2>
+                        <div class="section-actions">
+                            <button class="action-btn" onclick="window.location.href='index.html'">Browse More</button>
+                        </div>
+                    </div>
+                    
+                    <div class="products-grid" id="recentlyViewedGrid">
+                        <!-- Products will be dynamically added here -->
                     </div>
                 </div>
             </div>
             
             <!-- Orders Page -->
             <div id="ordersPage" class="page-content" style="display: none;">
-                <div class="products-section">
+                <div class="orders-section">
                     <div class="section-header">
                         <h2 class="section-title">All Orders</h2>
                         <div class="section-actions">
                             <button class="action-btn">Filter</button>
-                            <button class="action-btn primary">Export Orders</button>
+                            <button class="action-btn">Export</button>
                         </div>
                     </div>
                     
-                    <div class="orders-grid">
-                        <!-- Orders will be dynamically added here -->
+                    <div class="orders-table-container">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allOrdersTableBody">
+                                <!-- All orders will be dynamically added here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
             
-            <!-- Analytics Page -->
-            <div id="analyticsPage" class="page-content" style="display: none;">
-                <div class="chart-container">
-                    <h2 class="section-title">Sales Analytics</h2>
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Sales chart would appear here</span>
+            <!-- Wishlist Page -->
+            <div id="wishlistPage" class="page-content" style="display: none;">
+                <div class="wishlist-section">
+                    <div class="section-header">
+                        <h2 class="section-title">My Wishlist</h2>
+                        <div class="section-actions">
+                            <button class="action-btn">Share</button>
+                            <button class="action-btn primary" onclick="clearWishlist()">Clear All</button>
+                        </div>
+                    </div>
+                    
+                    <div class="wishlist-grid" id="fullWishlistGrid">
+                        <!-- Full wishlist will be dynamically added here -->
                     </div>
                 </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--success);">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-content">
-                            <div class="stat-title">Monthly Sales Growth</div>
-                            <div class="stat-value">+24.5%</div>
-                            <div class="stat-title">Compared to last month</div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--info);">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-content">
-                            <div class="stat-title">New Customers</div>
-                            <div class="stat-value">48</div>
-                            <div class="stat-title">This month</div>
+            </div>
+            
+            <!-- Track Order Page -->
+            <div id="trackingPage" class="page-content" style="display: none;">
+                <div class="orders-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Track Your Order</h2>
+                        <div class="section-actions">
+                            <button class="action-btn primary" onclick="openModal('trackOrderModal')">
+                                <i class="fas fa-search"></i>
+                                Track Another Order
+                            </button>
                         </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: rgba(233, 184, 36, 0.1); color: var(--accent);">
-                            <i class="fas fa-shopping-bag"></i>
+                    <div class="tracking-steps">
+                        <div class="tracking-step">
+                            <div class="step-icon completed">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="step-info">
+                                <h4>Order Placed</h4>
+                                <p>May 20, 2023 • 10:30 AM</p>
+                            </div>
                         </div>
-                        <div class="stat-content">
-                            <div class="stat-title">Average Order Value</div>
-                            <div class="stat-value">$87.42</div>
-                            <div class="stat-title">+$12.50 from last month</div>
+                        
+                        <div class="tracking-step">
+                            <div class="step-icon completed">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="step-info">
+                                <h4>Processing</h4>
+                                <p>May 20, 2023 • 2:15 PM</p>
+                            </div>
                         </div>
+                        
+                        <div class="tracking-step">
+                            <div class="step-icon active">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <div class="step-info">
+                                <h4>Shipped</h4>
+                                <p>Estimated delivery: May 25, 2023</p>
+                                <p>Tracking: #VU-7842-ETH</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tracking-step">
+                            <div class="step-icon pending">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="step-info">
+                                <h4>Out for Delivery</h4>
+                                <p>Expected soon</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tracking-step">
+                            <div class="step-icon pending">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="step-info">
+                                <h4>Delivered</h4>
+                                <p>Awaiting delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Address Book Page -->
+            <div id="addressPage" class="page-content" style="display: none;">
+                <div class="orders-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Address Book</h2>
+                        <div class="section-actions">
+                            <button class="action-btn primary" onclick="openModal('addAddressModal')">
+                                <i class="fas fa-plus"></i>
+                                Add New Address
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="address-grid" id="addressGrid">
+                        <!-- Address cards will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reviews Page -->
+            <div id="reviewsPage" class="page-content" style="display: none;">
+                <div class="orders-section">
+                    <div class="section-header">
+                        <h2 class="section-title">My Reviews</h2>
+                        <div class="section-actions">
+                            <button class="action-btn">Filter</button>
+                            <button class="action-btn primary" onclick="openModal('writeReviewModal')">
+                                <i class="fas fa-pen"></i>
+                                Write New Review
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="reviewsContent">
+                        <!-- Reviews will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Support Page -->
+            <div id="supportPage" class="page-content" style="display: none;">
+                <div class="orders-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Customer Support</h2>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <div style="font-size: 4rem; color: var(--buyer-secondary); margin-bottom: 20px;">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 style="color: var(--buyer-primary); margin-bottom: 15px;">How can we help you?</h3>
+                        <p style="color: var(--text); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            Our support team is here to help you with any questions or issues you may have. Contact us through any of the methods below.
+                        </p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px;">
+                            <div style="padding: 20px; background: var(--light); border-radius: 12px;">
+                                <div style="font-size: 2rem; color: var(--buyer-primary); margin-bottom: 15px;">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h4>Email</h4>
+                                <p>support@vuna.com</p>
+                                <p>Response time: 24 hours</p>
+                            </div>
+                            
+                            <div style="padding: 20px; background: var(--light); border-radius: 12px;">
+                                <div style="font-size: 2rem; color: var(--buyer-primary); margin-bottom: 15px;">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h4>Phone</h4>
+                                <p>+1 (555) 123-4567</p>
+                                <p>Mon-Fri, 9AM-6PM EST</p>
+                            </div>
+                            
+                            <div style="padding: 20px; background: var(--light); border-radius: 12px;">
+                                <div style="font-size: 2rem; color: var(--buyer-primary); margin-bottom: 15px;">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h4>Live Chat</h4>
+                                <p>Available 24/7</p>
+                                <p>Click to start chat</p>
+                            </div>
+                        </div>
+                        
+                        <button class="quick-action-btn" onclick="openModal('supportModal')" style="margin-top: 40px;">
+                            <i class="fas fa-envelope"></i>
+                            Send Message
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Add Product Modal -->
-    <div class="modal-overlay" id="productModal">
+    <!-- Support Modal -->
+    <div class="modal-overlay" id="supportModal">
         <div class="modal-container">
             <div class="modal-header">
-                <h2>Add New Product</h2>
-                <button class="close-modal" id="closeModal">
+                <h2>Contact Support</h2>
+                <button class="close-modal" onclick="closeModal('supportModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
             <div class="modal-content">
-                <form id="productForm">
-                    <div class="form-section">
-                        <h3>Basic Information</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="productName">Product Name *</label>
-                                <input type="text" id="productName" required placeholder="e.g., Ethiopian Yirgacheffe Coffee">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productCategory">Category *</label>
-                                <select id="productCategory" required>
-                                    <option value="">Select Category</option>
-                                    <option value="coffee">Coffee & Tea</option>
-                                    <option value="spices">Spices</option>
-                                    <option value="fruits">Fresh Fruits</option>
-                                    <option value="grains">Grains & Cereals</option>
-                                    <option value="nuts">Nuts & Seeds</option>
-                                    <option value="honey">Honey & Sweeteners</option>
-                                    <option value="oils">Oils & Butters</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productPrice">Price *</label>
-                                <input type="number" id="productPrice" required placeholder="0.00" min="0" step="0.01">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productStock">Stock Quantity *</label>
-                                <input type="number" id="productStock" required placeholder="0" min="0">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productWeight">Weight/Unit</label>
-                                <input type="text" id="productWeight" placeholder="e.g., 1kg, 500g, 250ml">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productSKU">SKU (Stock Keeping Unit)</label>
-                                <input type="text" id="productSKU" placeholder="e.g., VU-COFFEE-001">
-                            </div>
-                        </div>
+                <form id="supportForm">
+                    <div class="form-group">
+                        <label for="supportSubject">Subject *</label>
+                        <input type="text" id="supportSubject" required placeholder="What is this regarding?">
                     </div>
                     
-                    <div class="form-section">
-                        <h3>Product Description</h3>
-                        <div class="form-group">
-                            <label for="productDescription">Description *</label>
-                            <textarea id="productDescription" required placeholder="Describe your product in detail..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="productFeatures">Key Features (one per line)</label>
-                            <textarea id="productFeatures" placeholder="Organic certified
-Direct from farm
-Fair trade
-Freshly harvested"></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label for="supportOrder">Related Order (Optional)</label>
+                        <select id="supportOrder">
+                            <option value="">Select an order</option>
+                            <option value="ORD-7842">ORD-7842 - Ethiopian Coffee</option>
+                            <option value="ORD-7841">ORD-7841 - Spice Collection</option>
+                            <option value="ORD-7840">ORD-7840 - Pure Honey</option>
+                        </select>
                     </div>
                     
-                    <div class="form-section">
-                        <h3>Product Images</h3>
-                        <div class="image-upload-section" id="imageUploadSection">
-                            <div class="image-upload-icon">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                            </div>
-                            <div class="image-upload-text">
-                                <h4>Upload Product Images</h4>
-                                <p>Drag and drop images here or click to browse</p>
-                                <p style="font-size: 0.9rem; color: var(--secondary);">
-                                    Recommended: High-quality images, minimum 800x800px, max 5 images
-                                </p>
-                            </div>
-                            <button type="button" class="upload-btn" id="uploadImagesBtn">
-                                <i class="fas fa-images"></i>
-                                Browse Images
-                            </button>
-                            <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
-                            
-                            <div class="image-preview-grid" id="imagePreviewGrid">
-                                <!-- Image previews will be added here -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h3>Additional Information</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="productOrigin">Country of Origin *</label>
-                                <select id="productOrigin" required>
-                                    <option value="">Select Country</option>
-                                    <option value="ethiopia">Ethiopia</option>
-                                    <option value="kenya">Kenya</option>
-                                    <option value="ghana">Ghana</option>
-                                    <option value="nigeria">Nigeria</option>
-                                    <option value="south-africa">South Africa</option>
-                                    <option value="morocco">Morocco</option>
-                                    <option value="tanzania">Tanzania</option>
-                                    <option value="uganda">Uganda</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productCertifications">Certifications</label>
-                                <select id="productCertifications" multiple>
-                                    <option value="organic">Organic</option>
-                                    <option value="fair-trade">Fair Trade</option>
-                                    <option value="rainforest">Rainforest Alliance</option>
-                                    <option value="utz">UTZ Certified</option>
-                                    <option value="kosher">Kosher</option>
-                                    <option value="halal">Halal</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productHarvestDate">Harvest Date</label>
-                                <input type="date" id="productHarvestDate">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="productExpiryDate">Expiry Date (if applicable)</label>
-                                <input type="date" id="productExpiryDate">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h3>Shipping Information</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="productWeight">Shipping Weight (kg)</label>
-                                <input type="number" id="shippingWeight" placeholder="0.5" min="0" step="0.1">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="shippingCost">Shipping Cost</label>
-                                <select id="shippingCost">
-                                    <option value="free">Free Shipping</option>
-                                    <option value="calculated">Calculated at Checkout</option>
-                                    <option value="fixed">Fixed Rate</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="processingTime">Processing Time</label>
-                                <select id="processingTime">
-                                    <option value="1-2">1-2 business days</option>
-                                    <option value="2-3">2-3 business days</option>
-                                    <option value="3-5">3-5 business days</option>
-                                    <option value="5-7">5-7 business days</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="supportMessage">Message *</label>
+                        <textarea id="supportMessage" required placeholder="Describe your issue or question in detail..."></textarea>
                     </div>
                     
                     <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" id="cancelForm">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('supportModal')">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Track Order Modal -->
+    <div class="modal-overlay" id="trackOrderModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Track Another Order</h2>
+                <button class="close-modal" onclick="closeModal('trackOrderModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="form-group">
+                    <label for="trackingNumber">Enter Tracking Number</label>
+                    <input type="text" id="trackingNumber" placeholder="e.g., VU-7842-ETH">
+                </div>
+                
+                <p style="text-align: center; color: var(--text); opacity: 0.7; margin: 20px 0;">
+                    OR
+                </p>
+                
+                <div class="form-group">
+                    <label for="orderNumber">Enter Order Number</label>
+                    <input type="text" id="orderNumber" placeholder="e.g., ORD-7842">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('trackOrderModal')">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="trackOrder()">
+                        <i class="fas fa-search"></i>
+                        Track Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Address Modal -->
+    <div class="modal-overlay" id="addAddressModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Add New Address</h2>
+                <button class="close-modal" onclick="closeModal('addAddressModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <form id="addressForm">
+                    <div class="form-group">
+                        <label for="addressType">Address Type</label>
+                        <select id="addressType">
+                            <option value="home">Home</option>
+                            <option value="work">Work</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required placeholder="Your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine1">Address Line 1 *</label>
+                        <input type="text" id="addressLine1" required placeholder="Street address, P.O. box">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine2">Address Line 2 (Optional)</label>
+                        <input type="text" id="addressLine2" placeholder="Apartment, suite, unit, building, floor, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" required placeholder="City">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="state">State/Province/Region</label>
+                        <input type="text" id="state" placeholder="State">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postalCode">ZIP/Postal Code *</label>
+                        <input type="text" id="postalCode" required placeholder="Postal code">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" required>
+                            <option value="">Select Country</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="ET">Ethiopia</option>
+                            <option value="KE">Kenya</option>
+                            <option value="GH">Ghana</option>
+                            <option value="NG">Nigeria</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="Phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="setDefault">
+                            Set as default address
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('addAddressModal')">
                             Cancel
                         </button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i>
-                            Save Product
+                            Save Address
                         </button>
                     </div>
                 </form>
@@ -1445,61 +1803,141 @@ Freshly harvested"></textarea>
     </div>
 
     <script>
-        // Sample product data
-        const sampleProducts = [
+        // Sample data
+        const buyerData = {
+            name: "Amina K.",
+            email: "amina.k@example.com",
+            tier: "Premium Buyer",
+            orders: 24,
+            rating: 4.9,
+            rewardPoints: 1850
+        };
+
+        const ordersData = [
+            {
+                id: "ORD-7842",
+                date: "May 20, 2023",
+                items: "Ethiopian Yirgacheffe Coffee (2kg)",
+                total: 39.98,
+                status: "shipping",
+                image: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
+            },
+            {
+                id: "ORD-7841",
+                date: "May 18, 2023",
+                items: "African Spice Collection",
+                total: 32.99,
+                status: "processing",
+                image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
+            },
+            {
+                id: "ORD-7840",
+                date: "May 15, 2023",
+                items: "Pure Ethiopian Honey (1.5kg)",
+                total: 73.50,
+                status: "delivered",
+                image: "https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
+            },
+            {
+                id: "ORD-7839",
+                date: "May 10, 2023",
+                items: "Ghanaian Shea Butter",
+                total: 15.73,
+                status: "delivered",
+                image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                id: "ORD-7838",
+                date: "May 5, 2023",
+                items: "Ivory Coast Cocoa Beans",
+                total: 31.50,
+                status: "cancelled",
+                image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            }
+        ];
+
+        const wishlistData = [
+            {
+                id: 1,
+                name: "Kenyan Alphonso Mangoes",
+                price: 28.99,
+                image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                id: 2,
+                name: "Premium Moroccan Dates",
+                price: 37.50,
+                image: "https://images.unsplash.com/photo-1629731680315-324b328052e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                id: 3,
+                name: "South African Rooibos Tea",
+                price: 18.75,
+                image: "https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                id: 4,
+                name: "Nigerian Cashew Nuts",
+                price: 21.50,
+                image: "https://images.unsplash.com/photo-1558317373-8d4d5be4c9c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            }
+        ];
+
+        const recentlyViewedData = [
             {
                 id: 1,
                 name: "Ethiopian Yirgacheffe Coffee Beans",
-                category: "Coffee & Tea",
                 price: 19.99,
-                stock: 42,
-                status: "active",
+                rating: 4.9,
                 image: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
             },
             {
                 id: 2,
                 name: "Pure Ghanaian Shea Butter",
-                category: "Oils & Butters",
                 price: 15.73,
-                stock: 28,
-                status: "active",
+                rating: 4.8,
                 image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
             },
             {
                 id: 3,
-                name: "African Spice Collection",
-                category: "Spices",
-                price: 32.99,
-                stock: 15,
-                status: "active",
-                image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
-            },
-            {
-                id: 4,
-                name: "Pure Ethiopian Honey",
-                category: "Honey & Sweeteners",
-                price: 24.50,
-                stock: 0,
-                status: "out",
-                image: "https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
-            },
-            {
-                id: 5,
                 name: "Ivory Coast Cocoa Beans",
-                category: "Nuts & Seeds",
                 price: 31.50,
-                stock: 8,
-                status: "active",
+                rating: 5.0,
                 image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
             },
             {
-                id: 6,
-                name: "Kenyan Alphonso Mangoes",
-                category: "Fresh Fruits",
-                price: 28.99,
-                stock: 36,
-                status: "pending",
-                image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                id: 4,
+                name: "African Spice Collection",
+                price: 32.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
+            }
+        ];
+
+        const addressesData = [
+            {
+                id: 1,
+                type: "home",
+                name: "Amina K.",
+                address: "123 Green Street",
+                city: "Brooklyn",
+                state: "NY",
+                postal: "11201",
+                country: "United States",
+                phone: "+1 (555) 123-4567",
+                default: true
+            },
+            {
+                id: 2,
+                type: "work",
+                name: "Amina K.",
+                address: "456 Business Avenue",
+                city: "Manhattan",
+                state: "NY",
+                postal: "10001",
+                country: "United States",
+                phone: "+1 (555) 987-6543",
+                default: false
             }
         ];
 
@@ -1512,30 +1950,20 @@ Freshly harvested"></textarea>
             const sidebar = document.getElementById('sidebar');
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             
-            // Modal elements
-            const addProductBtn = document.getElementById('addProductBtn');
-            const addProductBtn2 = document.getElementById('addProductBtn2');
-            const productModal = document.getElementById('productModal');
-            const closeModal = document.getElementById('closeModal');
-            const cancelForm = document.getElementById('cancelForm');
-            const productForm = document.getElementById('productForm');
-            const imageInput = document.getElementById('imageInput');
-            const uploadImagesBtn = document.getElementById('uploadImagesBtn');
-            const imagePreviewGrid = document.getElementById('imagePreviewGrid');
-            
             // Page titles mapping
             const pageTitles = {
-                dashboard: { main: 'Seller Dashboard', subtitle: 'Welcome back, Kofi' },
-                products: { main: 'Product Management', subtitle: 'Manage your products' },
-                orders: { main: 'Order Management', subtitle: 'View and process orders' },
-                analytics: { main: 'Sales Analytics', subtitle: 'Track your performance' },
-                inventory: { main: 'Inventory Management', subtitle: 'Manage stock levels' },
-                messages: { main: 'Messages', subtitle: 'Communicate with buyers' },
+                dashboard: { main: 'Buyer Dashboard', subtitle: 'Welcome back, Amina' },
+                orders: { main: 'My Orders', subtitle: 'Track and manage your orders' },
+                wishlist: { main: 'My Wishlist', subtitle: 'Save your favorite products' },
+                tracking: { main: 'Track Order', subtitle: 'Monitor your delivery status' },
+                address: { main: 'Address Book', subtitle: 'Manage your shipping addresses' },
+                reviews: { main: 'My Reviews', subtitle: 'Rate and review products' },
+                support: { main: 'Support', subtitle: 'Get help and support' },
                 settings: { main: 'Settings', subtitle: 'Manage your account' }
             };
 
-            // Initialize products table
-            initializeProductsTable();
+            // Initialize data
+            initializeData();
 
             // Mobile menu toggle
             mobileMenuToggle.addEventListener('click', function() {
@@ -1569,152 +1997,92 @@ Freshly harvested"></textarea>
                 });
             });
 
-            // Modal open handlers
-            addProductBtn.addEventListener('click', openProductModal);
-            addProductBtn2.addEventListener('click', openProductModal);
-
-            // Modal close handlers
-            closeModal.addEventListener('click', closeProductModal);
-            cancelForm.addEventListener('click', closeProductModal);
-
-            // Close modal when clicking outside
-            productModal.addEventListener('click', function(e) {
-                if (e.target === productModal) {
-                    closeProductModal();
-                }
-            });
-
-            // Image upload functionality
-            uploadImagesBtn.addEventListener('click', function() {
-                imageInput.click();
-            });
-
-            imageInput.addEventListener('change', function(e) {
-                const files = Array.from(e.target.files);
-                files.forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            addImagePreview(e.target.result, file.name);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
-
-            // Drag and drop for images
-            const imageUploadSection = document.getElementById('imageUploadSection');
-            
-            imageUploadSection.addEventListener('dragover', function(e) {
+            // Support form submission
+            document.getElementById('supportForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                this.style.borderColor = 'var(--secondary)';
-                this.style.background = 'rgba(122, 156, 89, 0.1)';
+                showNotification('Your message has been sent to our support team. We\'ll respond within 24 hours.', 'success');
+                closeModal('supportModal');
+                this.reset();
             });
 
-            imageUploadSection.addEventListener('dragleave', function(e) {
+            // Address form submission
+            document.getElementById('addressForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                this.style.borderColor = 'var(--gray)';
-                this.style.background = 'var(--light)';
+                showNotification('New address added successfully!', 'success');
+                closeModal('addAddressModal');
+                this.reset();
+                // In a real app, you would add the address to addressesData and re-render
             });
 
-            imageUploadSection.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'var(--gray)';
-                this.style.background = 'var(--light)';
-                
-                const files = Array.from(e.dataTransfer.files);
-                files.forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            addImagePreview(e.target.result, file.name);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
+            // Initialize data displays
+            function initializeData() {
+                updateBuyerInfo();
+                renderOrdersTable('ordersTableBody', ordersData.slice(0, 3));
+                renderOrdersTable('allOrdersTableBody', ordersData);
+                renderWishlistPreview();
+                renderFullWishlist();
+                renderRecentlyViewed();
+                renderAddresses();
+            }
 
-            // Form submission
-            productForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form data
-                const productData = {
-                    name: document.getElementById('productName').value,
-                    category: document.getElementById('productCategory').value,
-                    price: parseFloat(document.getElementById('productPrice').value),
-                    stock: parseInt(document.getElementById('productStock').value),
-                    description: document.getElementById('productDescription').value,
-                    origin: document.getElementById('productOrigin').value,
-                    images: Array.from(imagePreviewGrid.querySelectorAll('img')).map(img => img.src),
-                    status: 'active'
-                };
-                
-                // Add to products array
-                const newProduct = {
-                    id: sampleProducts.length + 1,
-                    ...productData,
-                    image: productData.images[0] || 'https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80'
-                };
-                
-                sampleProducts.unshift(newProduct);
-                
-                // Update table
-                initializeProductsTable();
-                
-                // Show success message
-                showNotification('Product added successfully!', 'success');
-                
-                // Close modal
-                closeProductModal();
-                
-                // Reset form
-                productForm.reset();
-                imagePreviewGrid.innerHTML = '';
-            });
+            function updateBuyerInfo() {
+                document.querySelector('.buyer-name').textContent = buyerData.name;
+                document.querySelector('.buyer-tier').innerHTML = `<i class="fas fa-crown"></i> ${buyerData.tier}`;
+                document.querySelector('.buyer-stats').innerHTML = `
+                    <span>
+                        <i class="fas fa-shopping-bag"></i>
+                        ${buyerData.orders} Orders
+                    </span>
+                    <span>
+                        <i class="fas fa-star"></i>
+                        ${buyerData.rating} Rating
+                    </span>
+                `;
+            }
 
-            // Initialize products table
-            function initializeProductsTable() {
-                const tableBody = document.getElementById('productsTableBody');
+            function renderOrdersTable(tableId, orders) {
+                const tableBody = document.getElementById(tableId);
                 tableBody.innerHTML = '';
                 
-                sampleProducts.forEach(product => {
+                orders.forEach(order => {
                     const row = document.createElement('tr');
                     
                     // Determine status badge
                     let statusBadge = '';
-                    if (product.status === 'active') {
-                        statusBadge = '<span class="status-badge status-active">In Stock</span>';
-                    } else if (product.status === 'pending') {
-                        statusBadge = '<span class="status-badge status-pending">Pending</span>';
-                    } else if (product.status === 'out') {
-                        statusBadge = '<span class="status-badge status-out">Out of Stock</span>';
+                    if (order.status === 'delivered') {
+                        statusBadge = '<span class="status-badge status-delivered">Delivered</span>';
+                    } else if (order.status === 'shipping') {
+                        statusBadge = '<span class="status-badge status-shipping">Shipping</span>';
+                    } else if (order.status === 'processing') {
+                        statusBadge = '<span class="status-badge status-processing">Processing</span>';
+                    } else if (order.status === 'cancelled') {
+                        statusBadge = '<span class="status-badge status-cancelled">Cancelled</span>';
                     }
                     
                     row.innerHTML = `
                         <td>
-                            <div class="product-info">
-                                <div class="product-image">
-                                    <img src="${product.image}" alt="${product.name}">
+                            <div class="order-info">
+                                <div class="order-image">
+                                    <img src="${order.image}" alt="${order.items}">
                                 </div>
-                                <div class="product-details">
-                                    <h4>${product.name}</h4>
-                                    <p>SKU: VU-${product.id.toString().padStart(4, '0')}</p>
+                                <div class="order-details">
+                                    <h4>${order.id}</h4>
+                                    <p>${order.items}</p>
                                 </div>
                             </div>
                         </td>
-                        <td>${product.category}</td>
-                        <td>$${product.price.toFixed(2)}</td>
-                        <td>${product.stock}</td>
+                        <td>${order.date}</td>
+                        <td>$${order.total.toFixed(2)}</td>
                         <td>${statusBadge}</td>
                         <td>
                             <div class="action-buttons">
-                                <div class="action-icon action-edit" onclick="editProduct(${product.id})">
-                                    <i class="fas fa-edit"></i>
+                                <div class="action-icon action-view" onclick="viewOrder('${order.id}')">
+                                    <i class="fas fa-eye"></i>
                                 </div>
-                                <div class="action-icon action-delete" onclick="deleteProduct(${product.id})">
-                                    <i class="fas fa-trash"></i>
+                                <div class="action-icon action-track" onclick="trackOrder('${order.id}')">
+                                    <i class="fas fa-truck"></i>
                                 </div>
+                                ${order.status === 'delivered' ? '<div class="action-icon action-review" onclick="writeReview()"><i class="fas fa-star"></i></div>' : ''}
                             </div>
                         </td>
                     `;
@@ -1723,42 +2091,224 @@ Freshly harvested"></textarea>
                 });
             }
 
-            // Add image preview
-            function addImagePreview(src, filename) {
-                const preview = document.createElement('div');
-                preview.className = 'image-preview';
-                preview.innerHTML = `
-                    <img src="${src}" alt="${filename}">
-                    <button type="button" class="remove-image">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
+            function renderWishlistPreview() {
+                const container = document.getElementById('wishlistPreview');
+                container.innerHTML = '';
                 
-                // Add remove functionality
-                const removeBtn = preview.querySelector('.remove-image');
-                removeBtn.addEventListener('click', function() {
-                    preview.remove();
+                wishlistData.slice(0, 4).forEach(item => {
+                    const card = createWishlistCard(item);
+                    container.appendChild(card);
                 });
+            }
+
+            function renderFullWishlist() {
+                const container = document.getElementById('fullWishlistGrid');
+                container.innerHTML = '';
                 
-                imagePreviewGrid.appendChild(preview);
+                wishlistData.forEach(item => {
+                    const card = createWishlistCard(item);
+                    container.appendChild(card);
+                });
             }
 
-            // Open product modal
-            function openProductModal() {
-                productModal.style.display = 'flex';
+            function createWishlistCard(item) {
+                const card = document.createElement('div');
+                card.className = 'wishlist-card';
+                card.innerHTML = `
+                    <div class="wishlist-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="wishlist-content">
+                        <h4>${item.name}</h4>
+                        <div class="wishlist-price">$${item.price.toFixed(2)}</div>
+                        <div class="wishlist-actions">
+                            <button class="wishlist-btn wishlist-add-cart" onclick="addToCart(${item.id})">
+                                <i class="fas fa-cart-plus"></i>
+                                Add to Cart
+                            </button>
+                            <button class="wishlist-btn wishlist-remove" onclick="removeFromWishlist(${item.id})">
+                                <i class="fas fa-times"></i>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return card;
+            }
+
+            function renderRecentlyViewed() {
+                const container = document.getElementById('recentlyViewedGrid');
+                container.innerHTML = '';
+                
+                recentlyViewedData.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="product-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="product-content">
+                            <h4>${item.name}</h4>
+                            <div class="product-rating">
+                                ${generateStars(item.rating)}
+                                <span>${item.rating}</span>
+                            </div>
+                            <div class="product-price">$${item.price.toFixed(2)}</div>
+                            <button class="product-action" onclick="addToCart(${item.id})">
+                                <i class="fas fa-cart-plus"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            function renderAddresses() {
+                const container = document.getElementById('addressGrid');
+                container.innerHTML = '';
+                
+                addressesData.forEach(address => {
+                    const card = document.createElement('div');
+                    card.className = `address-card ${address.default ? 'default' : ''}`;
+                    card.innerHTML = `
+                        ${address.default ? '<span class="default-badge">Default Address</span>' : ''}
+                        <h4>
+                            <i class="fas fa-${address.type === 'home' ? 'home' : address.type === 'work' ? 'briefcase' : 'map-marker'}"></i>
+                            ${address.type.charAt(0).toUpperCase() + address.type.slice(1)} Address
+                        </h4>
+                        <p><strong>${address.name}</strong></p>
+                        <p>${address.address}</p>
+                        <p>${address.city}, ${address.state} ${address.postal}</p>
+                        <p>${address.country}</p>
+                        <p><i class="fas fa-phone"></i> ${address.phone}</p>
+                        <div class="address-actions">
+                            <button class="address-btn" onclick="editAddress(${address.id})">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
+                            <button class="address-btn" onclick="setDefaultAddress(${address.id})" ${address.default ? 'disabled style="opacity: 0.5;"' : ''}>
+                                <i class="fas fa-star"></i>
+                                Set Default
+                            </button>
+                            <button class="address-btn" onclick="deleteAddress(${address.id})">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            function generateStars(rating) {
+                let stars = '';
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        stars += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars && hasHalfStar) {
+                        stars += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        stars += '<i class="far fa-star"></i>';
+                    }
+                }
+                return stars;
+            }
+
+            // Modal functions
+            window.openModal = function(modalId) {
+                document.getElementById(modalId).style.display = 'flex';
                 document.body.style.overflow = 'hidden';
-            }
+            };
 
-            // Close product modal
-            function closeProductModal() {
-                productModal.style.display = 'none';
+            window.closeModal = function(modalId) {
+                document.getElementById(modalId).style.display = 'none';
                 document.body.style.overflow = 'auto';
-                productForm.reset();
-                imagePreviewGrid.innerHTML = '';
-            }
+            };
+
+            window.trackOrder = function(orderId) {
+                if (orderId) {
+                    navigateTo('tracking');
+                    showNotification(`Tracking order ${orderId}`, 'info');
+                } else {
+                    const trackingNum = document.getElementById('trackingNumber').value;
+                    const orderNum = document.getElementById('orderNumber').value;
+                    
+                    if (trackingNum || orderNum) {
+                        showNotification(`Tracking information for ${trackingNum || orderNum}`, 'success');
+                        closeModal('trackOrderModal');
+                        navigateTo('tracking');
+                    } else {
+                        showNotification('Please enter a tracking or order number', 'error');
+                    }
+                }
+            };
+
+            window.navigateTo = function(page) {
+                const navItem = document.querySelector(`.nav-item[data-page="${page}"]`);
+                if (navItem) {
+                    navItem.click();
+                }
+            };
+
+            // Action functions
+            window.viewOrder = function(orderId) {
+                showNotification(`Viewing order ${orderId} details`, 'info');
+                // In a real app, this would show order details
+            };
+
+            window.addToCart = function(productId) {
+                showNotification('Product added to cart!', 'success');
+            };
+
+            window.removeFromWishlist = function(productId) {
+                const index = wishlistData.findIndex(item => item.id === productId);
+                if (index !== -1) {
+                    const itemName = wishlistData[index].name;
+                    wishlistData.splice(index, 1);
+                    renderWishlistPreview();
+                    renderFullWishlist();
+                    showNotification(`${itemName} removed from wishlist`, 'success');
+                }
+            };
+
+            window.clearWishlist = function() {
+                if (confirm('Are you sure you want to clear your entire wishlist?')) {
+                    wishlistData.length = 0;
+                    renderWishlistPreview();
+                    renderFullWishlist();
+                    showNotification('Wishlist cleared', 'success');
+                }
+            };
+
+            window.writeReview = function() {
+                showNotification('Write review feature coming soon!', 'info');
+            };
+
+            window.editAddress = function(addressId) {
+                showNotification(`Editing address ${addressId}`, 'info');
+            };
+
+            window.setDefaultAddress = function(addressId) {
+                showNotification(`Address ${addressId} set as default`, 'success');
+            };
+
+            window.deleteAddress = function(addressId) {
+                if (confirm('Are you sure you want to delete this address?')) {
+                    const index = addressesData.findIndex(addr => addr.id === addressId);
+                    if (index !== -1) {
+                        addressesData.splice(index, 1);
+                        renderAddresses();
+                        showNotification('Address deleted', 'success');
+                    }
+                }
+            };
 
             // Show notification
-            function showNotification(message, type = 'success') {
+            window.showNotification = function(message, type = 'success') {
                 // Remove existing notifications
                 const existingNotifications = document.querySelectorAll('.notification');
                 existingNotifications.forEach(notification => notification.remove());
@@ -1826,40 +2376,6 @@ Freshly harvested"></textarea>
                         }
                     }, 400);
                 }, 4000);
-            }
-
-            // Make functions available globally for inline onclick handlers
-            window.editProduct = function(id) {
-                const product = sampleProducts.find(p => p.id === id);
-                if (product) {
-                    // Fill form with product data
-                    document.getElementById('productName').value = product.name;
-                    document.getElementById('productCategory').value = product.category.toLowerCase().includes('coffee') ? 'coffee' : 
-                                                                      product.category.toLowerCase().includes('spice') ? 'spices' : 
-                                                                      product.category.toLowerCase().includes('fruit') ? 'fruits' : 'coffee';
-                    document.getElementById('productPrice').value = product.price;
-                    document.getElementById('productStock').value = product.stock;
-                    
-                    // Update modal title
-                    document.querySelector('#productModal .modal-header h2').textContent = 'Edit Product';
-                    
-                    // Open modal
-                    openProductModal();
-                    
-                    showNotification(`Editing product: ${product.name}`, 'info');
-                }
-            };
-
-            window.deleteProduct = function(id) {
-                if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
-                    const index = sampleProducts.findIndex(p => p.id === id);
-                    if (index !== -1) {
-                        const productName = sampleProducts[index].name;
-                        sampleProducts.splice(index, 1);
-                        initializeProductsTable();
-                        showNotification(`Product "${productName}" deleted successfully`, 'success');
-                    }
-                }
             };
         });
     </script>
