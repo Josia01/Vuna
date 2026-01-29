@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Vuna African Agricultural Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --secondary: #7a9c59;
+            --accent: #e9b824;
+            --light: #f5f7f2;
+            --dark: #1a290c;
+            --text: #333333;
+            --gray: #e0e0e0;
+            --card-bg: #ffffff;
+            --sale: #e74c3c;
+            --new: #2ecc71;
+        }
+
+        body {
+            color: var(--text);
+            background-color: #f8f9f7;
+            line-height: 1.6;
+        }
+
+        /* Header Styles (same as main page) */
+        .top-promo-bar {
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .top-promo-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 0 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 600;
+            border-left: 2px solid var(--gray);
+            padding-left: 10px;
+            display: none;
+        }
+
+        .search-section {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .search-container {
+            display: flex;
+            background: white;
+            border: 2px solid var(--gray);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-select {
+            padding: 12px 15px;
+            border: none;
+            background: var(--light);
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            outline: none;
+            border-right: 1px solid var(--gray);
+            min-width: 140px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--secondary);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 0 0 auto;
+        }
+
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px;
+        }
+
+        .action-icon {
+            font-size: 1.3rem;
+            margin-bottom: 2px;
+        }
+
+        .action-text {
+            font-size: 0.75rem;
+            display: none;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.3s;
+            display: none;
+        }
+
+        .login-btn:hover {
+            background: var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            display: block;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            width: 100%;
+            background: var(--light);
+            border-top: 1px solid var(--gray);
+            border-bottom: 1px solid var(--gray);
+            display: none;
+        }
+
+        .category-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .category-list {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+            overflow-x: auto;
+            padding: 12px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Search Results Header */
+        .search-results-header {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-title i {
+            color: var(--accent);
+        }
+
+        .results-count {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .search-query {
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--light);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .filters-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group-title {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-option {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .filter-option:hover {
+            border-color: var(--secondary);
+        }
+
+        .filter-option.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .price-input {
+            width: 100px;
+            padding: 8px 10px;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+        }
+
+        .apply-filters {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .apply-filters:hover {
+            background: var(--secondary);
+        }
+
+        /* Results Layout */
+        .results-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Sort Options */
+        .sort-options {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sort-label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .sort-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .sort-btn {
+            background: var(--light);
+            border: 1px solid var(--gray);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sort-btn:hover {
+            border-color: var(--secondary);
+        }
+
+        .sort-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 5px;
+        }
+
+        .view-btn {
+            background: var(--light);
+            border: 1px solid var(--gray);
+            width: 36px;
+            height: 36px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border: 1px solid var(--light);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 1;
+        }
+
+        .badge-sale {
+            background-color: var(--sale);
+            color: white;
+        }
+
+        .badge-new {
+            background-color: var(--new);
+            color: white;
+        }
+
+        .badge-popular {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
+        .product-img {
+            height: 160px;
+            overflow: hidden;
+            position: relative;
+            background: var(--light);
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            color: var(--dark);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            height: 40px;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+
+        .stars {
+            color: var(--accent);
+        }
+
+        .product-description {
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .price-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .current-price {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .original-price {
+            color: var(--text);
+            text-decoration: line-through;
+            font-size: 0.8rem;
+        }
+
+        .add-to-cart {
+            background-color: var(--accent);
+            color: var(--dark);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* List View */
+        .products-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .product-card.list-view {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .product-card.list-view .product-img {
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0;
+        }
+
+        .product-card.list-view .product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card.list-view .product-description {
+            height: auto;
+        }
+
+        /* No Results */
+        .no-results {
+            background: white;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .suggestions {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .suggestions h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .suggestion-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .suggestion-item {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .suggestion-item:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .pagination-btn {
+            background: white;
+            border: 1px solid var(--gray);
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pagination-btn:hover {
+            border-color: var(--secondary);
+        }
+
+        .pagination-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .pagination-dots {
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0 20px;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaaaaa;
+            font-size: 0.8rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 20px 0;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .top-promo-bar {
+                display: block;
+            }
+            
+            .tagline {
+                display: block;
+            }
+            
+            .action-text {
+                display: block;
+            }
+            
+            .login-btn {
+                display: block;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .category-nav {
+                display: block;
+            }
+            
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .filters-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .products-grid.list-view {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Promo Bar -->
+    <div class="top-promo-bar">
+        <div class="top-promo-content">
+            <div class="promo-text">
+                <span>🔥 FLASH SALE: Up to 40% OFF!</span>
+                <span>🌍 Worldwide Shipping</span>
+            </div>
+            <div class="top-links">
+                <a href="#"><i class="fas fa-headset"></i> Support</a>
+                <a href="#"><i class="fas fa-globe"></i> English</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header>
+        <div class="header-container">
+            <div class="nav-top">
+                <!-- Logo Section -->
+                <div class="logo-section">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-seedling"></i>
+                        <h1>VU<span>NA</span></h1>
+                    </a>
+                    <div class="tagline">Fresh from African Farms</div>
+                </div>
+
+                <!-- Search Section -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <select class="category-select">
+                            <option>All Categories</option>
+                            <option>Coffee & Tea</option>
+                            <option>Spices</option>
+                            <option>Fresh Fruits</option>
+                            <option>Grains & Cereals</option>
+                            <option>Nuts & Seeds</option>
+                        </select>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search African produce..." value="coffee beans">
+                        <button class="search-btn" id="searchButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+
+                <!-- User Actions -->
+                <div class="user-actions">
+                    <a href="account.html" class="action-item">
+                        <i class="fas fa-user action-icon"></i>
+                        <span class="action-text">Account</span>
+                    </a>
+                    <a href="wishlist.html" class="action-item">
+                        <i class="fas fa-heart action-icon"></i>
+                        <span class="action-text">Wishlist</span>
+                    </a>
+                    <a href="cart.html" class="action-item">
+                        <i class="fas fa-shopping-cart action-icon"></i>
+                        <span class="cart-count">8</span>
+                        <span class="action-text">Cart</span>
+                    </a>
+                    <a href="login.html" class="login-btn">Login</a>
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <div class="category-container">
+            <ul class="category-list">
+                <li><a href="index.html"><i class="fas fa-fire"></i> Flash Sale</a></li>
+                <li><a href="#"><i class="fas fa-leaf"></i> Organic</a></li>
+                <li><a href="#"><i class="fas fa-coffee"></i> Coffee</a></li>
+                <li><a href="#"><i class="fas fa-pepper-hot"></i> Spices</a></li>
+                <li><a href="#"><i class="fas fa-apple-alt"></i> Fruits</a></li>
+                <li><a href="#"><i class="fas fa-seedling"></i> Grains</a></li>
+                <li><a href="#"><i class="fas fa-wheat-alt"></i> Nuts & Seeds</a></li>
+                <li><a href="#"><i class="fas fa-truck"></i> Free Shipping</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Search Results Header -->
+        <div class="search-results-header">
+            <h1 class="results-title"><i class="fas fa-search"></i> Search Results</h1>
+            <p class="results-count">Showing <span id="resultsCount">8</span> results for "<span class="search-query" id="queryDisplay">coffee beans</span>"</p>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <h2 class="filters-title"><i class="fas fa-filter"></i> Refine Your Search</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <div class="filter-group-title">Farm Type</div>
+                    <div class="filter-options">
+                        <span class="filter-option" data-filter="farmType" data-value="organic">Organic</span>
+                        <span class="filter-option" data-filter="farmType" data-value="small">Small Farms</span>
+                        <span class="filter-option" data-filter="farmType" data-value="cooperative">Cooperatives</span>
+                        <span class="filter-option" data-filter="farmType" data-value="women">Women-Owned</span>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-group-title">Certifications</div>
+                    <div class="filter-options">
+                        <span class="filter-option" data-filter="certification" data-value="fairTrade">Fair Trade</span>
+                        <span class="filter-option" data-filter="certification" data-value="organic">Organic</span>
+                        <span class="filter-option" data-filter="certification" data-value="rainforest">Rainforest</span>
+                        <span class="filter-option active" data-filter="certification" data-value="utz">UTZ</span>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-group-title">Price Range</div>
+                    <div class="price-range">
+                        <input type="number" class="price-input" id="minPrice" placeholder="Min" value="10">
+                        <span>to</span>
+                        <input type="number" class="price-input" id="maxPrice" placeholder="Max" value="100">
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-group-title">Country of Origin</div>
+                    <div class="filter-options">
+                        <span class="filter-option active" data-filter="country" data-value="ethiopia">Ethiopia</span>
+                        <span class="filter-option" data-filter="country" data-value="kenya">Kenya</span>
+                        <span class="filter-option" data-filter="country" data-value="tanzania">Tanzania</span>
+                        <span class="filter-option" data-filter="country" data-value="rwanda">Rwanda</span>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-filters">Apply Filters</button>
+        </div>
+
+        <!-- Results Layout -->
+        <div class="results-layout">
+            <!-- Sort Options -->
+            <div class="sort-options">
+                <div class="sort-label">Sort by:</div>
+                <div class="sort-buttons">
+                    <button class="sort-btn active" data-sort="relevance">Relevance</button>
+                    <button class="sort-btn" data-sort="price-low">Price: Low to High</button>
+                    <button class="sort-btn" data-sort="price-high">Price: High to Low</button>
+                    <button class="sort-btn" data-sort="rating">Rating</button>
+                    <button class="sort-btn" data-sort="newest">Newest</button>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                    <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Product results will be dynamically inserted here -->
+            </div>
+
+            <!-- No Results Message (hidden by default) -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>No products found for "<span id="noResultsQuery"></span>"</h3>
+                <p>Try adjusting your search or filters to find what you're looking for.</p>
+                
+                <div class="suggestions">
+                    <h4>Search Suggestions:</h4>
+                    <div class="suggestion-list">
+                        <div class="suggestion-item" data-suggestion="coffee">Coffee</div>
+                        <div class="suggestion-item" data-suggestion="arabica">Arabica Beans</div>
+                        <div class="suggestion-item" data-suggestion="ethiopian">Ethiopian Coffee</div>
+                        <div class="suggestion-item" data-suggestion="roasted">Roasted Coffee</div>
+                        <div class="suggestion-item" data-suggestion="specialty">Specialty Coffee</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <span class="pagination-dots">...</span>
+                <button class="pagination-btn">8</button>
+                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <h1 style="color: white;">VU<span style="color: var(--accent);">NA</span></h1>
+                </div>
+                <p>Connecting African producers with global markets since 2022.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Buyers</h3>
+                <ul>
+                    <li><a href="index.html">Browse Products</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Sellers</h3>
+                <ul>
+                    <li><a href="#">Sell on Vuna</a></li>
+                    <li><a href="#">Seller Resources</a></li>
+                    <li><a href="#">Shipping Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for updates and offers.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Join</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 Vuna Marketplace | <a href="#" style="color: var(--accent);">Privacy</a> | <a href="#" style="color: var(--accent);">Terms</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample product data
+        const productsData = [
+            {
+                id: 1,
+                name: "Ethiopian Yirgacheffe Coffee Beans",
+                description: "Premium Arabica coffee beans from the highlands of Ethiopia. Hand-picked and sun-dried.",
+                price: 19.99,
+                originalPrice: 33.32,
+                rating: 4.5,
+                reviewCount: 124,
+                image: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80",
+                badge: "sale",
+                country: "ethiopia",
+                certifications: ["utz", "organic"],
+                farmType: "small"
+            },
+            {
+                id: 2,
+                name: "Kenyan AA Coffee Beans",
+                description: "High-grade Kenyan AA coffee with bright acidity and fruity notes. Perfect for pour-over.",
+                price: 24.50,
+                originalPrice: null,
+                rating: 4.7,
+                reviewCount: 89,
+                image: "https://images.unsplash.com/photo-1518832553480-cd0e625ed3e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                badge: "popular",
+                country: "kenya",
+                certifications: ["fairTrade"],
+                farmType: "cooperative"
+            },
+            {
+                id: 3,
+                name: "Tanzanian Peaberry Coffee",
+                description: "Rare peaberry beans from Mount Kilimanjaro. Known for its complex flavor profile.",
+                price: 31.50,
+                originalPrice: null,
+                rating: 4.6,
+                reviewCount: 67,
+                image: "https://images.unsplash.com/photo-1498804103079-a6351b050096?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80",
+                badge: "new",
+                country: "tanzania",
+                certifications: ["organic"],
+                farmType: "small"
+            },
+            {
+                id: 4,
+                name: "Rwandan Bourbon Coffee",
+                description: "Smooth Bourbon variety coffee from Rwanda's high-altitude farms. Fair trade certified.",
+                price: 22.99,
+                originalPrice: 28.75,
+                rating: 4.8,
+                reviewCount: 142,
+                image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                badge: "sale",
+                country: "rwanda",
+                certifications: ["fairTrade", "utz"],
+                farmType: "women"
+            },
+            {
+                id: 5,
+                name: "Organic Ethiopian Sidamo",
+                description: "Organic coffee beans from Sidamo region. Floral aroma with citrus notes.",
+                price: 27.50,
+                originalPrice: null,
+                rating: 4.4,
+                reviewCount: 78,
+                image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80",
+                badge: null,
+                country: "ethiopia",
+                certifications: ["organic"],
+                farmType: "organic"
+            },
+            {
+                id: 6,
+                name: "Ugandan Robusta Coffee",
+                description: "Strong Robusta coffee beans from Uganda. Perfect for espresso blends.",
+                price: 16.75,
+                originalPrice: 21.00,
+                rating: 4.2,
+                reviewCount: 56,
+                image: "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                badge: "sale",
+                country: "ethiopia",
+                certifications: ["utz"],
+                farmType: "cooperative"
+            },
+            {
+                id: 7,
+                name: "Burundi Coffee Beans",
+                description: "Small-batch coffee from Burundi with wine-like acidity and sweet finish.",
+                price: 29.99,
+                originalPrice: null,
+                rating: 4.9,
+                reviewCount: 43,
+                image: "https://images.unsplash.com/photo-1587734195507-6f5e8a2543c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                badge: "new",
+                country: "ethiopia",
+                certifications: ["fairTrade", "organic"],
+                farmType: "small"
+            },
+            {
+                id: 8,
+                name: "Dark Roast Coffee Blend",
+                description: "African coffee blend with beans from Ethiopia, Kenya and Tanzania. Dark roast.",
+                price: 21.50,
+                originalPrice: 26.88,
+                rating: 4.6,
+                reviewCount: 112,
+                image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                badge: "popular",
+                country: "kenya",
+                certifications: ["utz"],
+                farmType: "cooperative"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const queryDisplay = document.getElementById('queryDisplay');
+            const noResultsQuery = document.getElementById('noResultsQuery');
+            const productsGrid = document.getElementById('productsGrid');
+            const noResults = document.getElementById('noResults');
+            const resultsCount = document.getElementById('resultsCount');
+            const filterOptions = document.querySelectorAll('.filter-option');
+            const sortButtons = document.querySelectorAll('.sort-btn');
+            const viewButtons = document.querySelectorAll('.view-btn');
+            const applyFiltersBtn = document.querySelector('.apply-filters');
+            const suggestionItems = document.querySelectorAll('.suggestion-item');
+            
+            // Get query parameter from URL or use default
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q') || 'coffee beans';
+            
+            // Set the search input value and display
+            searchInput.value = searchQuery;
+            queryDisplay.textContent = searchQuery;
+            noResultsQuery.textContent = searchQuery;
+            
+            // Active filters storage
+            let activeFilters = {
+                farmType: [],
+                certification: ['utz'],
+                country: ['ethiopia']
+            };
+            
+            // Current sort method
+            let currentSort = 'relevance';
+            
+            // Current view mode
+            let currentView = 'grid';
+            
+            // Render products based on search query and filters
+            function renderProducts() {
+                // Filter products based on search query
+                let filteredProducts = productsData.filter(product => {
+                    const query = searchQuery.toLowerCase();
+                    return (
+                        product.name.toLowerCase().includes(query) ||
+                        product.description.toLowerCase().includes(query)
+                    );
+                });
+                
+                // Apply additional filters
+                filteredProducts = filteredProducts.filter(product => {
+                    // Farm type filter
+                    if (activeFilters.farmType.length > 0) {
+                        if (!activeFilters.farmType.includes(product.farmType)) {
+                            return false;
+                        }
+                    }
+                    
+                    // Certification filter
+                    if (activeFilters.certification.length > 0) {
+                        const hasCertification = activeFilters.certification.some(cert => 
+                            product.certifications.includes(cert)
+                        );
+                        if (!hasCertification) {
+                            return false;
+                        }
+                    }
+                    
+                    // Country filter
+                    if (activeFilters.country.length > 0) {
+                        if (!activeFilters.country.includes(product.country)) {
+                            return false;
+                        }
+                    }
+                    
+                    // Price range filter
+                    const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+                    const maxPrice = parseFloat(document.getElementById('maxPrice').value) || 10000;
+                    
+                    if (product.price < minPrice || product.price > maxPrice) {
+                        return false;
+                    }
+                    
+                    return true;
+                });
+                
+                // Sort products
+                filteredProducts.sort((a, b) => {
+                    switch(currentSort) {
+                        case 'price-low':
+                            return a.price - b.price;
+                        case 'price-high':
+                            return b.price - a.price;
+                        case 'rating':
+                            return b.rating - a.rating;
+                        case 'newest':
+                            return b.id - a.id;
+                        case 'relevance':
+                        default:
+                            // For relevance, prioritize products with badges and higher ratings
+                            const aScore = (a.badge ? 1 : 0) + a.rating;
+                            const bScore = (b.badge ? 1 : 0) + b.rating;
+                            return bScore - aScore;
+                    }
+                });
+                
+                // Update results count
+                resultsCount.textContent = filteredProducts.length;
+                
+                // Clear current products
+                productsGrid.innerHTML = '';
+                
+                // Show/hide no results message
+                if (filteredProducts.length === 0) {
+                    noResults.style.display = 'block';
+                    productsGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    productsGrid.style.display = 'grid';
+                    
+                    // Set grid class based on view mode
+                    productsGrid.className = `products-grid ${currentView === 'list' ? 'list-view' : ''}`;
+                    
+                    // Render products
+                    filteredProducts.forEach(product => {
+                        const productCard = createProductCard(product);
+                        productsGrid.appendChild(productCard);
+                    });
+                }
+            }
+            
+            // Create product card element
+            function createProductCard(product) {
+                const card = document.createElement('div');
+                card.className = `product-card ${currentView === 'list' ? 'list-view' : ''}`;
+                
+                // Create badge if exists
+                let badgeHtml = '';
+                if (product.badge) {
+                    let badgeText = '';
+                    let badgeClass = '';
+                    
+                    switch(product.badge) {
+                        case 'sale':
+                            badgeText = `${Math.round((1 - product.price / product.originalPrice) * 100)}% OFF`;
+                            badgeClass = 'badge-sale';
+                            break;
+                        case 'new':
+                            badgeText = 'NEW';
+                            badgeClass = 'badge-new';
+                            break;
+                        case 'popular':
+                            badgeText = 'POPULAR';
+                            badgeClass = 'badge-popular';
+                            break;
+                    }
+                    
+                    badgeHtml = `<div class="product-badge ${badgeClass}">${badgeText}</div>`;
+                }
+                
+                // Create stars HTML
+                let starsHtml = '';
+                const fullStars = Math.floor(product.rating);
+                const hasHalfStar = product.rating % 1 >= 0.5;
+                
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        starsHtml += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars && hasHalfStar) {
+                        starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        starsHtml += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                // Original price HTML
+                const originalPriceHtml = product.originalPrice ? 
+                    `<div class="original-price">$${product.originalPrice.toFixed(2)}</div>` : '';
+                
+                card.innerHTML = `
+                    ${badgeHtml}
+                    <div class="product-img">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-rating">
+                            <div class="stars">${starsHtml}</div>
+                            <span>(${product.reviewCount})</span>
+                        </div>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-footer">
+                            <div class="price-section">
+                                <div class="current-price">$${product.price.toFixed(2)}</div>
+                                ${originalPriceHtml}
+                            </div>
+                            <button class="add-to-cart"><i class="fas fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click event to add to cart button
+                const addToCartBtn = card.querySelector('.add-to-cart');
+                addToCartBtn.addEventListener('click', function() {
+                    addToCart(product);
+                });
+                
+                return card;
+            }
+            
+            // Add to cart function
+            function addToCart(product) {
+                const cartCount = document.querySelector('.cart-count');
+                let currentCount = parseInt(cartCount.textContent);
+                cartCount.textContent = currentCount + 1;
+                
+                // Animation for cart icon
+                cartCount.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    cartCount.style.transform = 'scale(1)';
+                }, 300);
+                
+                // Show notification
+                showNotification(`Added ${product.name} to cart`);
+            }
+            
+            // Show notification
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: var(--primary);
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    animation: slideIn 0.3s ease;
+                `;
+                
+                // Add animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Filter option click handler
+            filterOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const filterType = this.dataset.filter;
+                    const filterValue = this.dataset.value;
+                    
+                    // Toggle active state
+                    this.classList.toggle('active');
+                    
+                    // Update active filters
+                    if (this.classList.contains('active')) {
+                        if (!activeFilters[filterType].includes(filterValue)) {
+                            activeFilters[filterType].push(filterValue);
+                        }
+                    } else {
+                        const index = activeFilters[filterType].indexOf(filterValue);
+                        if (index > -1) {
+                            activeFilters[filterType].splice(index, 1);
+                        }
+                    }
+                });
+            });
+            
+            // Sort button click handler
+            sortButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all sort buttons
+                    sortButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update current sort
+                    currentSort = this.dataset.sort;
+                    
+                    // Re-render products
+                    renderProducts();
+                });
+            });
+            
+            // View toggle button click handler
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all view buttons
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update current view
+                    currentView = this.dataset.view;
+                    
+                    // Re-render products
+                    renderProducts();
+                });
+            });
+            
+            // Apply filters button click handler
+            applyFiltersBtn.addEventListener('click', function() {
+                renderProducts();
+            });
+            
+            // Search button click handler
+            searchButton.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    // Update the page with new search
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            });
+            
+            // Enter key in search input
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+            
+            // Suggestion item click handler
+            suggestionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const suggestion = this.dataset.suggestion;
+                    searchInput.value = suggestion;
+                    
+                    // Trigger search
+                    window.location.href = `search.html?q=${encodeURIComponent(suggestion)}`;
+                });
+            });
+            
+            // Initial render
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
