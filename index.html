@@ -1064,17 +1064,17 @@
 
                 <!-- Search Section -->
                 <div class="search-section">
-                    <div class="search-container">
-                        <select class="category-select">
-                            <option>All Categories</option>
-                            <option>Coffee & Tea</option>
-                            <option>Spices</option>
-                            <option>Fresh Fruits</option>
-                            <option>Grains & Cereals</option>
-                            <option>Nuts & Seeds</option>
+                    <div class="search-container" id="searchForm">
+                        <select class="category-select" id="searchCategory">
+                            <option value="">All Categories</option>
+                            <option value="coffee">Coffee & Tea</option>
+                            <option value="spices">Spices</option>
+                            <option value="fruits">Fresh Fruits</option>
+                            <option value="grains">Grains & Cereals</option>
+                            <option value="nuts">Nuts & Seeds</option>
                         </select>
-                        <input type="text" class="search-input" placeholder="Search African produce...">
-                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search African produce..." autocomplete="off">
+                        <button type="button" class="search-btn" id="searchButton"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
 
@@ -1107,13 +1107,13 @@
         <div class="category-container">
             <ul class="category-list">
                 <li><a href="#" class="active"><i class="fas fa-fire"></i> Flash Sale</a></li>
-                <li><a href="#"><i class="fas fa-leaf"></i> Organic</a></li>
-                <li><a href="#"><i class="fas fa-coffee"></i> Coffee</a></li>
-                <li><a href="#"><i class="fas fa-pepper-hot"></i> Spices</a></li>
-                <li><a href="#"><i class="fas fa-apple-alt"></i> Fruits</a></li>
-                <li><a href="#"><i class="fas fa-seedling"></i> Grains</a></li>
-                <li><a href="#"><i class="fas fa-wheat-alt"></i> Nuts & Seeds</a></li>
-                <li><a href="#"><i class="fas fa-truck"></i> Free Shipping</a></li>
+                <li><a href="#" class="category-link" data-category="organic"><i class="fas fa-leaf"></i> Organic</a></li>
+                <li><a href="#" class="category-link" data-category="coffee"><i class="fas fa-coffee"></i> Coffee</a></li>
+                <li><a href="#" class="category-link" data-category="spices"><i class="fas fa-pepper-hot"></i> Spices</a></li>
+                <li><a href="#" class="category-link" data-category="fruits"><i class="fas fa-apple-alt"></i> Fruits</a></li>
+                <li><a href="#" class="category-link" data-category="grains"><i class="fas fa-seedling"></i> Grains</a></li>
+                <li><a href="#" class="category-link" data-category="nuts"><i class="fas fa-wheat-alt"></i> Nuts & Seeds</a></li>
+                <li><a href="#" class="category-link" data-category="shipping"><i class="fas fa-truck"></i> Free Shipping</a></li>
             </ul>
         </div>
     </nav>
@@ -1165,30 +1165,30 @@
                     <div class="sidebar-section">
                         <h3>Farm Type</h3>
                         <div class="filter-tags">
-                            <span class="filter-tag">Organic</span>
-                            <span class="filter-tag">Small Farms</span>
-                            <span class="filter-tag">Cooperatives</span>
-                            <span class="filter-tag">Women-Owned</span>
+                            <span class="filter-tag" data-filter="farmType" data-value="organic">Organic</span>
+                            <span class="filter-tag" data-filter="farmType" data-value="small">Small Farms</span>
+                            <span class="filter-tag" data-filter="farmType" data-value="cooperative">Cooperatives</span>
+                            <span class="filter-tag" data-filter="farmType" data-value="women">Women-Owned</span>
                         </div>
                     </div>
                     
                     <div class="sidebar-section">
                         <h3>Certifications</h3>
                         <div class="filter-tags">
-                            <span class="filter-tag">Fair Trade</span>
-                            <span class="filter-tag">Organic</span>
-                            <span class="filter-tag">Rainforest</span>
-                            <span class="filter-tag">UTZ</span>
+                            <span class="filter-tag" data-filter="certification" data-value="fairTrade">Fair Trade</span>
+                            <span class="filter-tag" data-filter="certification" data-value="organic">Organic</span>
+                            <span class="filter-tag" data-filter="certification" data-value="rainforest">Rainforest</span>
+                            <span class="filter-tag" data-filter="certification" data-value="utz">UTZ</span>
                         </div>
                     </div>
                     
                     <div class="sidebar-section">
                         <h3>Price Range</h3>
                         <div class="filter-tags">
-                            <span class="filter-tag">Under $20</span>
-                            <span class="filter-tag">$20 - $50</span>
-                            <span class="filter-tag">$50 - $100</span>
-                            <span class="filter-tag">Over $100</span>
+                            <span class="filter-tag" data-filter="price" data-value="0-20">Under $20</span>
+                            <span class="filter-tag" data-filter="price" data-value="20-50">$20 - $50</span>
+                            <span class="filter-tag" data-filter="price" data-value="50-100">$50 - $100</span>
+                            <span class="filter-tag" data-filter="price" data-value="100+">Over $100</span>
                         </div>
                     </div>
                 </aside>
@@ -1327,7 +1327,7 @@
                     <section class="categories-section">
                         <div class="section-header">
                             <h2 class="section-title">📁 Shop by Category</h2>
-                            <a href="#" class="view-all">All Categories</a>
+                            <a href="search.html" class="view-all">All Categories</a>
                         </div>
                         
                         <div class="categories-grid">
@@ -1392,7 +1392,7 @@
                     <section class="products-section" id="products">
                         <div class="section-header">
                             <h2 class="section-title">🔥 Best Selling</h2>
-                            <a href="#" class="view-all">View All</a>
+                            <a href="search.html?sort=popular" class="view-all">View All</a>
                         </div>
                         
                         <div class="products-grid">
@@ -1510,7 +1510,7 @@
                     <section class="new-arrivals">
                         <div class="section-header">
                             <h2 class="section-title">🆕 New Arrivals</h2>
-                            <a href="#" class="view-all">View All</a>
+                            <a href="search.html?sort=newest" class="view-all">View All</a>
                         </div>
                         
                         <div class="products-grid">
@@ -1628,7 +1628,7 @@
                     <section class="seller-spotlight">
                         <div class="section-header">
                             <h2 class="section-title">👨‍🌾 Featured Farmers</h2>
-                            <a href="#" class="view-all">View All</a>
+                            <a href="search.html?filter=farmers" class="view-all">View All</a>
                         </div>
                         <div class="seller-grid">
                             <div class="seller-card">
@@ -1682,7 +1682,7 @@
             <div class="footer-column">
                 <h3>For Buyers</h3>
                 <ul>
-                    <li><a href="#">Browse Products</a></li>
+                    <li><a href="search.html">Browse Products</a></li>
                     <li><a href="#">Shipping Info</a></li>
                     <li><a href="#">Returns</a></li>
                     <li><a href="#">FAQs</a></li>
@@ -1715,6 +1715,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Get search elements
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const searchCategory = document.getElementById('searchCategory');
+            const categoryLinks = document.querySelectorAll('.category-link');
+            const filterTags = document.querySelectorAll('.filter-tag');
+            
             // Mobile menu toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const categoryNav = document.querySelector('.category-nav');
@@ -1726,6 +1733,116 @@
                         '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
                 });
             }
+
+            // Search functionality
+            function performSearch() {
+                const query = searchInput.value.trim();
+                const category = searchCategory.value;
+                
+                if (query === '' && category === '') {
+                    showNotification('Please enter a search term or select a category');
+                    return;
+                }
+                
+                // Build search URL
+                let searchUrl = 'search.html?';
+                const params = [];
+                
+                if (query) {
+                    params.push(`q=${encodeURIComponent(query)}`);
+                }
+                
+                if (category) {
+                    params.push(`category=${encodeURIComponent(category)}`);
+                }
+                
+                searchUrl += params.join('&');
+                
+                // Navigate to search page
+                window.location.href = searchUrl;
+            }
+            
+            // Search button click
+            searchButton.addEventListener('click', performSearch);
+            
+            // Enter key in search input
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Category links in navigation
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.dataset.category;
+                    
+                    // Navigate to search page with category filter
+                    window.location.href = `search.html?category=${encodeURIComponent(category)}`;
+                });
+            });
+            
+            // Category cards click (search by category)
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const categoryName = this.querySelector('.category-name').textContent;
+                    
+                    // Map category names to search terms
+                    const categoryMap = {
+                        'Coffee & Tea': 'coffee',
+                        'Spices': 'spices',
+                        'Fresh Fruits': 'fruits',
+                        'Grains & Cereals': 'grains',
+                        'Nuts & Seeds': 'nuts'
+                    };
+                    
+                    const searchTerm = categoryMap[categoryName] || categoryName.toLowerCase();
+                    window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+                });
+            });
+            
+            // Filter tags in sidebar
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const filterType = this.dataset.filter;
+                    const filterValue = this.dataset.value;
+                    
+                    // Build search URL with filter
+                    let searchUrl = 'search.html?';
+                    
+                    // Add filter parameter
+                    searchUrl += `filter=${encodeURIComponent(filterType)}:${encodeURIComponent(filterValue)}`;
+                    
+                    // Navigate to search page with filter
+                    window.location.href = searchUrl;
+                });
+            });
+            
+            // View all links
+            const viewAllLinks = document.querySelectorAll('.view-all');
+            viewAllLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.href.includes('search.html')) {
+                        // Let the link work normally
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    const sectionTitle = this.closest('.section-header').querySelector('.section-title').textContent;
+                    
+                    // Map section titles to search terms
+                    const titleMap = {
+                        '🔥 Best Selling': 'best sellers',
+                        '🆕 New Arrivals': 'new arrivals',
+                        '👨‍🌾 Featured Farmers': 'featured farmers'
+                    };
+                    
+                    const searchTerm = titleMap[sectionTitle] || sectionTitle.toLowerCase();
+                    window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+                });
+            });
 
             // Add to cart functionality for products
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
@@ -1767,21 +1884,6 @@
                     }
                 });
             }
-
-            // Filter tags functionality
-            const filterTags = document.querySelectorAll('.filter-tag');
-            filterTags.forEach(tag => {
-                tag.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    if (this.classList.contains('active')) {
-                        this.style.background = 'var(--secondary)';
-                        this.style.color = 'white';
-                    } else {
-                        this.style.background = 'var(--light)';
-                        this.style.color = '';
-                    }
-                });
-            });
 
             // Countdown timer for flash sale
             function updateCountdown() {
@@ -1852,6 +1954,12 @@
             // Update countdown every second
             setInterval(updateCountdown, 1000);
             updateCountdown(); // Initial call
+            
+            // Add cursor pointer to clickable elements
+            const clickableElements = document.querySelectorAll('.category-card, .category-link, .filter-tag, .product-card');
+            clickableElements.forEach(element => {
+                element.style.cursor = 'pointer';
+            });
         });
     </script>
 </body>
