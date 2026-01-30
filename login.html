@@ -1406,6 +1406,9 @@
 
                 <!-- Auth Form -->
                 <form class="auth-form" id="authForm">
+                    <!-- Hidden input to track user type -->
+                    <input type="hidden" id="userType" name="userType" value="buyer">
+                    
                     <!-- Sign In Fields (Default) -->
                     <div class="form-group" id="emailField">
                         <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
@@ -1586,6 +1589,7 @@
             const rememberMeField = document.getElementById('rememberMeField');
             const forgotPasswordLink = document.getElementById('forgotPasswordLink');
             const userTypeOptions = document.querySelectorAll('.user-type-option');
+            const userTypeInput = document.getElementById('userType');
             const googleLoginBtn = document.getElementById('googleLogin');
             const facebookLoginBtn = document.getElementById('facebookLogin');
             const togglePasswordBtn = document.getElementById('togglePassword');
@@ -1656,8 +1660,9 @@
                 
                 // Continue button
                 continueBtn.addEventListener('click', function() {
+                    // Redirect based on user type
                     if (selectedUserType === 'seller') {
-                        window.location.href = 'sell.html';
+                        window.location.href = 'seller-dashboard.html'; // Updated to seller-dashboard.html
                     } else {
                         window.location.href = 'account.html';
                     }
@@ -1714,6 +1719,7 @@
             // Select user type
             function selectUserType(type) {
                 selectedUserType = type;
+                userTypeInput.value = type; // Update hidden input
                 
                 // Update UI
                 userTypeOptions.forEach(option => {
@@ -1775,8 +1781,31 @@
                     // Show success modal
                     showSuccessModal();
                 } else {
-                    // Redirect to account page
-                    window.location.href = 'account.html';
+                    // Handle sign in redirect based on user type
+                    handleSignInRedirect();
+                }
+            }
+            
+            // Handle sign in redirect based on user type
+            function handleSignInRedirect() {
+                // For demo purposes, we'll simulate checking user type
+                // In a real app, this would come from the API response
+                
+                // Check if user selected seller type (either from current selection or stored preference)
+                const isSeller = selectedUserType === 'seller';
+                
+                if (isSeller) {
+                    // For sellers, redirect to seller dashboard
+                    showNotification('Welcome back, Seller! Redirecting to dashboard...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'seller-dashboard.html';
+                    }, 1500);
+                } else {
+                    // For buyers, redirect to regular account page
+                    showNotification('Welcome back! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'account.html';
+                    }, 1500);
                 }
             }
             
@@ -1932,9 +1961,11 @@
                 if (selectedUserType === 'seller') {
                     successTitle.textContent = 'Welcome, Seller!';
                     successMessage.textContent = 'Your seller account has been created. Get ready to showcase your African products to the world.';
+                    continueBtn.textContent = 'Go to Seller Dashboard';
                 } else {
                     successTitle.textContent = 'Welcome to Vuna!';
                     successMessage.textContent = 'Your account has been created successfully. Start exploring premium African products.';
+                    continueBtn.textContent = 'Continue to Dashboard';
                 }
                 
                 successModal.classList.add('active');
