@@ -315,6 +315,11 @@
             transform: scale(1.02);
         }
 
+        /* Mobile Search (Hidden on desktop) */
+        .mobile-search-section {
+            display: none;
+        }
+
         /* User Actions */
         .user-actions {
             display: flex;
@@ -427,6 +432,109 @@
             background: rgba(45, 106, 79, 0.1);
         }
 
+        /* Mobile Header Adjustments */
+        @media (max-width: 767px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .nav-top {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .logo-section {
+                flex: 1;
+                min-width: 200px;
+            }
+            
+            .logo h1 {
+                font-size: 1.7rem;
+            }
+            
+            .tagline {
+                display: none;
+            }
+            
+            .search-section {
+                display: none;
+            }
+            
+            .mobile-search-section {
+                display: block !important;
+                margin-top: 12px;
+                animation: slideDown 0.3s ease;
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .mobile-search-section .search-container {
+                margin: 0;
+            }
+            
+            .mobile-search-section .search-input {
+                padding: 14px 16px;
+            }
+            
+            .user-actions {
+                gap: 12px;
+            }
+            
+            .action-item {
+                padding: 4px;
+            }
+            
+            .action-icon {
+                font-size: 1.3rem;
+                margin-bottom: 2px;
+            }
+            
+            .action-text {
+                font-size: 0.7rem;
+            }
+            
+            .cart-count, .wishlist-count {
+                width: 18px;
+                height: 18px;
+                font-size: 0.65rem;
+            }
+            
+            .login-btn {
+                display: none !important;
+            }
+            
+            .mobile-menu-btn {
+                display: block !important;
+                font-size: 1.4rem;
+                padding: 6px;
+                margin-left: 4px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mobile-search-section {
+                display: none !important;
+            }
+        }
+
+        /* Mobile Menu Toggle Animation */
+        .mobile-menu-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn.active i {
+            transform: rotate(90deg);
+        }
+
         /* Category Navigation */
         .category-nav {
             width: 100%;
@@ -500,6 +608,92 @@
 
         .category-list li a i {
             font-size: 1rem;
+        }
+
+        /* Mobile Category Navigation */
+        @media (max-width: 767px) {
+            .category-nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                z-index: 999;
+                max-height: 70vh;
+                overflow-y: auto;
+                display: none;
+                border-radius: 0 0 20px 20px;
+                padding: 0;
+            }
+            
+            .category-nav.active {
+                display: block;
+                animation: slideDown 0.3s ease;
+            }
+            
+            .category-container {
+                padding: 0 16px;
+            }
+            
+            .category-list {
+                flex-direction: column;
+                gap: 4px;
+                padding: 16px 0;
+            }
+            
+            .category-list li a {
+                padding: 14px 16px;
+                border-radius: 12px;
+                justify-content: flex-start;
+            }
+            
+            .category-list li a i {
+                min-width: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Overlay for mobile menu */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Prevent body scroll when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* Adjust header height on mobile */
+        @media (max-width: 767px) {
+            header {
+                min-height: 60px;
+            }
+            
+            .header-container {
+                min-height: 60px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
         }
 
         /* Main Container */
@@ -1026,6 +1220,40 @@
             color: var(--text-light);
         }
 
+        /* Responsive adjustments for auth section */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .auth-container {
+                min-height: auto;
+                flex-direction: column;
+            }
+            
+            .auth-form-section {
+                padding: 40px 24px;
+            }
+            
+            .auth-hero h2 {
+                font-size: 2rem;
+            }
+            
+            .features-list li {
+                font-size: 0.9rem;
+            }
+            
+            .user-type-options,
+            .social-login-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -1311,8 +1539,32 @@
                     </button>
                 </div>
             </div>
+            
+            <!-- Mobile Search (Hidden on desktop) -->
+            <div class="mobile-search-section" style="display: none;">
+                <div class="search-container" id="mobileSearchForm">
+                    <input type="text" class="search-input" id="mobileSearchInput" placeholder="Search products..." autocomplete="off">
+                    <button type="button" class="search-btn" id="mobileSearchButton"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
         </div>
     </header>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <div class="category-container">
+            <ul class="category-list">
+                <li><a href="#" class="active"><i class="fas fa-bolt"></i> Flash Sale</a></li>
+                <li><a href="#" class="category-link" data-category="organic"><i class="fas fa-leaf"></i> Organic</a></li>
+                <li><a href="#" class="category-link" data-category="coffee"><i class="fas fa-coffee"></i> Coffee</a></li>
+                <li><a href="#" class="category-link" data-category="spices"><i class="fas fa-pepper-hot"></i> Spices</a></li>
+                <li><a href="#" class="category-link" data-category="fruits"><i class="fas fa-apple-alt"></i> Fruits</a></li>
+                <li><a href="#" class="category-link" data-category="grains"><i class="fas fa-seedling"></i> Grains</a></li>
+                <li><a href="#" class="category-link" data-category="nuts"><i class="fas fa-wheat-alt"></i> Nuts & Seeds</a></li>
+                <li><a href="#" class="category-link" data-category="shipping"><i class="fas fa-truck-fast"></i> Free Shipping</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Main Container -->
     <div class="container">
@@ -1575,6 +1827,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Create mobile overlay element
+            const mobileOverlay = document.createElement('div');
+            mobileOverlay.className = 'mobile-overlay';
+            document.body.appendChild(mobileOverlay);
+            
             // DOM Elements
             const authForm = document.getElementById('authForm');
             const authTitle = document.getElementById('authTitle');
@@ -1602,6 +1859,15 @@
             const successMessage = document.getElementById('successMessage');
             const continueBtn = document.getElementById('continueBtn');
             
+            // Mobile menu elements
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const categoryNav = document.querySelector('.category-nav');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchButton = document.getElementById('mobileSearchButton');
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const categoryLinks = document.querySelectorAll('.category-link');
+            
             // State variables
             let isSignUp = false;
             let selectedUserType = 'buyer'; // Default to buyer
@@ -1616,6 +1882,123 @@
             
             // Setup event listeners
             function setupEventListeners() {
+                // Mobile menu toggle
+                if (mobileMenuBtn && categoryNav) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        const isActive = categoryNav.classList.contains('active');
+                        
+                        if (isActive) {
+                            categoryNav.classList.remove('active');
+                            mobileOverlay.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        } else {
+                            categoryNav.classList.add('active');
+                            mobileOverlay.classList.add('active');
+                            mobileMenuBtn.classList.add('active');
+                            document.body.classList.add('menu-open');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        }
+                    });
+                    
+                    // Close menu when clicking overlay
+                    mobileOverlay.addEventListener('click', function() {
+                        categoryNav.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                    
+                    // Close menu when clicking a category link
+                    categoryLinks.forEach(link => {
+                        link.addEventListener('click', function() {
+                            categoryNav.classList.remove('active');
+                            mobileOverlay.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        });
+                    });
+                }
+
+                // Mobile search functionality
+                if (mobileSearchButton && mobileSearchInput) {
+                    mobileSearchButton.addEventListener('click', function() {
+                        performMobileSearch();
+                    });
+                    
+                    mobileSearchInput.addEventListener('keyup', function(event) {
+                        if (event.key === 'Enter') {
+                            performMobileSearch();
+                        }
+                    });
+                    
+                    function performMobileSearch() {
+                        const query = mobileSearchInput.value.trim();
+                        
+                        if (query === '') {
+                            showNotification('Please enter a search term', 'warning');
+                            mobileSearchInput.focus();
+                            return;
+                        }
+                        
+                        // Add loading animation
+                        const originalIcon = mobileSearchButton.innerHTML;
+                        mobileSearchButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        mobileSearchButton.disabled = true;
+                        
+                        setTimeout(() => {
+                            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                        }, 500);
+                    }
+                }
+
+                // Desktop search functionality
+                if (searchButton && searchInput) {
+                    searchButton.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        performSearch();
+                    });
+                    
+                    searchInput.addEventListener('keyup', function(event) {
+                        if (event.key === 'Enter') {
+                            performSearch();
+                        }
+                    });
+                    
+                    function performSearch() {
+                        const query = searchInput.value.trim();
+                        
+                        if (query === '') {
+                            showNotification('Please enter a search term', 'warning');
+                            searchInput.focus();
+                            return;
+                        }
+                        
+                        // Add loading animation
+                        const originalIcon = searchButton.innerHTML;
+                        searchButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        searchButton.disabled = true;
+                        
+                        setTimeout(() => {
+                            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                            searchButton.innerHTML = originalIcon;
+                            searchButton.disabled = false;
+                        }, 500);
+                    }
+                }
+
+                // Category links functionality
+                categoryLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const category = this.dataset.category;
+                        window.location.href = `search.html?category=${encodeURIComponent(category)}`;
+                    });
+                });
+
                 // Toggle between sign in/sign up
                 toggleLink.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1662,7 +2045,7 @@
                 continueBtn.addEventListener('click', function() {
                     // Redirect based on user type
                     if (selectedUserType === 'seller') {
-                        window.location.href = 'seller-dashboard.html'; // Updated to seller-dashboard.html
+                        window.location.href = 'seller-dashboard.html';
                     } else {
                         window.location.href = 'account.html';
                     }
