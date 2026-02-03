@@ -123,7 +123,7 @@
         }
 
         .logo span {
-            background: var(--gradient-accent);
+            background: var(--gradient-accent;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
@@ -288,7 +288,7 @@
             }
         }
 
-        /* Top Bar */
+        /* Top Bar - Updated for Mobile Responsiveness */
         .top-bar {
             background: white;
             padding: 20px 32px;
@@ -302,10 +302,25 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
+        /* Mobile Menu Button - Always visible on mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        /* Search Bar - Responsive */
         .search-bar {
             flex: 1;
             max-width: 400px;
             position: relative;
+            margin: 0 20px;
         }
 
         .search-bar input {
@@ -387,6 +402,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .add-product-btn:hover {
@@ -394,32 +410,138 @@
             box-shadow: 0 6px 16px rgba(45, 106, 79, 0.3);
         }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary);
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-        }
-
+        /* Mobile Responsive Adjustments */
         @media (max-width: 992px) {
+            /* Show mobile menu button */
             .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+            }
+            
+            /* Adjust top bar padding */
+            .top-bar {
+                padding: 12px 16px;
+                gap: 10px;
+            }
+            
+            /* Make search bar expandable on mobile */
+            .search-bar {
+                flex: 1;
+                max-width: none;
+                margin: 0 10px;
                 display: block;
             }
             
+            .search-bar input {
+                padding: 10px 40px 10px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .search-bar i {
+                right: 12px;
+                font-size: 1rem;
+            }
+            
+            /* Adjust top actions for mobile */
+            .top-actions {
+                gap: 12px;
+            }
+            
+            /* Show only icon for Add Product on very small screens */
+            .add-product-btn {
+                padding: 10px;
+                min-width: 44px;
+                height: 44px;
+                justify-content: center;
+            }
+            
+            .add-product-btn span {
+                display: inline;
+            }
+            
+            .notification-btn {
+                font-size: 1.2rem;
+                padding: 6px;
+            }
+            
+            .notification-badge {
+                width: 16px;
+                height: 16px;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 576px) {
             .top-bar {
-                padding: 16px 20px;
+                padding: 10px 12px;
             }
             
             .search-bar {
-                display: none;
+                margin: 0 8px;
+            }
+            
+            .search-bar input {
+                padding: 8px 36px 8px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .search-bar i {
+                right: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .top-actions {
+                gap: 8px;
             }
             
             .add-product-btn span {
                 display: none;
+            }
+            
+            .add-product-btn {
+                padding: 8px;
+                width: 44px;
+                height: 44px;
+            }
+            
+            .notification-btn {
+                font-size: 1.1rem;
+                padding: 5px;
+            }
+            
+            .mobile-menu-btn {
+                margin-right: 5px;
+            }
+        }
+
+        /* Medium screens - tablet */
+        @media (min-width: 577px) and (max-width: 768px) {
+            .add-product-btn span {
+                display: inline;
+                font-size: 0.85rem;
+            }
+            
+            .add-product-btn {
+                padding: 10px 16px;
+            }
+        }
+
+        /* Ensure desktop view stays the same */
+        @media (min-width: 993px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .search-bar {
+                display: block;
+            }
+            
+            .add-product-btn span {
+                display: inline;
             }
         }
 
@@ -1848,6 +1970,19 @@
                         }
                     }, 400);
                 }, 4000);
+            }
+            
+            // Optional: Make search bar expandable on mobile
+            const searchBarInput = document.querySelector('.search-bar input');
+            
+            if (window.innerWidth <= 576) {
+                searchBarInput.addEventListener('focus', function() {
+                    this.style.width = 'calc(100vw - 160px)';
+                });
+                
+                searchBarInput.addEventListener('blur', function() {
+                    this.style.width = '100%';
+                });
             }
             
             // Initialize chart (mock data - in real app use Chart.js)
