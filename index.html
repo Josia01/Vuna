@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vuna - Premium African Agricultural Marketplace</title>
+    <title>Ashoko - Premium African Agricultural Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -542,10 +542,7 @@
                 height: 44px;
             }
             
-            .login-btn::before {
-                content: "\f007";
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
+            .login-btn i {
                 font-size: 1.1rem;
             }
             
@@ -1793,7 +1790,7 @@
                 <div class="logo-section">
                     <a href="index.html" class="logo">
                         <i class="fas fa-seedling"></i>
-                        <h1>VU<span>NA</span></h1>
+                        <h1>ASH<span>OKO</span></h1>
                     </a>
                     <div class="tagline">Fresh from African Farms</div>
                 </div>
@@ -1830,6 +1827,7 @@
                         <span class="action-text">Cart</span>
                     </a>
                     <a href="login.html" class="login-btn">
+                        <i class="fas fa-user"></i>
                         <span>Sign In</span>
                     </a>
                     <button class="mobile-menu-btn">
@@ -2379,7 +2377,7 @@
             <div class="footer-column">
                 <div class="logo">
                     <i class="fas fa-seedling"></i>
-                    <h1 style="color: white;">VU<span style="color: var(--accent);">NA</span></h1>
+                    <h1 style="color: white;">ASH<span style="color: var(--accent);">OKO</span></h1>
                 </div>
                 <p>Premium African agricultural marketplace connecting farmers with global markets since 2022.</p>
                 <div class="social-icons">
@@ -2404,7 +2402,7 @@
             <div class="footer-column">
                 <h3>For Sellers</h3>
                 <ul>
-                    <li><a href="sell.html"><i class="fas fa-store"></i> Sell on Vuna</a></li>
+                    <li><a href="sell.html"><i class="fas fa-store"></i> Sell on Ashoko</a></li>
                     <li><a href="#"><i class="fas fa-book"></i> Seller Resources</a></li>
                     <li><a href="#"><i class="fas fa-shipping-fast"></i> Shipping Support</a></li>
                     <li><a href="#"><i class="fas fa-chart-line"></i> Analytics Dashboard</a></li>
@@ -2419,14 +2417,14 @@
                     <button type="submit">Subscribe</button>
                 </div>
                 <div class="contact-info" style="margin-top: 24px;">
-                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> support@vuna.com</p>
+                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> support@ashoko.com</p>
                     <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +1 (555) 123-4567</p>
                 </div>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2023 Vuna Marketplace. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Cookie Policy</a></p>
+            <p>&copy; 2023 Ashoko Marketplace. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Cookie Policy</a></p>
             <p style="margin-top: 10px; font-size: 0.8rem; color: #868e96;">Certified B Corporation | Climate Neutral Certified</p>
         </div>
     </footer>
@@ -2457,7 +2455,9 @@
                 if (!loginBtn) return;
                 
                 const isMobile = window.innerWidth <= 576;
+                const isSmallMobile = window.innerWidth <= 767;
                 const loginSpan = loginBtn.querySelector('span');
+                const loginIcon = loginBtn.querySelector('i');
                 
                 if (isMobile) {
                     // On very small screens, show only icon
@@ -2465,28 +2465,21 @@
                     loginBtn.style.minWidth = '44px';
                     loginBtn.style.height = '44px';
                     if (loginSpan) loginSpan.style.display = 'none';
-                    
-                    // Ensure icon is visible
-                    if (!loginBtn.querySelector('i')) {
-                        loginBtn.innerHTML = '<i class="fas fa-user"></i>';
-                    }
-                } else if (window.innerWidth <= 767) {
+                    if (loginIcon) loginIcon.style.display = 'block';
+                } else if (isSmallMobile) {
                     // On small mobile screens, show text but compact
                     loginBtn.style.padding = '10px 16px';
                     loginBtn.style.minWidth = 'auto';
                     loginBtn.style.height = 'auto';
                     if (loginSpan) loginSpan.style.display = 'inline';
-                    
-                    // Ensure text is visible
-                    if (!loginSpan && !loginBtn.querySelector('span')) {
-                        loginBtn.innerHTML = '<span>Sign In</span>';
-                    }
+                    if (loginIcon) loginIcon.style.display = 'inline-block';
                 } else {
                     // On desktop/tablet, show full button
                     loginBtn.style.padding = '12px 24px';
                     loginBtn.style.minWidth = 'auto';
                     loginBtn.style.height = 'auto';
                     if (loginSpan) loginSpan.style.display = 'inline';
+                    if (loginIcon) loginIcon.style.display = 'inline-block';
                 }
             }
 
@@ -2752,7 +2745,7 @@
                         
                         // Simulate API call
                         setTimeout(() => {
-                            showNotification(`Subscribed successfully! Welcome to Vuna.`, 'success');
+                            showNotification(`Subscribed successfully! Welcome to Ashoko.`, 'success');
                             emailInput.value = '';
                             button.innerHTML = originalText;
                             button.disabled = false;
