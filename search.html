@@ -309,6 +309,11 @@
             transform: scale(1.02);
         }
 
+        /* Mobile Search (Hidden on desktop) */
+        .mobile-search-section {
+            display: none;
+        }
+
         /* User Actions */
         .user-actions {
             display: flex;
@@ -403,6 +408,151 @@
             background: rgba(45, 106, 79, 0.1);
         }
 
+        /* Mobile Header Adjustments */
+        @media (max-width: 767px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .nav-top {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .logo-section {
+                flex: 1;
+                min-width: 200px;
+            }
+            
+            .logo h1 {
+                font-size: 1.7rem;
+            }
+            
+            .tagline {
+                display: none;
+            }
+            
+            .search-section {
+                display: none;
+            }
+            
+            .mobile-search-section {
+                display: block !important;
+                margin-top: 12px;
+                animation: slideDown 0.3s ease;
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .mobile-search-section .search-container {
+                margin: 0;
+            }
+            
+            .mobile-search-section .search-input {
+                padding: 14px 16px;
+            }
+            
+            .user-actions {
+                gap: 12px;
+            }
+            
+            .action-item {
+                padding: 4px;
+            }
+            
+            .action-icon {
+                font-size: 1.3rem;
+                margin-bottom: 2px;
+            }
+            
+            .action-text {
+                font-size: 0.7rem;
+            }
+            
+            .cart-count {
+                width: 18px;
+                height: 18px;
+                font-size: 0.65rem;
+            }
+            
+            .login-btn {
+                display: none !important;
+            }
+            
+            .mobile-menu-btn {
+                display: block !important;
+                font-size: 1.4rem;
+                padding: 6px;
+                margin-left: 4px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mobile-search-section {
+                display: none !important;
+            }
+        }
+
+        /* Mobile Menu Toggle Animation */
+        .mobile-menu-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn.active i {
+            transform: rotate(90deg);
+        }
+
+        /* Overlay for mobile menu */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Prevent body scroll when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* Adjust header height on mobile */
+        @media (max-width: 767px) {
+            header {
+                min-height: 60px;
+            }
+            
+            .header-container {
+                min-height: 60px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
         /* Category Navigation */
         .category-nav {
             width: 100%;
@@ -476,6 +626,50 @@
 
         .category-list li a i {
             font-size: 1rem;
+        }
+
+        /* Mobile Category Navigation */
+        @media (max-width: 767px) {
+            .category-nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                z-index: 999;
+                max-height: 70vh;
+                overflow-y: auto;
+                display: none;
+                border-radius: 0 0 20px 20px;
+                padding: 0;
+            }
+            
+            .category-nav.active {
+                display: block;
+                animation: slideDown 0.3s ease;
+            }
+            
+            .category-container {
+                padding: 0 16px;
+            }
+            
+            .category-list {
+                flex-direction: column;
+                gap: 4px;
+                padding: 16px 0;
+            }
+            
+            .category-list li a {
+                padding: 14px 16px;
+                border-radius: 12px;
+                justify-content: flex-start;
+            }
+            
+            .category-list li a i {
+                min-width: 20px;
+                text-align: center;
+            }
         }
 
         /* Main Container */
@@ -572,6 +766,82 @@
             }
         }
 
+        /* Mobile Filters Toggle */
+        .mobile-filters-toggle {
+            display: none;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
+            margin-bottom: 20px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 991px) {
+            .mobile-filters-toggle {
+                display: flex;
+            }
+            
+            .filters-sidebar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 320px;
+                height: 100vh;
+                z-index: 1000;
+                border-radius: 0;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            .filters-sidebar.active {
+                left: 0;
+            }
+            
+            .mobile-filters-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none;
+                backdrop-filter: blur(4px);
+            }
+            
+            .mobile-filters-overlay.active {
+                display: block;
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .close-filters-btn {
+                display: block !important;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: var(--sale);
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                font-size: 1.2rem;
+                cursor: pointer;
+                z-index: 1001;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+        }
+
         /* Filters Sidebar */
         .filters-sidebar {
             width: 100%;
@@ -632,6 +902,10 @@
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
+        }
+
+        .close-filters-btn {
+            display: none;
         }
 
         .filter-section {
@@ -1550,6 +1824,14 @@
                     </button>
                 </div>
             </div>
+            
+            <!-- Mobile Search (Hidden on desktop) -->
+            <div class="mobile-search-section" style="display: none;">
+                <div class="search-container" id="mobileSearchForm">
+                    <input type="text" class="search-input" id="mobileSearchInput" placeholder="Search products..." autocomplete="off">
+                    <button type="button" class="search-btn" id="mobileSearchButton"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -1583,10 +1865,21 @@
             </div>
         </div>
 
+        <!-- Mobile Filters Toggle -->
+        <button class="mobile-filters-toggle" id="mobileFiltersToggle">
+            <i class="fas fa-filter"></i> Show Filters
+        </button>
+
+        <!-- Mobile Filters Overlay -->
+        <div class="mobile-filters-overlay" id="mobileFiltersOverlay"></div>
+
         <!-- Search Layout -->
         <div class="search-layout">
             <!-- Filters Sidebar -->
-            <aside class="filters-sidebar">
+            <aside class="filters-sidebar" id="filtersSidebar">
+                <button class="close-filters-btn" id="closeFiltersBtn">
+                    <i class="fas fa-times"></i>
+                </button>
                 <div class="filters-header">
                     <h2 class="filters-title"><i class="fas fa-filter"></i> Filters</h2>
                     <button class="clear-filters"><i class="fas fa-redo"></i> Clear All</button>
@@ -1979,6 +2272,14 @@
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Create mobile overlay element
+            const mobileOverlay = document.createElement('div');
+            mobileOverlay.className = 'mobile-overlay';
+            document.body.appendChild(mobileOverlay);
+            
+            // Create mobile filters overlay
+            const mobileFiltersOverlay = document.getElementById('mobileFiltersOverlay');
+            
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const searchQuery = urlParams.get('q') || 'coffee beans';
@@ -2000,6 +2301,16 @@
             const suggestionItems = document.querySelectorAll('.suggestion-item');
             const relatedTags = document.querySelectorAll('.related-tag');
             const cartCount = document.querySelector('.cart-count');
+            
+            // Mobile elements
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const categoryNav = document.querySelector('.category-nav');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchButton = document.getElementById('mobileSearchButton');
+            const categoryLinks = document.querySelectorAll('.category-link');
+            const mobileFiltersToggle = document.getElementById('mobileFiltersToggle');
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            const closeFiltersBtn = document.getElementById('closeFiltersBtn');
             
             // Set search query in input and display
             searchInput.value = searchQuery;
@@ -2032,6 +2343,35 @@
                 
                 // Update results count
                 updateResultsCount();
+                
+                // Setup mobile filters
+                setupMobileFilters();
+            }
+            
+            // Setup mobile filters functionality
+            function setupMobileFilters() {
+                if (mobileFiltersToggle && filtersSidebar) {
+                    mobileFiltersToggle.addEventListener('click', function() {
+                        filtersSidebar.classList.add('active');
+                        mobileFiltersOverlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    });
+                    
+                    closeFiltersBtn.addEventListener('click', function() {
+                        closeMobileFilters();
+                    });
+                    
+                    mobileFiltersOverlay.addEventListener('click', function() {
+                        closeMobileFilters();
+                    });
+                }
+            }
+            
+            // Close mobile filters
+            function closeMobileFilters() {
+                filtersSidebar.classList.remove('active');
+                mobileFiltersOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
             
             // Update filter UI based on active filters
@@ -2386,7 +2726,88 @@
                 }, 500);
             }
             
+            // Mobile menu functionality
+            function setupMobileMenu() {
+                if (mobileMenuBtn && categoryNav) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        const isActive = categoryNav.classList.contains('active');
+                        
+                        if (isActive) {
+                            categoryNav.classList.remove('active');
+                            mobileOverlay.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        } else {
+                            categoryNav.classList.add('active');
+                            mobileOverlay.classList.add('active');
+                            mobileMenuBtn.classList.add('active');
+                            document.body.classList.add('menu-open');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        }
+                    });
+                    
+                    // Close menu when clicking overlay
+                    mobileOverlay.addEventListener('click', function() {
+                        categoryNav.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                    
+                    // Close menu when clicking a category link
+                    categoryLinks.forEach(link => {
+                        link.addEventListener('click', function() {
+                            categoryNav.classList.remove('active');
+                            mobileOverlay.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        });
+                    });
+                }
+            }
+            
+            // Mobile search functionality
+            function setupMobileSearch() {
+                if (mobileSearchButton && mobileSearchInput) {
+                    mobileSearchButton.addEventListener('click', function() {
+                        performMobileSearch();
+                    });
+                    
+                    mobileSearchInput.addEventListener('keyup', function(event) {
+                        if (event.key === 'Enter') {
+                            performMobileSearch();
+                        }
+                    });
+                    
+                    function performMobileSearch() {
+                        const query = mobileSearchInput.value.trim();
+                        
+                        if (query === '') {
+                            showNotification('Please enter a search term', 'warning');
+                            mobileSearchInput.focus();
+                            return;
+                        }
+                        
+                        // Add loading animation
+                        const originalIcon = mobileSearchButton.innerHTML;
+                        mobileSearchButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        mobileSearchButton.disabled = true;
+                        
+                        setTimeout(() => {
+                            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                        }, 500);
+                    }
+                }
+            }
+            
             // Event Listeners
+            
+            // Setup mobile functionality
+            setupMobileMenu();
+            setupMobileSearch();
             
             // Search button click
             searchButton.addEventListener('click', performSearch);
@@ -2446,6 +2867,11 @@
                     
                     // Update URL
                     updateURL();
+                    
+                    // Close mobile filters on mobile
+                    if (window.innerWidth < 992) {
+                        closeMobileFilters();
+                    }
                 });
             });
             
@@ -2496,6 +2922,11 @@
                 // Update URL
                 updateURL();
                 
+                // Close mobile filters on mobile
+                if (window.innerWidth < 992) {
+                    closeMobileFilters();
+                }
+                
                 showNotification('All filters cleared', 'info');
             });
             
@@ -2520,7 +2951,6 @@
             });
             
             // Category links in navigation
-            const categoryLinks = document.querySelectorAll('.category-link');
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
