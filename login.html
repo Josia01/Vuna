@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Vuna Premium African Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Add Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    
     <style>
+        /* Your existing CSS styles remain unchanged */
         * {
             margin: 0;
             padding: 0;
@@ -1826,7 +1832,374 @@
     </footer>
 
     <script>
+        // ========== FIREBASE CONFIGURATION ==========
+        // Your Firebase project configuration from Firebase Console
+        const firebaseConfig = {
+            apiKey: "AIzaSyDw4_1o0-4Fp_ELwg_hI6NgxhZfs_Tj8_8",
+            authDomain: "vuna-market-place.firebaseapp.com",
+            databaseURL: "https://vuna-market-place-default-rtdb.firebaseio.com",
+            projectId: "vuna-market-place",
+            storageBucket: "vuna-market-place.firebasestorage.app",
+            messagingSenderId: "886035071039",
+            appId: "1:886035071039:web:9b2e55c80db8ff4271388a",
+            measurementId: "G-5T0PH0KNW8"
+        };
+
+        // Initialize Firebase
+        let app;
+        let auth;
+
+        try {
+            app = firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            console.log("Firebase initialized successfully for Vuna Marketplace");
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+        }
+
+        // ========== FIREBASE AUTHENTICATION FUNCTIONS ==========
+
+        // Handle Google Sign-In
+        async function signInWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                // Add scopes if needed
+                provider.addScope('profile');
+                provider.addScope('email');
+                
+                // Set custom parameters
+                provider.setCustomParameters({
+                    prompt: 'select_account'
+                });
+                
+                // Show loading state
+                showNotification('Connecting to Google...', 'info');
+                const googleLoginBtn = document.getElementById('googleLogin');
+                const originalContent = googleLoginBtn.innerHTML;
+                googleLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+                googleLoginBtn.disabled = true;
+                
+                // Sign in with popup
+                const result = await auth.signInWithPopup(provider);
+                
+                // This gives you a Google Access Token
+                const credential = firebase.auth.GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                
+                // The signed-in user info
+                const user = result.user;
+                
+                console.log("Google sign-in successful:", user);
+                showNotification(`Welcome ${user.displayName}!`, 'success');
+                
+                // Store user info in localStorage or sessionStorage
+                localStorage.setItem('vuna_user', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                    userType: selectedUserType || 'buyer'
+                }));
+                
+                // Reset button state
+                googleLoginBtn.innerHTML = originalContent;
+                googleLoginBtn.disabled = false;
+                
+                // Redirect based on user type
+                handleAuthRedirect();
+                
+            } catch (error) {
+                console.error("Google sign-in error:", error);
+                
+                // Reset button state
+                const googleLoginBtn = document.getElementById('googleLogin');
+                googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Google';
+                googleLoginBtn.disabled = false;
+                
+                // Handle specific error cases
+                if (error.code === 'auth/popup-blocked') {
+                    showNotification('Popup was blocked by browser. Please allow popups for this site.', 'error');
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    showNotification('Sign-in was cancelled.', 'warning');
+                } else if (error.code === 'auth/network-request-failed') {
+                    showNotification('Network error. Please check your connection.', 'error');
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    showNotification('This domain is not authorized for Google sign-in.', 'error');
+                } else {
+                    showNotification(`Sign-in failed: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // Handle Facebook Sign-In
+        async function signInWithFacebook() {
+            try {
+                const provider = new firebase.auth.FacebookAuthProvider();
+                // Add scopes if needed
+                provider.addScope('email');
+                provider.addScope('public_profile');
+                
+                // Show loading state
+                showNotification('Connecting to Facebook...', 'info');
+                const facebookLoginBtn = document.getElementById('facebookLogin');
+                const originalContent = facebookLoginBtn.innerHTML;
+                facebookLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+                facebookLoginBtn.disabled = true;
+                
+                // Sign in with popup
+                const result = await auth.signInWithPopup(provider);
+                
+                // The signed-in user info
+                const user = result.user;
+                
+                console.log("Facebook sign-in successful:", user);
+                showNotification(`Welcome ${user.displayName}!`, 'success');
+                
+                // Store user info
+                localStorage.setItem('vuna_user', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                    userType: selectedUserType || 'buyer'
+                }));
+                
+                // Reset button state
+                facebookLoginBtn.innerHTML = originalContent;
+                facebookLoginBtn.disabled = false;
+                
+                // Redirect based on user type
+                handleAuthRedirect();
+                
+            } catch (error) {
+                console.error("Facebook sign-in error:", error);
+                
+                // Reset button state
+                const facebookLoginBtn = document.getElementById('facebookLogin');
+                facebookLoginBtn.innerHTML = '<i class="fab fa-facebook-f"></i> Facebook';
+                facebookLoginBtn.disabled = false;
+                
+                // Handle specific error cases
+                if (error.code === 'auth/account-exists-with-different-credential') {
+                    showNotification('An account already exists with the same email address but different sign-in credentials.', 'error');
+                } else if (error.code === 'auth/popup-blocked') {
+                    showNotification('Popup was blocked by browser. Please allow popups for this site.', 'error');
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    showNotification('Sign-in was cancelled.', 'warning');
+                } else {
+                    showNotification(`Facebook sign-in failed: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // Handle Email/Password Sign-Up
+        async function signUpWithEmail(email, password, name, userType) {
+            try {
+                showNotification('Creating your account...', 'info');
+                
+                // Create user with email and password
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Update profile with display name
+                await user.updateProfile({
+                    displayName: name
+                });
+                
+                // Send email verification (optional)
+                await user.sendEmailVerification();
+                
+                console.log("Email sign-up successful:", user);
+                
+                // Store user info
+                localStorage.setItem('vuna_user', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: name,
+                    userType: userType,
+                    emailVerified: user.emailVerified
+                }));
+                
+                showNotification(`Welcome to Vuna, ${name}! Please check your email for verification.`, 'success');
+                
+                // Show success modal
+                showSuccessModal();
+                
+                return user;
+                
+            } catch (error) {
+                console.error("Email sign-up error:", error);
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    showNotification('This email is already registered. Please sign in instead.', 'error');
+                } else if (error.code === 'auth/invalid-email') {
+                    showNotification('Please enter a valid email address.', 'error');
+                } else if (error.code === 'auth/weak-password') {
+                    showNotification('Password should be at least 6 characters.', 'error');
+                } else {
+                    showNotification(`Sign-up failed: ${error.message}`, 'error');
+                }
+                
+                throw error;
+            }
+        }
+
+        // Handle Email/Password Sign-In
+        async function signInWithEmail(email, password) {
+            try {
+                showNotification('Signing in...', 'info');
+                
+                // Sign in with email and password
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                console.log("Email sign-in successful:", user);
+                
+                // Check if email is verified (optional)
+                if (!user.emailVerified) {
+                    showNotification('Please verify your email address to access all features.', 'warning');
+                }
+                
+                // Get user type from local storage or database (in a real app)
+                const storedUser = JSON.parse(localStorage.getItem('vuna_user') || '{}');
+                const userType = storedUser.userType || 'buyer';
+                
+                // Store updated user info
+                localStorage.setItem('vuna_user', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName || storedUser.displayName,
+                    photoURL: user.photoURL,
+                    userType: userType,
+                    emailVerified: user.emailVerified
+                }));
+                
+                showNotification(`Welcome back, ${user.displayName || user.email}!`, 'success');
+                
+                // Redirect based on user type
+                handleAuthRedirect();
+                
+                return user;
+                
+            } catch (error) {
+                console.error("Email sign-in error:", error);
+                
+                if (error.code === 'auth/user-not-found') {
+                    showNotification('No account found with this email. Please sign up first.', 'error');
+                } else if (error.code === 'auth/wrong-password') {
+                    showNotification('Incorrect password. Please try again.', 'error');
+                } else if (error.code === 'auth/invalid-email') {
+                    showNotification('Please enter a valid email address.', 'error');
+                } else if (error.code === 'auth/user-disabled') {
+                    showNotification('This account has been disabled. Please contact support.', 'error');
+                } else {
+                    showNotification(`Sign-in failed: ${error.message}`, 'error');
+                }
+                
+                throw error;
+            }
+        }
+
+        // Handle Password Reset
+        async function resetPassword(email) {
+            try {
+                showNotification('Sending reset email...', 'info');
+                
+                await auth.sendPasswordResetEmail(email);
+                
+                showNotification('Password reset email sent! Check your inbox.', 'success');
+                closeAllModals();
+                
+            } catch (error) {
+                console.error("Password reset error:", error);
+                
+                if (error.code === 'auth/user-not-found') {
+                    showNotification('No account found with this email.', 'error');
+                } else if (error.code === 'auth/invalid-email') {
+                    showNotification('Please enter a valid email address.', 'error');
+                } else {
+                    showNotification(`Failed to send reset email: ${error.message}`, 'error');
+                }
+                
+                throw error;
+            }
+        }
+
+        // Handle Sign Out
+        function signOut() {
+            try {
+                auth.signOut();
+                localStorage.removeItem('vuna_user');
+                showNotification('Signed out successfully.', 'success');
+                
+                // Redirect to login page
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error("Sign out error:", error);
+                showNotification('Error signing out. Please try again.', 'error');
+            }
+        }
+
+        // Check if user is already signed in
+        function checkAuthState() {
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    // User is signed in
+                    console.log("User is signed in:", user);
+                    
+                    // Update UI for signed-in user
+                    const userActions = document.querySelector('.user-actions');
+                    if (userActions) {
+                        const accountLink = userActions.querySelector('a[href="account.html"]');
+                        if (accountLink) {
+                            accountLink.innerHTML = `
+                                <i class="fas fa-user-circle action-icon"></i>
+                                <span class="action-text">${user.displayName || 'Account'}</span>
+                            `;
+                        }
+                    }
+                    
+                    // If already on login page and signed in, redirect to home
+                    if (window.location.pathname.includes('login.html')) {
+                        setTimeout(() => {
+                            handleAuthRedirect();
+                        }, 1000);
+                    }
+                } else {
+                    // User is signed out
+                    console.log("User is signed out");
+                }
+            });
+        }
+
+        // Handle redirect after authentication
+        function handleAuthRedirect() {
+            // Get user type from local storage
+            const userData = JSON.parse(localStorage.getItem('vuna_user') || '{}');
+            const userType = userData.userType || 'buyer';
+            
+            if (userType === 'seller') {
+                // Redirect to seller dashboard
+                setTimeout(() => {
+                    window.location.href = 'seller-dashboard.html';
+                }, 1500);
+            } else {
+                // Redirect to buyer account page or home
+                setTimeout(() => {
+                    window.location.href = 'account.html';
+                }, 1500);
+            }
+        }
+
+        // ========== MODIFIED EVENT LISTENERS ==========
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Firebase auth state listener
+            checkAuthState();
+            
             // Create mobile overlay element
             const mobileOverlay = document.createElement('div');
             mobileOverlay.className = 'mobile-overlay';
@@ -1870,7 +2243,7 @@
             
             // State variables
             let isSignUp = false;
-            let selectedUserType = 'buyer'; // Default to buyer
+            let selectedUserType = 'buyer';
             let isPasswordVisible = false;
             let isConfirmPasswordVisible = false;
             
@@ -1878,6 +2251,15 @@
             function initialize() {
                 setupEventListeners();
                 selectUserType('buyer');
+                
+                // Check if user is already logged in
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    showNotification(`Welcome back, ${currentUser.displayName || currentUser.email}!`, 'info');
+                    setTimeout(() => {
+                        handleAuthRedirect();
+                    }, 2000);
+                }
             }
             
             // Setup event listeners
@@ -2013,12 +2395,43 @@
                     });
                 });
                 
-                // Form submission
-                authForm.addEventListener('submit', handleFormSubmit);
+                // Form submission - MODIFIED for Firebase
+                authForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Validate form
+                    if (!validateForm()) {
+                        return;
+                    }
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    loadingSpinner.style.display = 'inline-block';
+                    submitText.textContent = isSignUp ? 'Creating Account...' : 'Signing In...';
+                    
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    
+                    try {
+                        if (isSignUp) {
+                            const name = document.getElementById('name').value;
+                            await signUpWithEmail(email, password, name, selectedUserType);
+                        } else {
+                            await signInWithEmail(email, password);
+                        }
+                    } catch (error) {
+                        // Error is already handled in the functions
+                    } finally {
+                        // Hide loading state
+                        submitBtn.disabled = false;
+                        loadingSpinner.style.display = 'none';
+                        submitText.textContent = isSignUp ? 'Create Account' : 'Sign In';
+                    }
+                });
                 
-                // Social login buttons
-                googleLoginBtn.addEventListener('click', handleGoogleLogin);
-                facebookLoginBtn.addEventListener('click', handleFacebookLogin);
+                // Social login buttons - MODIFIED for Firebase
+                googleLoginBtn.addEventListener('click', signInWithGoogle);
+                facebookLoginBtn.addEventListener('click', signInWithFacebook);
                 
                 // Password visibility toggle
                 togglePasswordBtn.addEventListener('click', function() {
@@ -2038,17 +2451,36 @@
                 // Modal close button
                 closeModalBtn.addEventListener('click', closeAllModals);
                 
-                // Reset password form
-                resetPasswordForm.addEventListener('submit', handleResetPassword);
+                // Reset password form - MODIFIED for Firebase
+                resetPasswordForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('resetEmail').value;
+                    
+                    if (!email || !isValidEmail(email)) {
+                        showNotification('Please enter a valid email address', 'error');
+                        return;
+                    }
+                    
+                    // Show loading
+                    const submitBtn = resetPasswordForm.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        await resetPassword(email);
+                    } catch (error) {
+                        // Error is already handled in the function
+                    } finally {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
                 
                 // Continue button
                 continueBtn.addEventListener('click', function() {
-                    // Redirect based on user type
-                    if (selectedUserType === 'seller') {
-                        window.location.href = 'seller-dashboard.html';
-                    } else {
-                        window.location.href = 'account.html';
-                    }
+                    handleAuthRedirect();
                 });
                 
                 // Close modal on outside click
@@ -2102,7 +2534,7 @@
             // Select user type
             function selectUserType(type) {
                 selectedUserType = type;
-                userTypeInput.value = type; // Update hidden input
+                userTypeInput.value = type;
                 
                 // Update UI
                 userTypeOptions.forEach(option => {
@@ -2138,60 +2570,6 @@
                 }
             }
             
-            // Handle form submission
-            async function handleFormSubmit(e) {
-                e.preventDefault();
-                
-                // Validate form
-                if (!validateForm()) {
-                    return;
-                }
-                
-                // Show loading state
-                submitBtn.disabled = true;
-                loadingSpinner.style.display = 'inline-block';
-                submitText.textContent = isSignUp ? 'Creating Account...' : 'Signing In...';
-                
-                // Simulate API call
-                await simulateAPICall();
-                
-                // Hide loading state
-                submitBtn.disabled = false;
-                loadingSpinner.style.display = 'none';
-                submitText.textContent = isSignUp ? 'Create Account' : 'Sign In';
-                
-                if (isSignUp) {
-                    // Show success modal
-                    showSuccessModal();
-                } else {
-                    // Handle sign in redirect based on user type
-                    handleSignInRedirect();
-                }
-            }
-            
-            // Handle sign in redirect based on user type
-            function handleSignInRedirect() {
-                // For demo purposes, we'll simulate checking user type
-                // In a real app, this would come from the API response
-                
-                // Check if user selected seller type (either from current selection or stored preference)
-                const isSeller = selectedUserType === 'seller';
-                
-                if (isSeller) {
-                    // For sellers, redirect to seller dashboard
-                    showNotification('Welcome back, Seller! Redirecting to dashboard...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'seller-dashboard.html';
-                    }, 1500);
-                } else {
-                    // For buyers, redirect to regular account page
-                    showNotification('Welcome back! Redirecting...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'account.html';
-                    }, 1500);
-                }
-            }
-            
             // Validate form
             function validateForm() {
                 const email = document.getElementById('email').value;
@@ -2214,8 +2592,8 @@
                 if (!password) {
                     showError('password', 'Please enter your password');
                     isValid = false;
-                } else if (isSignUp && password.length < 8) {
-                    showError('password', 'Password must be at least 8 characters');
+                } else if (isSignUp && password.length < 6) {
+                    showError('password', 'Password must be at least 6 characters');
                     isValid = false;
                 }
                 
@@ -2271,33 +2649,6 @@
                 });
             }
             
-            // Simulate API call
-            function simulateAPICall() {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        resolve();
-                    }, 1500);
-                });
-            }
-            
-            // Handle Google login
-            function handleGoogleLogin() {
-                showLoading();
-                setTimeout(() => {
-                    hideLoading();
-                    showNotification('Google login coming soon!', 'info');
-                }, 1000);
-            }
-            
-            // Handle Facebook login
-            function handleFacebookLogin() {
-                showLoading();
-                setTimeout(() => {
-                    hideLoading();
-                    showNotification('Facebook login coming soon!', 'info');
-                }, 1000);
-            }
-            
             // Open forgot password modal
             function openForgotPasswordModal() {
                 forgotPasswordModal.classList.add('active');
@@ -2309,34 +2660,6 @@
                 forgotPasswordModal.classList.remove('active');
                 successModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
-            }
-            
-            // Handle reset password
-            function handleResetPassword(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('resetEmail').value;
-                
-                if (!email || !isValidEmail(email)) {
-                    showNotification('Please enter a valid email address', 'error');
-                    return;
-                }
-                
-                // Show loading
-                const submitBtn = resetPasswordForm.querySelector('.submit-btn');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                // Simulate sending reset email
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    
-                    showNotification('Password reset link sent to your email!', 'success');
-                    closeAllModals();
-                    resetPasswordForm.reset();
-                }, 1500);
             }
             
             // Show success modal
@@ -2353,20 +2676,6 @@
                 
                 successModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            }
-            
-            // Show loading state
-            function showLoading() {
-                submitBtn.disabled = true;
-                loadingSpinner.style.display = 'inline-block';
-                submitText.style.display = 'none';
-            }
-            
-            // Hide loading state
-            function hideLoading() {
-                submitBtn.disabled = false;
-                loadingSpinner.style.display = 'none';
-                submitText.style.display = 'inline';
             }
             
             // Show notification
