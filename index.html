@@ -1096,43 +1096,6 @@
         .slideshow-dot:hover {
             background-color: white;
         }
-        
-        .slideshow-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-        
-        .slideshow-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .slideshow-btn.prev {
-            left: 20px;
-        }
-        
-        .slideshow-btn.next {
-            right: 20px;
-        }
-        
-        .slideshow-btn i {
-            filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
-        }
 
         .banner-item {
             background: white;
@@ -2051,14 +2014,6 @@
                                     <a href="#" class="btn btn-primary" style="margin-top: 15px; align-self: flex-start; max-width: 200px;">Shop Ghanaian</a>
                                 </div>
                                 
-                                <!-- Navigation buttons -->
-                                <button class="slideshow-btn prev">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <button class="slideshow-btn next">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                                
                                 <!-- Dots navigation -->
                                 <div class="slideshow-nav">
                                     <span class="slideshow-dot active" data-slide="0"></span>
@@ -2881,8 +2836,6 @@
             if (slideshowContainer) {
                 const slides = document.querySelectorAll('.slideshow-slide');
                 const dots = document.querySelectorAll('.slideshow-dot');
-                const prevBtn = document.querySelector('.slideshow-btn.prev');
-                const nextBtn = document.querySelector('.slideshow-btn.next');
                 
                 let currentSlide = 0;
                 let slideshowInterval;
@@ -2907,28 +2860,6 @@
                     currentSlide++;
                     if (currentSlide >= slides.length) currentSlide = 0;
                     showSlide(currentSlide);
-                }
-                
-                // Function to go to previous slide
-                function prevSlide() {
-                    currentSlide--;
-                    if (currentSlide < 0) currentSlide = slides.length - 1;
-                    showSlide(currentSlide);
-                }
-                
-                // Event listeners for buttons
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        nextSlide();
-                        resetInterval();
-                    });
-                }
-                
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        prevSlide();
-                        resetInterval();
-                    });
                 }
                 
                 // Event listeners for dots
@@ -2987,7 +2918,9 @@
                     
                     if (touchEndX > touchStartX + swipeThreshold) {
                         // Swipe right - previous slide
-                        prevSlide();
+                        currentSlide--;
+                        if (currentSlide < 0) currentSlide = slides.length - 1;
+                        showSlide(currentSlide);
                         resetInterval();
                     }
                 }
@@ -3078,7 +3011,6 @@
                     @keyframes slideOut {
                         from { transform: translateX(0) translateY(0); opacity: 1; }
                         to { transform: translateX(100%) translateY(20px); opacity: 0; }
-                    }
                 `;
                 document.head.appendChild(style);
                 
