@@ -214,6 +214,11 @@
             .dear-lisa { font-size: 2.3rem; }
             .heart-emoji-big { font-size: 3rem; }
         }
+
+        /* one-click protection: prevent double-tap zoom on buttons */
+        button {
+            touch-action: manipulation;
+        }
     </style>
 </head>
 <body>
@@ -229,10 +234,9 @@
             <span class="heart-emoji-big">💌💘💌</span>
             <div class="dear-lisa">Dear Lisa,</div>
             
-            <!-- Single YES button – works immediately, no extra text -->
+            <!-- Single YES button – works immediately, guaranteed one time -->
             <button id="dearLisaYesBtn" class="btn btn-yes" style="font-size:2.2rem; padding:22px 54px; min-width:240px; margin-top:20px; margin-bottom:20px;">YES 💖</button>
             
-            <!-- Only "click yes to continue" – removed everything else -->
             <p style="margin-top:28px; color:#b34763; font-size:1.4rem; font-weight:600;">❤️ click yes to continue ❤️</p>
         </div>
     </div>
@@ -248,7 +252,7 @@
             </div>
 
             <div class="buttons-container" id="buttonContainer">
-                <!-- YES button – final click = hearts explosion (works first time) -->
+                <!-- YES button – final click = hearts explosion. WORKS FIRST TIME, ONE CLICK ONLY -->
                 <button class="btn btn-yes" id="finalYesBtn">YES 💞</button>
                 <!-- RUNAWAY NO button – impossible to click -->
                 <button class="btn btn-no" id="noBtn">NO 🏃‍♀️</button>
@@ -280,7 +284,11 @@
             const canvas = document.getElementById('heartCanvas');
             const container = document.getElementById('buttonContainer');
 
-            // ---------- HEARTS EXPLOSION (triggers on first final YES click) ----------
+            // ---------- FLAG SYSTEM – ENSURE EACH YES BUTTON ONLY TRIGGERS ONCE ----------
+            let dearLisaClicked = false;   // screen 1 guard
+            let finalYesClicked = false;   // screen 2 guard
+
+            // ---------- HEARTS EXPLOSION ----------
             let heartsArray = [];
             let animationFrame = null;
             let ctx = canvas.getContext('2d');
@@ -340,7 +348,7 @@
                 }
             }
 
-            function spawnHearts(count = 200) {
+            function spawnHearts(count = 220) {
                 if (animationFrame) {
                     cancelAnimationFrame(animationFrame);
                     animationFrame = null;
@@ -362,18 +370,39 @@
                 drawHearts();
             }
 
-            // ---------- STEP 1: FROM DEAR LISA TO PROPOSAL (WORKS FIRST TIME, ALWAYS) ----------
-            dearLisaYesBtn.addEventListener('click', function(e) {
+            // ---------- STEP 1: DEAR LISA → PROPOSAL (ONE CLICK ONLY) ----------
+            function handleDearLisaClick(e) {
                 e.preventDefault();
-                // hide dear lisa screen, show proposal screen
+                
+                // GUARANTEED SINGLE CLICK: if already clicked, do nothing.
+                if (dearLisaClicked) return;
+                dearLisaClicked = true;
+                
+                // Disable button visually and functionally
+                dearLisaYesBtn.disabled = true;
+                dearLisaYesBtn.style.opacity = '0.8';
+                dearLisaYesBtn.style.pointerEvents = 'none';
+                
+                // Switch screens
                 screenDearLisa.classList.add('hidden');
                 screenProposal.classList.remove('hidden');
-            });
+            }
+
+            dearLisaYesBtn.addEventListener('click', handleDearLisaClick);
             dearLisaYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
-            // ---------- STEP 2: FINAL YES — HEARTS EXPLOSION (WORKS FIRST CLICK, NO MULTIPLE PRESSES) ----------
-            function onFinalYesClick(e) {
-                if (e) e.preventDefault();
+            // ---------- STEP 2: FINAL YES — HEARTS EXPLOSION (ONE CLICK ONLY, FIRST TIME) ----------
+            function handleFinalYesClick(e) {
+                e.preventDefault();
+                
+                // GUARANTEED SINGLE CLICK: if already clicked, absolutely do nothing.
+                if (finalYesClicked) return;
+                finalYesClicked = true;
+                
+                // Disable the YES button permanently (single click)
+                finalYesBtn.disabled = true;
+                finalYesBtn.style.opacity = '0.9';
+                finalYesBtn.style.pointerEvents = 'none';
                 
                 // Change message to pure joy
                 messageBox.innerHTML = '💘💘💘 YAAAAAY! LOVE YOU LISA! 💘💘💘';
@@ -388,13 +417,11 @@
                 finalYesBtn.style.transform = 'scale(1.3)';
                 setTimeout(() => finalYesBtn.style.transform = 'scale(1)', 200);
                 
-                // 💥 HEARTS EXPLOSION - TRIGGERS IMMEDIATELY, ONLY ONCE 💥
-                spawnHearts(220);
+                // 💥 HEARTS EXPLOSION - TRIGGERS IMMEDIATELY, FIRST TIME ONLY 💥
+                spawnHearts(240);
             }
 
-            // Remove any existing listeners and attach fresh one – GUARANTEED SINGLE CLICK
-            finalYesBtn.removeEventListener('click', onFinalYesClick);
-            finalYesBtn.addEventListener('click', onFinalYesClick);
+            finalYesBtn.addEventListener('click', handleFinalYesClick);
             finalYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
             // ---------- RUNAWAY NO BUTTON (TOTALLY UNCLICKABLE) ----------
@@ -522,6 +549,6 @@
         })();
     </script>
 
-    <!-- Absolutely no footer, no extra text. Pure Lisa. -->
+    <!-- Absolutely no footer, no extra text. Pure Lisa. One click. Done. -->
 </body>
 </html>
