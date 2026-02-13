@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Lisa, be my Valentine? 💘</title>
+    <title>💌 Lisa, will you be my Valentine?</title>
     <style>
+        /* ---------- GLOBAL ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(145deg, #fff0f2 0%, #ffd9e0 100%);
+            background: linear-gradient(145deg, #ffeaee 0%, #ffd0d8 100%);
             font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -20,20 +21,22 @@
             align-items: center;
             margin: 0;
             padding: 16px;
-            touch-action: pan-y; 
+            touch-action: pan-y;
+            transition: background 0.5s ease;
         }
 
-        .valentine-wrapper {
-            max-width: 550px;
+        /* both screens share same card style */
+        .screen {
+            max-width: 600px;
             width: 100%;
-            background: rgba(255, 245, 240, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 48px 24px 48px 24px;
-            box-shadow: 0 20px 40px rgba(200, 60, 100, 0.25);
-            padding: 32px 24px;
-            border: 2px solid rgba(255, 160, 170, 0.6);
-            transition: all 0.3s ease;
+            background: rgba(255, 240, 240, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 56px 28px 56px 28px;
+            box-shadow: 0 25px 45px rgba(200, 70, 100, 0.3);
+            padding: 36px 28px;
+            border: 3px solid rgba(255, 200, 200, 0.7);
+            transition: all 0.4s ease;
         }
 
         .card {
@@ -43,14 +46,57 @@
             text-align: center;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
+        /* ---------- DEAR LISA PAGE ---------- */
+        .dear-lisa {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #b33b5c;
+            text-shadow: 3px 3px 0 #ffe0e0;
+            margin-bottom: 8px;
+            letter-spacing: 4px;
+        }
+
+        .handwritten {
+            background: #ffe9ef;
+            padding: 28px 22px;
+            border-radius: 60px 20px 60px 20px;
+            margin: 24px 0 32px;
+            border: 3px dashed #ff859a;
+            box-shadow: inset 0 0 0 2px white, 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .handwritten p {
+            font-size: 1.8rem;
+            line-height: 1.4;
+            color: #9e2e4a;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .heart-emoji-big {
+            font-size: 3.5rem;
+            animation: float 2.2s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ---------- PROPOSAL PAGE ---------- */
         .lisa-name {
-            background: #ffc0cb;
+            background: #ffb6c1;
             padding: 12px 28px;
             border-radius: 60px;
             font-size: 2.2rem;
             display: inline-block;
-            color: #9e2a4b;
-            box-shadow: 0 8px 0 #e68a9a;
+            color: #941e3a;
+            box-shadow: 0 8px 0 #d86b7e;
             margin-bottom: 28px;
             font-weight: 700;
             border: 3px solid white;
@@ -90,7 +136,7 @@
             margin-bottom: 30px;
             width: 100%;
             position: relative;
-            min-height: 110px;
+            min-height: 120px;
         }
 
         .btn {
@@ -101,9 +147,9 @@
             font-weight: bold;
             border-radius: 120px;
             box-shadow: 0 14px 0 #b3b3b3, 0 12px 24px rgba(0,0,0,0.15);
-            transition: transform 0.08s, box-shadow 0.08s, left 0.15s ease, top 0.15s ease, right 0.15s ease, bottom 0.15s ease;
+            transition: transform 0.08s, box-shadow 0.08s, left 0.18s ease, top 0.18s ease;
             cursor: pointer;
-            touch-action: none; /* kill pan/zoom on buttons */
+            touch-action: none;
             border: 3px solid white;
             letter-spacing: 3px;
             display: inline-flex;
@@ -112,7 +158,7 @@
             gap: 8px;
             flex: 0 1 auto;
             min-width: 160px;
-            position: relative; /* for movement */
+            position: relative;
         }
 
         .btn-yes {
@@ -122,22 +168,17 @@
             border: 3px solid #ffe6e9;
         }
 
-        .btn-no {
-            background: #e0e0e0;
-            color: #2d2d2d;
-            box-shadow: 0 14px 0 #7a7a7a;
-            border: 3px solid #ffffff;
-            transition: all 0.18s cubic-bezier(0.34, 1.4, 0.64, 1.2); /* bouncy escape */
-        }
-
         .btn-yes:active {
             transform: translateY(10px);
             box-shadow: 0 4px 0 #a1334b, 0 12px 24px rgba(0,0,0,0.15);
         }
 
-        /* The NO button is completely unclickable — it runs away */
-        .btn-no.evasive-mode {
-            transition: left 0.2s ease-out, top 0.2s ease-out, right 0.2s ease-out, bottom 0.2s ease-out, transform 0.1s;
+        .btn-no {
+            background: #e0e0e0;
+            color: #2d2d2d;
+            box-shadow: 0 14px 0 #7a7a7a;
+            border: 3px solid #ffffff;
+            transition: all 0.18s cubic-bezier(0.34, 1.4, 0.64, 1.2);
         }
 
         .message-area {
@@ -155,7 +196,7 @@
             box-shadow: inset 0 2px 6px rgba(150, 0, 0, 0.1);
         }
 
-        /* heart canvas fullscreen overlay */
+        /* heart canvas fullscreen */
         .heart-canvas-container {
             position: fixed;
             top: 0;
@@ -176,104 +217,90 @@
 
         /* mobile adjustments */
         @media (max-width: 500px) {
-            .valentine-wrapper {
-                padding: 24px 16px;
-            }
-            .lisa-name {
-                font-size: 1.9rem;
-                padding: 10px 22px;
-            }
-            .question {
-                font-size: 1.8rem;
-            }
-            .btn {
-                padding: 16px 24px;
-                font-size: 1.7rem;
-                min-width: 140px;
-            }
-            .buttons-container {
-                gap: 30px;
-            }
+            .screen { padding: 28px 20px; }
+            .dear-lisa { font-size: 2.2rem; }
+            .handwritten p { font-size: 1.6rem; }
+            .lisa-name { font-size: 1.9rem; }
+            .question { font-size: 1.8rem; }
+            .btn { padding: 16px 24px; font-size: 1.7rem; min-width: 140px; }
+            .buttons-container { gap: 30px; }
         }
 
         @media (max-width: 400px) {
-            .btn {
-                padding: 14px 18px;
-                font-size: 1.5rem;
-                min-width: 120px;
-            }
-            .lisa-name {
-                font-size: 1.7rem;
-            }
-            .question {
-                font-size: 1.6rem;
-            }
-            .message-area {
-                font-size: 1.5rem;
-            }
-        }
-
-        .fun-footer {
-            margin-top: 20px;
-            color: #c1556b;
-            font-size: 1.1rem;
-            opacity: 0.9;
+            .btn { padding: 14px 18px; font-size: 1.5rem; min-width: 120px; }
+            .lisa-name { font-size: 1.7rem; }
+            .question { font-size: 1.6rem; }
+            .message-area { font-size: 1.5rem; }
+            .dear-lisa { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="valentine-wrapper">
+    <!-- ========== CANVAS FOR HEARTS (hidden until final YES) ========= -->
+    <div id="heartCanvasContainer" class="heart-canvas-container">
+        <canvas id="heartCanvas"></canvas>
+    </div>
+
+    <!-- ========== SCREEN 1 : DEAR LISA ========= -->
+    <div id="screenDearLisa" class="screen">
         <div class="card">
-            <span class="heart-big">❤️🧡💖</span>
-            
+            <span class="heart-emoji-big">💌💘</span>
+            <div class="dear-lisa">Dear Lisa,</div>
+            <div class="handwritten">
+                <p>you make my heart<br>skip a beat 💓</p>
+                <p style="font-size:2rem; margin-top:16px;">will you be mine?</p>
+            </div>
+            <!-- only one button: YES (leads to proposal page) -->
+            <button id="dearLisaYesBtn" class="btn btn-yes" style="font-size:2rem; padding:20px 48px; min-width:200px;">YES 💖</button>
+            <p style="margin-top:28px; color:#b34763; font-size:1.3rem;">❤️ click Yes to continue ❤️</p>
+        </div>
+    </div>
+
+    <!-- ========== SCREEN 2 : VALENTINE PROPOSAL ========= -->
+    <div id="screenProposal" class="screen hidden">
+        <div class="card">
+            <span class="heart-big">❤️🧡💛</span>
             <span class="lisa-name">💘 Lisa 💘</span>
             
             <div class="question">
                 <span>Will you be my Valentine?</span>
             </div>
 
-            <!-- YES button (stable) and NO button (flees) -->
             <div class="buttons-container" id="buttonContainer">
-                <button class="btn btn-yes" id="yesBtn">YES 💞</button>
+                <!-- YES button – final click = hearts explosion -->
+                <button class="btn btn-yes" id="finalYesBtn">YES 💞</button>
+                <!-- RUNAWAY NO button – impossible to click -->
                 <button class="btn btn-no" id="noBtn">NO 🏃‍♀️</button>
             </div>
 
-            <!-- New message: no more "I hope you say yes" — now it's cheeky 😂 -->
+            <!-- message: "you better say YES, Lisa!" exactly as requested -->
             <div class="message-area" id="messageBox">
                 😂 you better say YES, Lisa!
             </div>
-            <div class="fun-footer">
-                ✨ click YES — hearts explode! ✨
-            </div>
+            
+            <!-- FOOTER REMOVED (no 'click yes heart explodes' / no 'made with love') -->
         </div>
-    </div>
-
-    <!-- Hearts explosion canvas -->
-    <div id="heartCanvasContainer" class="heart-canvas-container">
-        <canvas id="heartCanvas"></canvas>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // --------------------  LISA EDITION: RUNAWAY NO BUTTON  --------------------
-            // 1. YES click → floods screen with love hearts.
-            // 2. NO button is IMPOSSIBLE to click: it moves to opposite side instantly 
-            //    when finger/cursor approaches. Never changes text, never becomes YES.
-            // 3. Removed "Valentine's Day" heading, removed "I hope you say yes" 
-            //    → message: "😂 you better say YES, Lisa!"
-            // 4. Only way to get hearts is clicking YES.
-            
+            // ---------- SCREEN ELEMENTS ----------
+            const screenDearLisa = document.getElementById('screenDearLisa');
+            const screenProposal = document.getElementById('screenProposal');
+            const dearLisaYesBtn = document.getElementById('dearLisaYesBtn');
+
+            // ---------- PROPOSAL PAGE ELEMENTS ----------
             const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
+            const finalYesBtn = document.getElementById('finalYesBtn');
             const messageBox = document.getElementById('messageBox');
             const canvasContainer = document.getElementById('heartCanvasContainer');
             const canvas = document.getElementById('heartCanvas');
             const container = document.getElementById('buttonContainer');
-            
-            // --- Canvas heart explosion ---
+
+            // ---------- HEARTS EXPLOSION (same for final YES) ----------
             let heartsArray = [];
             let animationFrame = null;
             let ctx = canvas.getContext('2d');
@@ -287,9 +314,9 @@
                 constructor(x, y) {
                     this.x = x || Math.random() * canvas.width;
                     this.y = y || Math.random() * canvas.height;
-                    this.size = Math.floor(Math.random() * 26) + 14; // 14-40px
+                    this.size = Math.floor(Math.random() * 26) + 14;
                     this.speedX = (Math.random() - 0.5) * 5.5;
-                    this.speedY = (Math.random() - 0.8) * 5 - 2.5; // upward bias
+                    this.speedY = (Math.random() - 0.8) * 5 - 2.5;
                     this.opacity = Math.random() * 0.6 + 0.4;
                     this.color = `hsl(${Math.floor(Math.random() * 25) + 330}, 90%, 70%)`;
                     this.rotation = Math.random() * 360;
@@ -297,7 +324,7 @@
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
-                    this.speedY += 0.09; 
+                    this.speedY += 0.09;
                     this.opacity *= 0.994;
                     this.size *= 0.997;
                     return (this.opacity > 0.02 && this.y > -150 && this.y < canvas.height + 150 && this.x > -150 && this.x < canvas.width + 150);
@@ -333,7 +360,7 @@
                 }
             }
 
-            function spawnHearts(count = 140) {
+            function spawnHearts(count = 180) {
                 if (animationFrame) {
                     cancelAnimationFrame(animationFrame);
                     animationFrame = null;
@@ -347,55 +374,57 @@
                         Math.random() * canvas.height
                     ));
                 }
-                // burst from center (where YES button lives)
-                for (let i = 0; i < 50; i++) {
+                // burst from center
+                for (let i = 0; i < 60; i++) {
                     heartsArray.push(new HeartParticle(canvas.width/2, canvas.height/2));
                 }
                 canvasContainer.style.display = 'block';
                 drawHearts();
             }
 
-            // --- YES CLICK: LOVE EXPLOSION + celebration message ---
-            function onYesClick(e) {
+            // ---------- STEP 1: FROM DEAR LISA TO PROPOSAL ----------
+            dearLisaYesBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // hide dear lisa screen, show proposal screen
+                screenDearLisa.classList.add('hidden');
+                screenProposal.classList.remove('hidden');
+            });
+            dearLisaYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+
+            // ---------- STEP 2: FINAL YES — HEARTS EXPLOSION (only once) ----------
+            function onFinalYesClick(e) {
                 if (e) e.preventDefault();
+                
+                // Change message to pure joy
                 messageBox.innerHTML = '💘💘💘 YAAAAAY! LOVE YOU LISA! 💘💘💘';
                 
-                // Disable NO button? better keep it but it's already uncatchable.
+                // Disable NO button completely
                 noBtn.disabled = true;
                 noBtn.style.opacity = '0.5';
                 noBtn.style.cursor = 'not-allowed';
-                noBtn.style.pointerEvents = 'none'; // fully inert after YES
+                noBtn.style.pointerEvents = 'none';
                 
-                // YES celebration
-                yesBtn.style.transform = 'scale(1.3)';
-                setTimeout(() => yesBtn.style.transform = 'scale(1)', 200);
+                // Celebration effect on YES button
+                finalYesBtn.style.transform = 'scale(1.3)';
+                setTimeout(() => finalYesBtn.style.transform = 'scale(1)', 200);
                 
-                spawnHearts(180); // massive hearts
+                // 💥 HEARTS EXPLOSION 💥
+                spawnHearts(200);
                 
-                // final message stays happy
+                // No footer, no extra text. Just hearts.
             }
 
-            yesBtn.addEventListener('click', onYesClick);
-            yesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+            finalYesBtn.addEventListener('click', onFinalYesClick);
+            finalYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
-            // ---------- RUNAWAY NO BUTTON: TOTALLY UNCLICKABLE ----------
-            // Moves to opposite side of container relative to cursor/touch.
-            // No text change, always says "NO 🏃‍♀️"
-            
-            // ensure initial NO button text
-            noBtn.innerHTML = 'NO 🏃‍♀️';
-            
-            // Track if we're touching to avoid flicker
-            let evadeEnabled = true;
+            // ---------- RUNAWAY NO BUTTON (TOTALLY UNCLICKABLE) ----------
+            noBtn.innerHTML = 'NO 🏃‍♀️';  // ensure text
             
             function evadeCursor(e) {
-                // if YES already clicked, no need to run
-                if (noBtn.disabled) return;
+                if (noBtn.disabled) return;  // after YES clicked, stay still
                 
-                // Get pointer coordinates (touch or mouse)
                 let clientX, clientY;
                 if (e.touches) {
-                    // touch event
                     if (e.touches.length === 0) return;
                     clientX = e.touches[0].clientX;
                     clientY = e.touches[0].clientY;
@@ -404,160 +433,120 @@
                     clientY = e.clientY;
                 }
 
-                // get container and button rects
                 const containerRect = container.getBoundingClientRect();
                 const btnRect = noBtn.getBoundingClientRect();
                 
-                // Calculate button center
                 const btnCenterX = btnRect.left + btnRect.width / 2;
                 const btnCenterY = btnRect.top + btnRect.height / 2;
                 
-                // Distance from pointer to button center
                 const distX = clientX - btnCenterX;
                 const distY = clientY - btnCenterY;
                 const distance = Math.sqrt(distX * distX + distY * distY);
                 
-                // If pointer is within 150px — button FLEES to opposite side!
-                if (distance < 180) {
-                    // Determine escape direction: opposite to pointer
+                if (distance < 200) {  // sensitive escape
                     let escapeX = 0, escapeY = 0;
                     
-                    // Decide horizontal direction: if pointer is left of button → escape right, etc.
-                    if (distX > 0) {
-                        // pointer to the right → move left
-                        escapeX = - (containerRect.width - btnRect.width - 10);
-                    } else {
-                        // pointer to left → move right
-                        escapeX = containerRect.width - btnRect.width - 10;
-                    }
+                    if (distX > 0) escapeX = - (containerRect.width - btnRect.width - 15);
+                    else escapeX = containerRect.width - btnRect.width - 15;
                     
-                    if (distY > 0) {
-                        // pointer below → move up
-                        escapeY = - (containerRect.height - btnRect.height - 10);
-                    } else {
-                        // pointer above → move down
-                        escapeY = containerRect.height - btnRect.height - 10;
-                    }
+                    if (distY > 0) escapeY = - (containerRect.height - btnRect.height - 15);
+                    else escapeY = containerRect.height - btnRect.height - 15;
                     
-                    // But we must keep button fully inside container edges (relative positioning)
-                    // Convert to relative position inside container.
                     const currentLeft = parseFloat(noBtn.style.left) || 0;
                     const currentTop = parseFloat(noBtn.style.top) || 0;
                     
-                    // Clamp to container boundaries
-                    let newLeft = currentLeft + escapeX * 0.7; // *0.7 for smooth but decisive
-                    let newTop = currentTop + escapeY * 0.7;
+                    let newLeft = currentLeft + escapeX * 0.6;
+                    let newTop = currentTop + escapeY * 0.6;
                     
-                    const maxLeft = containerRect.width - btnRect.width - 5;
-                    const maxTop = containerRect.height - btnRect.height - 5;
-                    const minLeft = 5;
-                    const minTop = 5;
+                    const maxLeft = containerRect.width - btnRect.width - 8;
+                    const maxTop = containerRect.height - btnRect.height - 8;
+                    const minLeft = 8;
+                    const minTop = 8;
                     
                     newLeft = Math.min(Math.max(newLeft, minLeft), maxLeft);
                     newTop = Math.min(Math.max(newTop, minTop), maxTop);
                     
-                    // apply position
                     noBtn.style.position = 'relative';
                     noBtn.style.left = newLeft + 'px';
                     noBtn.style.top = newTop + 'px';
                     
-                    // little tilt for fun
-                    noBtn.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
+                    noBtn.style.transform = `rotate(${Math.random() * 8 - 4}deg)`;
                 }
             }
 
-            // Attach both mousemove and touchmove to container for performance
+            // EVADE on moves / touches
             container.addEventListener('mousemove', function(e) {
                 if (!noBtn.disabled) evadeCursor(e);
             });
-            
             container.addEventListener('touchmove', function(e) {
                 if (!noBtn.disabled) {
                     evadeCursor(e);
-                    e.preventDefault(); // prevent scrolling while chasing
+                    e.preventDefault();
                 }
             }, { passive: false });
 
-            // Also directly on noBtn itself? We want it to flee even if finger near.
             noBtn.addEventListener('mouseenter', function(e) {
                 if (!noBtn.disabled) evadeCursor(e);
             });
-            
-            // For touch start, also flee immediately
             noBtn.addEventListener('touchstart', function(e) {
                 if (!noBtn.disabled) {
                     evadeCursor(e);
-                    e.preventDefault(); // crucial to block any accidental click
+                    e.preventDefault();
                 }
             }, { passive: false });
-            
-            // Prevent any click on noBtn — never ever trigger
+
+            // BLOCK any click attempt on NO button
             noBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                // also move away aggressively
                 if (!noBtn.disabled) {
-                    const fakeEvent = { clientX: 0, clientY: 0 }; // force escape to corner
+                    // move away aggressively and show message
                     evadeCursor({ clientX: 0, clientY: 0 });
                     messageBox.innerHTML = '😂 nope! you better say YES!';
                 }
                 return false;
             });
-            
-            // Block all other attempts
+
             noBtn.addEventListener('mousedown', (e) => e.preventDefault());
             noBtn.addEventListener('mouseup', (e) => e.preventDefault());
-            
-            // Reset position on resize to keep in bounds
+            noBtn.addEventListener('contextmenu', (e) => e.preventDefault());
+
+            // Reset NO position on resize
             window.addEventListener('resize', function() {
                 noBtn.style.left = '0px';
                 noBtn.style.top = '0px';
                 noBtn.style.transform = 'rotate(0deg)';
             });
 
-            // Ensure canvas resizes
+            // Canvas orientation adjust
             window.addEventListener('orientationchange', function() {
                 if (canvasContainer.style.display === 'block') {
                     setTimeout(() => initCanvasSize(), 50);
                 }
             });
 
-            // Disable long press / context menu on buttons
-            noBtn.addEventListener('contextmenu', (e) => e.preventDefault());
-            yesBtn.addEventListener('contextmenu', (e) => e.preventDefault());
-
-            // Final message: set initial exactly as requested:
-            messageBox.innerHTML = '😂 you better say YES, Lisa!';
-            
-            // Also pre-move no button a little off center to show it's playful
-            window.addEventListener('load', function() {
-                noBtn.style.left = '20px';
-                noBtn.style.top = '10px';
-                noBtn.style.position = 'relative';
-            });
-        })();
-    </script>
-
-    <!-- disable callout and selection -->
-    <script>
-        (function disableTouchMenu() {
-            const elements = document.querySelectorAll('button, .message-area, .lisa-name');
-            elements.forEach(el => {
+            // Disable touch callout / selection
+            const allTouchEls = document.querySelectorAll('button, .message-area, .lisa-name, .handwritten');
+            allTouchEls.forEach(el => {
                 el.style.webkitTouchCallout = 'none';
                 el.style.webkitUserSelect = 'none';
                 el.style.userSelect = 'none';
             });
+
+            // Initialize no button with slight offset to show it's playful
+            window.addEventListener('load', function() {
+                if (noBtn) {
+                    noBtn.style.left = '15px';
+                    noBtn.style.top = '10px';
+                    noBtn.style.position = 'relative';
+                }
+            });
+
+            // Ensure message is exactly "😂 you better say YES, Lisa!" at start
+            messageBox.innerHTML = '😂 you better say YES, Lisa!';
         })();
     </script>
 
-    <style>
-        .heart-canvas-container {
-            display: none;
-        }
-        /* Force no pull-to-refresh on button container */
-        .buttons-container {
-            overscroll-behavior: contain;
-        }
-    </style>
+    <!-- no footer, no extra text. pure love. -->
 </body>
 </html>
