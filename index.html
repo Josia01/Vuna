@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>💌 Lisa, will you be my Valentine?</title>
+    <title>Lisa, will you be my Valentine? 💘</title>
     <style>
         /* ---------- GLOBAL ---------- */
         * {
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(145deg, #ffeaee 0%, #ffd0d8 100%);
+            background: linear-gradient(145deg, #ffe9ee 0%, #ffccd4 100%);
             font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -22,21 +22,20 @@
             margin: 0;
             padding: 16px;
             touch-action: pan-y;
-            transition: background 0.5s ease;
         }
 
         /* both screens share same card style */
         .screen {
             max-width: 600px;
             width: 100%;
-            background: rgba(255, 240, 240, 0.8);
+            background: rgba(255, 240, 240, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 56px 28px 56px 28px;
             box-shadow: 0 25px 45px rgba(200, 70, 100, 0.3);
-            padding: 36px 28px;
-            border: 3px solid rgba(255, 200, 200, 0.7);
-            transition: all 0.4s ease;
+            padding: 40px 28px;
+            border: 3px solid rgba(255, 180, 190, 0.8);
+            transition: all 0.3s ease;
         }
 
         .card {
@@ -50,41 +49,25 @@
             display: none !important;
         }
 
-        /* ---------- DEAR LISA PAGE ---------- */
+        /* ---------- DEAR LISA PAGE (ONLY DEAR LISA + YES) ---------- */
         .dear-lisa {
-            font-size: 2.6rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            color: #b33b5c;
-            text-shadow: 3px 3px 0 #ffe0e0;
-            margin-bottom: 8px;
-            letter-spacing: 4px;
-        }
-
-        .handwritten {
-            background: #ffe9ef;
-            padding: 28px 22px;
-            border-radius: 60px 20px 60px 20px;
-            margin: 24px 0 32px;
-            border: 3px dashed #ff859a;
-            box-shadow: inset 0 0 0 2px white, 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        .handwritten p {
-            font-size: 1.8rem;
-            line-height: 1.4;
-            color: #9e2e4a;
-            font-weight: 600;
-            word-break: break-word;
+            color: #b3415c;
+            text-shadow: 4px 4px 0 #ffe0e0;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
         }
 
         .heart-emoji-big {
-            font-size: 3.5rem;
+            font-size: 4rem;
             animation: float 2.2s infinite;
+            margin-bottom: 20px;
         }
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
             100% { transform: translateY(0px); }
         }
 
@@ -217,9 +200,9 @@
 
         /* mobile adjustments */
         @media (max-width: 500px) {
-            .screen { padding: 28px 20px; }
-            .dear-lisa { font-size: 2.2rem; }
-            .handwritten p { font-size: 1.6rem; }
+            .screen { padding: 32px 20px; }
+            .dear-lisa { font-size: 2.8rem; }
+            .heart-emoji-big { font-size: 3.5rem; }
             .lisa-name { font-size: 1.9rem; }
             .question { font-size: 1.8rem; }
             .btn { padding: 16px 24px; font-size: 1.7rem; min-width: 140px; }
@@ -228,10 +211,8 @@
 
         @media (max-width: 400px) {
             .btn { padding: 14px 18px; font-size: 1.5rem; min-width: 120px; }
-            .lisa-name { font-size: 1.7rem; }
-            .question { font-size: 1.6rem; }
-            .message-area { font-size: 1.5rem; }
-            .dear-lisa { font-size: 2rem; }
+            .dear-lisa { font-size: 2.3rem; }
+            .heart-emoji-big { font-size: 3rem; }
         }
     </style>
 </head>
@@ -242,18 +223,17 @@
         <canvas id="heartCanvas"></canvas>
     </div>
 
-    <!-- ========== SCREEN 1 : DEAR LISA ========= -->
+    <!-- ========== SCREEN 1 : DEAR LISA (ONLY DEAR LISA + YES BUTTON) ========= -->
     <div id="screenDearLisa" class="screen">
         <div class="card">
-            <span class="heart-emoji-big">💌💘</span>
+            <span class="heart-emoji-big">💌💘💌</span>
             <div class="dear-lisa">Dear Lisa,</div>
-            <div class="handwritten">
-                <p>you make my heart<br>skip a beat 💓</p>
-                <p style="font-size:2rem; margin-top:16px;">will you be mine?</p>
-            </div>
-            <!-- only one button: YES (leads to proposal page) -->
-            <button id="dearLisaYesBtn" class="btn btn-yes" style="font-size:2rem; padding:20px 48px; min-width:200px;">YES 💖</button>
-            <p style="margin-top:28px; color:#b34763; font-size:1.3rem;">❤️ click Yes to continue ❤️</p>
+            
+            <!-- Single YES button – works immediately, no extra text -->
+            <button id="dearLisaYesBtn" class="btn btn-yes" style="font-size:2.2rem; padding:22px 54px; min-width:240px; margin-top:20px; margin-bottom:20px;">YES 💖</button>
+            
+            <!-- Only "click yes to continue" – removed everything else -->
+            <p style="margin-top:28px; color:#b34763; font-size:1.4rem; font-weight:600;">❤️ click yes to continue ❤️</p>
         </div>
     </div>
 
@@ -268,18 +248,18 @@
             </div>
 
             <div class="buttons-container" id="buttonContainer">
-                <!-- YES button – final click = hearts explosion -->
+                <!-- YES button – final click = hearts explosion (works first time) -->
                 <button class="btn btn-yes" id="finalYesBtn">YES 💞</button>
                 <!-- RUNAWAY NO button – impossible to click -->
                 <button class="btn btn-no" id="noBtn">NO 🏃‍♀️</button>
             </div>
 
-            <!-- message: "you better say YES, Lisa!" exactly as requested -->
+            <!-- Message: "you better say YES, Lisa!" -->
             <div class="message-area" id="messageBox">
                 😂 you better say YES, Lisa!
             </div>
             
-            <!-- FOOTER REMOVED (no 'click yes heart explodes' / no 'made with love') -->
+            <!-- NO FOOTER, NO EXTRA TEXT -->
         </div>
     </div>
 
@@ -300,7 +280,7 @@
             const canvas = document.getElementById('heartCanvas');
             const container = document.getElementById('buttonContainer');
 
-            // ---------- HEARTS EXPLOSION (same for final YES) ----------
+            // ---------- HEARTS EXPLOSION (triggers on first final YES click) ----------
             let heartsArray = [];
             let animationFrame = null;
             let ctx = canvas.getContext('2d');
@@ -360,7 +340,7 @@
                 }
             }
 
-            function spawnHearts(count = 180) {
+            function spawnHearts(count = 200) {
                 if (animationFrame) {
                     cancelAnimationFrame(animationFrame);
                     animationFrame = null;
@@ -375,14 +355,14 @@
                     ));
                 }
                 // burst from center
-                for (let i = 0; i < 60; i++) {
+                for (let i = 0; i < 70; i++) {
                     heartsArray.push(new HeartParticle(canvas.width/2, canvas.height/2));
                 }
                 canvasContainer.style.display = 'block';
                 drawHearts();
             }
 
-            // ---------- STEP 1: FROM DEAR LISA TO PROPOSAL ----------
+            // ---------- STEP 1: FROM DEAR LISA TO PROPOSAL (WORKS FIRST TIME, ALWAYS) ----------
             dearLisaYesBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 // hide dear lisa screen, show proposal screen
@@ -391,7 +371,7 @@
             });
             dearLisaYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
-            // ---------- STEP 2: FINAL YES — HEARTS EXPLOSION (only once) ----------
+            // ---------- STEP 2: FINAL YES — HEARTS EXPLOSION (WORKS FIRST CLICK, NO MULTIPLE PRESSES) ----------
             function onFinalYesClick(e) {
                 if (e) e.preventDefault();
                 
@@ -408,20 +388,20 @@
                 finalYesBtn.style.transform = 'scale(1.3)';
                 setTimeout(() => finalYesBtn.style.transform = 'scale(1)', 200);
                 
-                // 💥 HEARTS EXPLOSION 💥
-                spawnHearts(200);
-                
-                // No footer, no extra text. Just hearts.
+                // 💥 HEARTS EXPLOSION - TRIGGERS IMMEDIATELY, ONLY ONCE 💥
+                spawnHearts(220);
             }
 
+            // Remove any existing listeners and attach fresh one – GUARANTEED SINGLE CLICK
+            finalYesBtn.removeEventListener('click', onFinalYesClick);
             finalYesBtn.addEventListener('click', onFinalYesClick);
             finalYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
             // ---------- RUNAWAY NO BUTTON (TOTALLY UNCLICKABLE) ----------
-            noBtn.innerHTML = 'NO 🏃‍♀️';  // ensure text
+            noBtn.innerHTML = 'NO 🏃‍♀️';
             
             function evadeCursor(e) {
-                if (noBtn.disabled) return;  // after YES clicked, stay still
+                if (noBtn.disabled) return;
                 
                 let clientX, clientY;
                 if (e.touches) {
@@ -443,7 +423,7 @@
                 const distY = clientY - btnCenterY;
                 const distance = Math.sqrt(distX * distX + distY * distY);
                 
-                if (distance < 200) {  // sensitive escape
+                if (distance < 200) {
                     let escapeX = 0, escapeY = 0;
                     
                     if (distX > 0) escapeX = - (containerRect.width - btnRect.width - 15);
@@ -474,7 +454,6 @@
                 }
             }
 
-            // EVADE on moves / touches
             container.addEventListener('mousemove', function(e) {
                 if (!noBtn.disabled) evadeCursor(e);
             });
@@ -495,12 +474,10 @@
                 }
             }, { passive: false });
 
-            // BLOCK any click attempt on NO button
             noBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 if (!noBtn.disabled) {
-                    // move away aggressively and show message
                     evadeCursor({ clientX: 0, clientY: 0 });
                     messageBox.innerHTML = '😂 nope! you better say YES!';
                 }
@@ -511,14 +488,12 @@
             noBtn.addEventListener('mouseup', (e) => e.preventDefault());
             noBtn.addEventListener('contextmenu', (e) => e.preventDefault());
 
-            // Reset NO position on resize
             window.addEventListener('resize', function() {
                 noBtn.style.left = '0px';
                 noBtn.style.top = '0px';
                 noBtn.style.transform = 'rotate(0deg)';
             });
 
-            // Canvas orientation adjust
             window.addEventListener('orientationchange', function() {
                 if (canvasContainer.style.display === 'block') {
                     setTimeout(() => initCanvasSize(), 50);
@@ -526,14 +501,14 @@
             });
 
             // Disable touch callout / selection
-            const allTouchEls = document.querySelectorAll('button, .message-area, .lisa-name, .handwritten');
+            const allTouchEls = document.querySelectorAll('button, .message-area, .lisa-name');
             allTouchEls.forEach(el => {
                 el.style.webkitTouchCallout = 'none';
                 el.style.webkitUserSelect = 'none';
                 el.style.userSelect = 'none';
             });
 
-            // Initialize no button with slight offset to show it's playful
+            // Initialize no button with slight offset
             window.addEventListener('load', function() {
                 if (noBtn) {
                     noBtn.style.left = '15px';
@@ -542,11 +517,11 @@
                 }
             });
 
-            // Ensure message is exactly "😂 you better say YES, Lisa!" at start
+            // Ensure message is exactly as requested
             messageBox.innerHTML = '😂 you better say YES, Lisa!';
         })();
     </script>
 
-    <!-- no footer, no extra text. pure love. -->
+    <!-- Absolutely no footer, no extra text. Pure Lisa. -->
 </body>
 </html>
