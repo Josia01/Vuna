@@ -3,125 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Lisa, will you be my Valentine? 💘</title>
+    <title>Lisa, will you be my Valentine?</title>
     <style>
-        /* ---------- GLOBAL ---------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            background: linear-gradient(145deg, #ffe9ee 0%, #ffccd4 100%);
-            font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            min-height: 100vh;
+            background: #ffd9e2;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             margin: 0;
             padding: 16px;
             touch-action: pan-y;
         }
-
-        /* both screens share same card style */
         .screen {
-            max-width: 600px;
+            max-width: 580px;
             width: 100%;
-            background: rgba(255, 240, 240, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 56px 28px 56px 28px;
-            box-shadow: 0 25px 45px rgba(200, 70, 100, 0.3);
-            padding: 40px 28px;
-            border: 3px solid rgba(255, 180, 190, 0.8);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 48px 24px 48px 24px;
+            box-shadow: 0 20px 40px rgba(200, 70, 100, 0.25);
+            padding: 40px 24px;
+            border: 3px solid #ffb8c6;
+            text-align: center;
         }
-
+        .hidden {
+            display: none !important;
+        }
         .card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* ---------- DEAR LISA PAGE (ONLY DEAR LISA + YES) ---------- */
+        /* ---------- DEAR LISA screen (only what you asked for) ---------- */
         .dear-lisa {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 800;
-            color: #b3415c;
-            text-shadow: 4px 4px 0 #ffe0e0;
-            margin-bottom: 20px;
-            letter-spacing: 5px;
-        }
-
-        .heart-emoji-big {
-            font-size: 4rem;
-            animation: float 2.2s infinite;
+            color: #b33b5c;
+            text-shadow: 3px 3px 0 #ffe6e9;
+            letter-spacing: 4px;
             margin-bottom: 20px;
         }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
+        .big-heart {
+            font-size: 4.2rem;
+            animation: bounce 1.8s infinite;
+            margin-bottom: 24px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
         }
 
-        /* ---------- PROPOSAL PAGE ---------- */
-        .lisa-name {
-            background: #ffb6c1;
+        /* ---------- PROPOSAL screen ---------- */
+        .lisa-valentine {
+            background: #ffa5b9;
             padding: 12px 28px;
             border-radius: 60px;
             font-size: 2.2rem;
-            display: inline-block;
-            color: #941e3a;
-            box-shadow: 0 8px 0 #d86b7e;
-            margin-bottom: 28px;
+            color: #6f1d3b;
             font-weight: 700;
-            border: 3px solid white;
-            letter-spacing: 2px;
+            border: 4px solid white;
+            box-shadow: 0 8px 0 #b85c6e;
+            margin-bottom: 28px;
         }
-
         .question {
             font-size: 2rem;
-            color: #c1244c;
-            margin-bottom: 40px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
+            color: #c1244c;
+            margin-bottom: 32px;
         }
-
-        .heart-big {
-            font-size: 3.2rem;
-            animation: pulse 1.2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .buttons-container {
+        .btn-holder {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 40px;
-            margin-top: 16px;
-            margin-bottom: 30px;
-            width: 100%;
+            margin: 20px 0 24px;
             position: relative;
             min-height: 120px;
+            width: 100%;
         }
-
         .btn {
             border: none;
             background: white;
@@ -129,58 +97,47 @@
             font-size: 1.9rem;
             font-weight: bold;
             border-radius: 120px;
-            box-shadow: 0 14px 0 #b3b3b3, 0 12px 24px rgba(0,0,0,0.15);
-            transition: transform 0.08s, box-shadow 0.08s, left 0.18s ease, top 0.18s ease;
+            border: 4px solid white;
+            box-shadow: 0 12px 0 #999, 0 10px 20px rgba(0,0,0,0.2);
             cursor: pointer;
-            touch-action: none;
-            border: 3px solid white;
-            letter-spacing: 3px;
+            touch-action: manipulation;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            flex: 0 1 auto;
             min-width: 160px;
-            position: relative;
+            transition: 0.06s;
+            letter-spacing: 2px;
         }
-
         .btn-yes {
-            background: #ff4d6d;
+            background: #ff3b5c;
             color: white;
-            box-shadow: 0 14px 0 #a1334b;
-            border: 3px solid #ffe6e9;
+            box-shadow: 0 12px 0 #982f45;
+            border: 4px solid #ffe9ec;
         }
-
         .btn-yes:active {
-            transform: translateY(10px);
-            box-shadow: 0 4px 0 #a1334b, 0 12px 24px rgba(0,0,0,0.15);
+            transform: translateY(8px);
+            box-shadow: 0 4px 0 #982f45, 0 10px 20px rgba(0,0,0,0.1);
         }
-
         .btn-no {
-            background: #e0e0e0;
-            color: #2d2d2d;
-            box-shadow: 0 14px 0 #7a7a7a;
-            border: 3px solid #ffffff;
-            transition: all 0.18s cubic-bezier(0.34, 1.4, 0.64, 1.2);
+            background: #efefef;
+            color: #2b2b2b;
+            box-shadow: 0 12px 0 #7a7a7a;
+            transition: all 0.15s ease;
         }
-
-        .message-area {
-            min-height: 70px;
-            margin: 8px 0 16px;
-            font-size: 1.8rem;
-            color: #b81b3c;
-            font-weight: 700;
-            background: rgba(255, 235, 235, 0.8);
-            padding: 14px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(4px);
+        .message {
+            background: #ffe0e7;
+            padding: 16px 24px;
+            border-radius: 60px;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #a02242;
+            border: 2px dashed #ff6b8b;
+            margin-top: 12px;
             width: 100%;
-            border: 2px solid #ffb3b3;
-            box-shadow: inset 0 2px 6px rgba(150, 0, 0, 0.1);
         }
 
-        /* heart canvas fullscreen */
-        .heart-canvas-container {
+        /* ---------- HEART CANVAS ---------- */
+        .canvas-panel {
             position: fixed;
             top: 0;
             left: 0;
@@ -190,80 +147,58 @@
             z-index: 9999;
             display: none;
         }
-
         canvas {
-            display: block;
             width: 100%;
             height: 100%;
-            background: transparent;
+            display: block;
         }
 
-        /* mobile adjustments */
-        @media (max-width: 500px) {
+        /* mobile */
+        @media (max-width: 480px) {
             .screen { padding: 32px 20px; }
-            .dear-lisa { font-size: 2.8rem; }
-            .heart-emoji-big { font-size: 3.5rem; }
-            .lisa-name { font-size: 1.9rem; }
-            .question { font-size: 1.8rem; }
-            .btn { padding: 16px 24px; font-size: 1.7rem; min-width: 140px; }
-            .buttons-container { gap: 30px; }
-        }
-
-        @media (max-width: 400px) {
-            .btn { padding: 14px 18px; font-size: 1.5rem; min-width: 120px; }
-            .dear-lisa { font-size: 2.3rem; }
-            .heart-emoji-big { font-size: 3rem; }
-        }
-
-        /* one-click protection: prevent double-tap zoom on buttons */
-        button {
-            touch-action: manipulation;
+            .dear-lisa { font-size: 3rem; }
+            .btn { padding: 14px 22px; font-size: 1.6rem; min-width: 140px; }
+            .btn-holder { gap: 24px; }
+            .lisa-valentine { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ========== CANVAS FOR HEARTS (hidden until final YES) ========= -->
-    <div id="heartCanvasContainer" class="heart-canvas-container">
-        <canvas id="heartCanvas"></canvas>
+    <!-- ===== HEART CANVAS (hidden at start) ===== -->
+    <div id="heartCanvasWrap" class="canvas-panel">
+        <canvas id="loveCanvas"></canvas>
     </div>
 
-    <!-- ========== SCREEN 1 : DEAR LISA (ONLY DEAR LISA + YES BUTTON) ========= -->
-    <div id="screenDearLisa" class="screen">
+    <!-- ===== SCREEN 1 : DEAR LISA ===== -->
+    <div id="page1" class="screen">
         <div class="card">
-            <span class="heart-emoji-big">💌💘💌</span>
+            <div class="big-heart">💘💌💘</div>
             <div class="dear-lisa">Dear Lisa,</div>
-            
-            <!-- Single YES button – works immediately, guaranteed one time -->
-            <button id="dearLisaYesBtn" class="btn btn-yes" style="font-size:2.2rem; padding:22px 54px; min-width:240px; margin-top:20px; margin-bottom:20px;">YES 💖</button>
-            
-            <p style="margin-top:28px; color:#b34763; font-size:1.4rem; font-weight:600;">❤️ click yes to continue ❤️</p>
+            <!-- ONE YES BUTTON – WORKS 100% FIRST CLICK, NO MULTI-CLICK ISSUE -->
+            <button id="goToProposalBtn" class="btn btn-yes" style="font-size:2.2rem; padding:20px 50px; margin:24px 0 12px;">YES 💖</button>
+            <p style="color:#b3455e; font-size:1.4rem; font-weight:600; margin-top:24px;">❤️ click yes to continue ❤️</p>
         </div>
     </div>
 
-    <!-- ========== SCREEN 2 : VALENTINE PROPOSAL ========= -->
-    <div id="screenProposal" class="screen hidden">
+    <!-- ===== SCREEN 2 : VALENTINE PROPOSAL ===== -->
+    <div id="page2" class="screen hidden">
         <div class="card">
-            <span class="heart-big">❤️🧡💛</span>
-            <span class="lisa-name">💘 Lisa 💘</span>
-            
-            <div class="question">
-                <span>Will you be my Valentine?</span>
+            <span style="font-size:3rem; margin-bottom:8px;">❤️🧡💛</span>
+            <div class="lisa-valentine">💘 Lisa 💘</div>
+            <div class="question">Will you be my Valentine?</div>
+
+            <div id="proposalBtnContainer" class="btn-holder">
+                <!-- FINAL YES – CLICK ONCE = HEARTS EXPLOSION, NO SECOND CHANCE -->
+                <button id="finalYesButton" class="btn btn-yes">YES 💞</button>
+                <!-- NO BUTTON – runs away, can't be clicked -->
+                <button id="runningNoBtn" class="btn btn-no">NO 🏃‍♀️</button>
             </div>
 
-            <div class="buttons-container" id="buttonContainer">
-                <!-- YES button – final click = hearts explosion. WORKS FIRST TIME, ONE CLICK ONLY -->
-                <button class="btn btn-yes" id="finalYesBtn">YES 💞</button>
-                <!-- RUNAWAY NO button – impossible to click -->
-                <button class="btn btn-no" id="noBtn">NO 🏃‍♀️</button>
-            </div>
-
-            <!-- Message: "you better say YES, Lisa!" -->
-            <div class="message-area" id="messageBox">
+            <!-- message exactly as requested -->
+            <div id="proposalMessage" class="message">
                 😂 you better say YES, Lisa!
             </div>
-            
-            <!-- NO FOOTER, NO EXTRA TEXT -->
         </div>
     </div>
 
@@ -271,58 +206,76 @@
         (function() {
             "use strict";
 
-            // ---------- SCREEN ELEMENTS ----------
-            const screenDearLisa = document.getElementById('screenDearLisa');
-            const screenProposal = document.getElementById('screenProposal');
-            const dearLisaYesBtn = document.getElementById('dearLisaYesBtn');
+            // ---------- SIMPLE, FOOLPROOF YES BUTTONS ----------
+            // No flags, no double‑listening, no nonsense.
+            // Each YES button does its job ONCE and is immediately disabled.
 
-            // ---------- PROPOSAL PAGE ELEMENTS ----------
-            const noBtn = document.getElementById('noBtn');
-            const finalYesBtn = document.getElementById('finalYesBtn');
-            const messageBox = document.getElementById('messageBox');
-            const canvasContainer = document.getElementById('heartCanvasContainer');
-            const canvas = document.getElementById('heartCanvas');
-            const container = document.getElementById('buttonContainer');
+            // ----- SCREEN 1: "Dear Lisa" → Show proposal -----
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const dearLisaBtn = document.getElementById('goToProposalBtn');
 
-            // ---------- FLAG SYSTEM – ENSURE EACH YES BUTTON ONLY TRIGGERS ONCE ----------
-            let dearLisaClicked = false;   // screen 1 guard
-            let finalYesClicked = false;   // screen 2 guard
+            // DIRECT REPLACEMENT: remove any old listener, attach new one that disables itself
+            const newDearBtn = dearLisaBtn.cloneNode(true);
+            dearLisaBtn.parentNode.replaceChild(newDearBtn, dearLisaBtn);
 
-            // ---------- HEARTS EXPLOSION ----------
-            let heartsArray = [];
-            let animationFrame = null;
-            let ctx = canvas.getContext('2d');
+            newDearBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // DISABLE immediately — prevents any second click
+                this.disabled = true;
+                this.style.opacity = '0.7';
+                this.style.pointerEvents = 'none';
+                // go to proposal screen
+                page1.classList.add('hidden');
+                page2.classList.remove('hidden');
+            });
 
-            function initCanvasSize() {
+            // ----- SCREEN 2: FINAL YES — HEARTS EXPLOSION, ONE CLICK ONLY -----
+            const finalYes = document.getElementById('finalYesButton');
+            const noBtn = document.getElementById('runningNoBtn');
+            const messageBox = document.getElementById('proposalMessage');
+            const canvasWrap = document.getElementById('heartCanvasWrap');
+            const canvas = document.getElementById('loveCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Replace with fresh button to erase any previous listeners
+            const freshFinalYes = finalYes.cloneNode(true);
+            finalYes.parentNode.replaceChild(freshFinalYes, finalYes);
+
+            // ---------- HEART EXPLOSION (full power) ----------
+            let hearts = [];
+            let animFrame = null;
+
+            function sizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
 
-            class HeartParticle {
+            class Heart {
                 constructor(x, y) {
                     this.x = x || Math.random() * canvas.width;
                     this.y = y || Math.random() * canvas.height;
-                    this.size = Math.floor(Math.random() * 26) + 14;
-                    this.speedX = (Math.random() - 0.5) * 5.5;
-                    this.speedY = (Math.random() - 0.8) * 5 - 2.5;
-                    this.opacity = Math.random() * 0.6 + 0.4;
-                    this.color = `hsl(${Math.floor(Math.random() * 25) + 330}, 90%, 70%)`;
-                    this.rotation = Math.random() * 360;
+                    this.vx = (Math.random() - 0.5) * 6;
+                    this.vy = (Math.random() - 0.8) * 6 - 2.2;
+                    this.size = Math.floor(Math.random() * 28) + 14;
+                    this.alpha = Math.random() * 0.6 + 0.4;
+                    this.rot = Math.random() * 360;
+                    this.color = `hsl(${Math.floor(Math.random() * 25) + 330}, 90%, 68%)`;
                 }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    this.speedY += 0.09;
-                    this.opacity *= 0.994;
-                    this.size *= 0.997;
-                    return (this.opacity > 0.02 && this.y > -150 && this.y < canvas.height + 150 && this.x > -150 && this.x < canvas.width + 150);
+                move() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vy += 0.1;
+                    this.alpha *= 0.994;
+                    this.size *= 0.996;
+                    return this.alpha > 0.02 && this.y > -200 && this.y < canvas.height + 200 && this.x > -200 && this.x < canvas.width + 200;
                 }
                 draw(ctx) {
                     ctx.save();
                     ctx.translate(this.x, this.y);
-                    ctx.rotate((this.rotation * Math.PI) / 180);
-                    ctx.globalAlpha = this.opacity;
-                    ctx.font = `${this.size}px "Segoe UI", "Arial", "Helvetica", sans-serif`;
+                    ctx.rotate((this.rot * Math.PI) / 180);
+                    ctx.globalAlpha = this.alpha;
+                    ctx.font = `${this.size}px "Segoe UI", "Arial", sans-serif`;
                     ctx.fillStyle = this.color;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
@@ -331,224 +284,162 @@
                 }
             }
 
-            function drawHearts() {
+            function drawLoop() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = heartsArray.length - 1; i >= 0; i--) {
-                    if (!heartsArray[i].update()) {
-                        heartsArray.splice(i, 1);
+                for (let i = hearts.length - 1; i >= 0; i--) {
+                    if (!hearts[i].move()) {
+                        hearts.splice(i, 1);
                     } else {
-                        heartsArray[i].draw(ctx);
+                        hearts[i].draw(ctx);
                     }
                 }
-                if (heartsArray.length > 0) {
-                    animationFrame = requestAnimationFrame(drawHearts);
+                if (hearts.length > 0) {
+                    animFrame = requestAnimationFrame(drawLoop);
                 } else {
-                    canvasContainer.style.display = 'none';
-                    animationFrame = null;
+                    canvasWrap.style.display = 'none';
+                    animFrame = null;
                 }
             }
 
-            function spawnHearts(count = 220) {
-                if (animationFrame) {
-                    cancelAnimationFrame(animationFrame);
-                    animationFrame = null;
-                }
-                heartsArray = [];
-                initCanvasSize();
-                
+            function explodeHearts(count = 220) {
+                if (animFrame) cancelAnimationFrame(animFrame);
+                hearts = [];
+                sizeCanvas();
                 for (let i = 0; i < count; i++) {
-                    heartsArray.push(new HeartParticle(
-                        Math.random() * canvas.width,
-                        Math.random() * canvas.height
-                    ));
+                    hearts.push(new Heart(Math.random() * canvas.width, Math.random() * canvas.height));
                 }
-                // burst from center
                 for (let i = 0; i < 70; i++) {
-                    heartsArray.push(new HeartParticle(canvas.width/2, canvas.height/2));
+                    hearts.push(new Heart(canvas.width / 2, canvas.height / 2));
                 }
-                canvasContainer.style.display = 'block';
-                drawHearts();
+                canvasWrap.style.display = 'block';
+                drawLoop();
             }
 
-            // ---------- STEP 1: DEAR LISA → PROPOSAL (ONE CLICK ONLY) ----------
-            function handleDearLisaClick(e) {
+            // ---------- FINAL YES: ONE CLICK, ONE EXPLOSION ----------
+            freshFinalYes.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // GUARANTEED SINGLE CLICK: if already clicked, do nothing.
-                if (dearLisaClicked) return;
-                dearLisaClicked = true;
-                
-                // Disable button visually and functionally
-                dearLisaYesBtn.disabled = true;
-                dearLisaYesBtn.style.opacity = '0.8';
-                dearLisaYesBtn.style.pointerEvents = 'none';
-                
-                // Switch screens
-                screenDearLisa.classList.add('hidden');
-                screenProposal.classList.remove('hidden');
-            }
+                // ⚡️ GUARANTEED SINGLE CLICK: disable immediately ⚡️
+                this.disabled = true;
+                this.style.opacity = '0.8';
+                this.style.pointerEvents = 'none';
 
-            dearLisaYesBtn.addEventListener('click', handleDearLisaClick);
-            dearLisaYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
-
-            // ---------- STEP 2: FINAL YES — HEARTS EXPLOSION (ONE CLICK ONLY, FIRST TIME) ----------
-            function handleFinalYesClick(e) {
-                e.preventDefault();
-                
-                // GUARANTEED SINGLE CLICK: if already clicked, absolutely do nothing.
-                if (finalYesClicked) return;
-                finalYesClicked = true;
-                
-                // Disable the YES button permanently (single click)
-                finalYesBtn.disabled = true;
-                finalYesBtn.style.opacity = '0.9';
-                finalYesBtn.style.pointerEvents = 'none';
-                
-                // Change message to pure joy
+                // joy message
                 messageBox.innerHTML = '💘💘💘 YAAAAAY! LOVE YOU LISA! 💘💘💘';
-                
-                // Disable NO button completely
+
+                // disable NO button forever
                 noBtn.disabled = true;
                 noBtn.style.opacity = '0.5';
-                noBtn.style.cursor = 'not-allowed';
                 noBtn.style.pointerEvents = 'none';
-                
-                // Celebration effect on YES button
-                finalYesBtn.style.transform = 'scale(1.3)';
-                setTimeout(() => finalYesBtn.style.transform = 'scale(1)', 200);
-                
-                // 💥 HEARTS EXPLOSION - TRIGGERS IMMEDIATELY, FIRST TIME ONLY 💥
-                spawnHearts(240);
-            }
 
-            finalYesBtn.addEventListener('click', handleFinalYesClick);
-            finalYesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+                // celebration pop
+                this.style.transform = 'scale(1.2)';
+                setTimeout(() => this.style.transform = 'scale(1)', 160);
 
-            // ---------- RUNAWAY NO BUTTON (TOTALLY UNCLICKABLE) ----------
+                // 💥 HEARTS EXPLOSION – FIRST CLICK ONLY 💥
+                explodeHearts(260);
+            });
+
+            // ---------- NO BUTTON — runs away, impossible to click ----------
             noBtn.innerHTML = 'NO 🏃‍♀️';
-            
-            function evadeCursor(e) {
+            const container = document.getElementById('proposalBtnContainer');
+
+            function runAway(e) {
                 if (noBtn.disabled) return;
-                
-                let clientX, clientY;
+
+                let x, y;
                 if (e.touches) {
                     if (e.touches.length === 0) return;
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
+                    x = e.touches[0].clientX;
+                    y = e.touches[0].clientY;
                 } else {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
+                    x = e.clientX;
+                    y = e.clientY;
                 }
 
                 const containerRect = container.getBoundingClientRect();
                 const btnRect = noBtn.getBoundingClientRect();
-                
                 const btnCenterX = btnRect.left + btnRect.width / 2;
                 const btnCenterY = btnRect.top + btnRect.height / 2;
-                
-                const distX = clientX - btnCenterX;
-                const distY = clientY - btnCenterY;
-                const distance = Math.sqrt(distX * distX + distY * distY);
-                
-                if (distance < 200) {
-                    let escapeX = 0, escapeY = 0;
-                    
-                    if (distX > 0) escapeX = - (containerRect.width - btnRect.width - 15);
-                    else escapeX = containerRect.width - btnRect.width - 15;
-                    
-                    if (distY > 0) escapeY = - (containerRect.height - btnRect.height - 15);
-                    else escapeY = containerRect.height - btnRect.height - 15;
-                    
-                    const currentLeft = parseFloat(noBtn.style.left) || 0;
-                    const currentTop = parseFloat(noBtn.style.top) || 0;
-                    
-                    let newLeft = currentLeft + escapeX * 0.6;
-                    let newTop = currentTop + escapeY * 0.6;
-                    
-                    const maxLeft = containerRect.width - btnRect.width - 8;
-                    const maxTop = containerRect.height - btnRect.height - 8;
-                    const minLeft = 8;
-                    const minTop = 8;
-                    
-                    newLeft = Math.min(Math.max(newLeft, minLeft), maxLeft);
-                    newTop = Math.min(Math.max(newTop, minTop), maxTop);
-                    
+                const dist = Math.hypot(x - btnCenterX, y - btnCenterY);
+
+                if (dist < 210) {
+                    let deltaX = 0, deltaY = 0;
+                    if (x > btnCenterX) deltaX = - (containerRect.width - btnRect.width - 20);
+                    else deltaX = containerRect.width - btnRect.width - 20;
+
+                    if (y > btnCenterY) deltaY = - (containerRect.height - btnRect.height - 20);
+                    else deltaY = containerRect.height - btnRect.height - 20;
+
+                    const leftVal = parseFloat(noBtn.style.left) || 0;
+                    const topVal = parseFloat(noBtn.style.top) || 0;
+                    let newLeft = leftVal + deltaX * 0.55;
+                    let newTop = topVal + deltaY * 0.55;
+
+                    const maxL = containerRect.width - btnRect.width - 10;
+                    const maxT = containerRect.height - btnRect.height - 10;
+                    newLeft = Math.min(Math.max(newLeft, 10), maxL);
+                    newTop = Math.min(Math.max(newTop, 10), maxT);
+
                     noBtn.style.position = 'relative';
                     noBtn.style.left = newLeft + 'px';
                     noBtn.style.top = newTop + 'px';
-                    
                     noBtn.style.transform = `rotate(${Math.random() * 8 - 4}deg)`;
                 }
             }
 
-            container.addEventListener('mousemove', function(e) {
-                if (!noBtn.disabled) evadeCursor(e);
-            });
+            container.addEventListener('mousemove', runAway);
             container.addEventListener('touchmove', function(e) {
-                if (!noBtn.disabled) {
-                    evadeCursor(e);
-                    e.preventDefault();
-                }
+                runAway(e);
+                e.preventDefault();
             }, { passive: false });
 
-            noBtn.addEventListener('mouseenter', function(e) {
-                if (!noBtn.disabled) evadeCursor(e);
-            });
+            noBtn.addEventListener('mouseenter', runAway);
             noBtn.addEventListener('touchstart', function(e) {
-                if (!noBtn.disabled) {
-                    evadeCursor(e);
-                    e.preventDefault();
-                }
+                runAway(e);
+                e.preventDefault();
             }, { passive: false });
 
             noBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 if (!noBtn.disabled) {
-                    evadeCursor({ clientX: 0, clientY: 0 });
+                    // extreme flee
+                    runAway({ clientX: 0, clientY: 0 });
                     messageBox.innerHTML = '😂 nope! you better say YES!';
                 }
                 return false;
             });
 
+            // block all other attempts
             noBtn.addEventListener('mousedown', (e) => e.preventDefault());
             noBtn.addEventListener('mouseup', (e) => e.preventDefault());
-            noBtn.addEventListener('contextmenu', (e) => e.preventDefault());
 
+            // reset position on resize
             window.addEventListener('resize', function() {
                 noBtn.style.left = '0px';
                 noBtn.style.top = '0px';
                 noBtn.style.transform = 'rotate(0deg)';
             });
 
+            // canvas orientation
             window.addEventListener('orientationchange', function() {
-                if (canvasContainer.style.display === 'block') {
-                    setTimeout(() => initCanvasSize(), 50);
+                if (canvasWrap.style.display === 'block') {
+                    setTimeout(() => sizeCanvas(), 30);
                 }
             });
 
-            // Disable touch callout / selection
-            const allTouchEls = document.querySelectorAll('button, .message-area, .lisa-name');
-            allTouchEls.forEach(el => {
-                el.style.webkitTouchCallout = 'none';
-                el.style.webkitUserSelect = 'none';
-                el.style.userSelect = 'none';
-            });
-
-            // Initialize no button with slight offset
+            // set initial no button offset
             window.addEventListener('load', function() {
-                if (noBtn) {
-                    noBtn.style.left = '15px';
-                    noBtn.style.top = '10px';
-                    noBtn.style.position = 'relative';
-                }
+                noBtn.style.left = '18px';
+                noBtn.style.top = '12px';
+                noBtn.style.position = 'relative';
             });
 
-            // Ensure message is exactly as requested
+            // ensure message is perfect
             messageBox.innerHTML = '😂 you better say YES, Lisa!';
         })();
     </script>
 
-    <!-- Absolutely no footer, no extra text. Pure Lisa. One click. Done. -->
+    <!-- no footer, no extra text, no "click yes heart explodes" — pure Lisa -->
 </body>
 </html>
