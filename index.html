@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>💌 Lisa, will you be my Valentine? 💘</title>
+    <title>Lisa, be my Valentine? 💘</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            background: linear-gradient(145deg, #fff9f7 0%, #ffe5e5 100%);
+            background: linear-gradient(145deg, #fff0f2 0%, #ffd9e0 100%);
             font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -26,13 +26,13 @@
         .valentine-wrapper {
             max-width: 550px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 245, 240, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 48px 24px 48px 24px;
-            box-shadow: 0 20px 40px rgba(220, 80, 120, 0.2);
+            box-shadow: 0 20px 40px rgba(200, 60, 100, 0.25);
             padding: 32px 24px;
-            border: 2px solid rgba(255, 200, 200, 0.7);
+            border: 2px solid rgba(255, 160, 170, 0.6);
             transition: all 0.3s ease;
         }
 
@@ -43,43 +43,34 @@
             text-align: center;
         }
 
-        .title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #b34167;
-            text-shadow: 2px 2px 0 #ffe0e0;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            word-break: break-word;
-        }
-
         .lisa-name {
-            background: #ffdae0;
-            padding: 8px 20px;
+            background: #ffc0cb;
+            padding: 12px 28px;
             border-radius: 60px;
-            font-size: 1.9rem;
+            font-size: 2.2rem;
             display: inline-block;
-            color: #a12e4e;
-            box-shadow: 0 6px 0 #ffa5b0;
-            margin-bottom: 24px;
-            font-weight: 600;
-            border: 2px solid white;
+            color: #9e2a4b;
+            box-shadow: 0 8px 0 #e68a9a;
+            margin-bottom: 28px;
+            font-weight: 700;
+            border: 3px solid white;
+            letter-spacing: 2px;
         }
 
         .question {
-            font-size: 1.8rem;
-            color: #ce3b5e;
-            margin-bottom: 32px;
-            font-weight: 600;
+            font-size: 2rem;
+            color: #c1244c;
+            margin-bottom: 40px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .heart-big {
-            font-size: 3rem;
+            font-size: 3.2rem;
             animation: pulse 1.2s infinite;
         }
 
@@ -94,77 +85,74 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 24px;
+            gap: 40px;
             margin-top: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
             width: 100%;
             position: relative;
+            min-height: 110px;
         }
 
         .btn {
             border: none;
             background: white;
-            padding: 16px 32px;
-            font-size: 1.6rem;
+            padding: 18px 36px;
+            font-size: 1.9rem;
             font-weight: bold;
             border-radius: 120px;
-            box-shadow: 0 12px 0 #b3b3b3, 0 10px 20px rgba(0,0,0,0.1);
-            transition: all 0.12s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            box-shadow: 0 14px 0 #b3b3b3, 0 12px 24px rgba(0,0,0,0.15);
+            transition: transform 0.08s, box-shadow 0.08s, left 0.15s ease, top 0.15s ease, right 0.15s ease, bottom 0.15s ease;
             cursor: pointer;
-            touch-action: manipulation;
-            border: 2px solid white;
-            letter-spacing: 2px;
+            touch-action: none; /* kill pan/zoom on buttons */
+            border: 3px solid white;
+            letter-spacing: 3px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             flex: 0 1 auto;
-            min-width: 140px;
+            min-width: 160px;
+            position: relative; /* for movement */
         }
 
         .btn-yes {
-            background: #ff6b8b;
+            background: #ff4d6d;
             color: white;
-            box-shadow: 0 12px 0 #b3415c;
-            border: 2px solid #ffe0e0;
+            box-shadow: 0 14px 0 #a1334b;
+            border: 3px solid #ffe6e9;
         }
 
         .btn-no {
-            background: #f0f0f0;
-            color: #444;
-            box-shadow: 0 12px 0 #a0a0a0;
-            position: relative;
-            transition: all 0.1s ease;
+            background: #e0e0e0;
+            color: #2d2d2d;
+            box-shadow: 0 14px 0 #7a7a7a;
+            border: 3px solid #ffffff;
+            transition: all 0.18s cubic-bezier(0.34, 1.4, 0.64, 1.2); /* bouncy escape */
         }
 
         .btn-yes:active {
-            transform: translateY(8px);
-            box-shadow: 0 4px 0 #b3415c, 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(10px);
+            box-shadow: 0 4px 0 #a1334b, 0 12px 24px rgba(0,0,0,0.15);
         }
 
-        /* no button gets crazy */
-        .btn-no.evasive {
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        box-shadow 0.2s, 
-                        background 0.2s,
-                        left 0.2s,
-                        top 0.2s,
-                        right 0.2s,
-                        bottom 0.2s;
+        /* The NO button is completely unclickable — it runs away */
+        .btn-no.evasive-mode {
+            transition: left 0.2s ease-out, top 0.2s ease-out, right 0.2s ease-out, bottom 0.2s ease-out, transform 0.1s;
         }
 
         .message-area {
             min-height: 70px;
-            margin: 16px 0 8px;
-            font-size: 1.5rem;
-            color: #c1315a;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 12px 18px;
+            margin: 8px 0 16px;
+            font-size: 1.8rem;
+            color: #b81b3c;
+            font-weight: 700;
+            background: rgba(255, 235, 235, 0.8);
+            padding: 14px 20px;
             border-radius: 50px;
             backdrop-filter: blur(4px);
             width: 100%;
-            border: 1px dashed #ff869a;
+            border: 2px solid #ffb3b3;
+            box-shadow: inset 0 2px 6px rgba(150, 0, 0, 0.1);
         }
 
         /* heart canvas fullscreen overlay */
@@ -186,48 +174,48 @@
             background: transparent;
         }
 
-        /* mobile-friendly adjustments */
-        @media (max-width: 450px) {
+        /* mobile adjustments */
+        @media (max-width: 500px) {
             .valentine-wrapper {
                 padding: 24px 16px;
             }
-            .title {
-                font-size: 1.8rem;
-            }
             .lisa-name {
-                font-size: 1.6rem;
-                padding: 6px 16px;
+                font-size: 1.9rem;
+                padding: 10px 22px;
             }
             .question {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             .btn {
-                padding: 14px 20px;
-                font-size: 1.4rem;
-                min-width: 120px;
+                padding: 16px 24px;
+                font-size: 1.7rem;
+                min-width: 140px;
             }
-            .btn-no {
-                min-width: 120px;
-            }
-            .heart-big {
-                font-size: 2.5rem;
+            .buttons-container {
+                gap: 30px;
             }
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
             .btn {
-                padding: 14px 16px;
-                font-size: 1.3rem;
-                min-width: 110px;
+                padding: 14px 18px;
+                font-size: 1.5rem;
+                min-width: 120px;
             }
-            .buttons-container {
-                gap: 16px;
+            .lisa-name {
+                font-size: 1.7rem;
+            }
+            .question {
+                font-size: 1.6rem;
+            }
+            .message-area {
+                font-size: 1.5rem;
             }
         }
 
         .fun-footer {
-            margin-top: 24px;
-            color: #e05270;
+            margin-top: 20px;
+            color: #c1556b;
             font-size: 1.1rem;
             opacity: 0.9;
         }
@@ -235,33 +223,33 @@
 </head>
 <body>
 
-    <div class="valentine-wrapper" id="valentineCard">
+    <div class="valentine-wrapper">
         <div class="card">
-            <span class="heart-big">❤️🧡💛</span>
-            <div class="title">VALENTINE'S DAY</div>
-            <span class="lisa-name">💕 Lisa 💕</span>
+            <span class="heart-big">❤️🧡💖</span>
+            
+            <span class="lisa-name">💘 Lisa 💘</span>
             
             <div class="question">
                 <span>Will you be my Valentine?</span>
             </div>
 
-            <!-- Buttons: YES and the tricky NO -->
+            <!-- YES button (stable) and NO button (flees) -->
             <div class="buttons-container" id="buttonContainer">
-                <button class="btn btn-yes" id="yesBtn">YES 💖</button>
-                <button class="btn btn-no" id="noBtn">NO 🙅‍♀️</button>
+                <button class="btn btn-yes" id="yesBtn">YES 💞</button>
+                <button class="btn btn-no" id="noBtn">NO 🏃‍♀️</button>
             </div>
 
-            <!-- message that changes with "no" clicks -->
+            <!-- New message: no more "I hope you say yes" — now it's cheeky 😂 -->
             <div class="message-area" id="messageBox">
-                😊 I hope you say YES, Lisa!
+                😂 you better say YES, Lisa!
             </div>
             <div class="fun-footer">
-                ✨ made with love, just for you ✨
+                ✨ click YES — hearts explode! ✨
             </div>
         </div>
     </div>
 
-    <!-- Canvas for hearts explosion -->
+    <!-- Hearts explosion canvas -->
     <div id="heartCanvasContainer" class="heart-canvas-container">
         <canvas id="heartCanvas"></canvas>
     </div>
@@ -270,54 +258,22 @@
         (function() {
             "use strict";
 
-            // ---------------------  LISA'S VALENTINE MAGIC  -------------------------
-            // YES button click → show love hearts all over the screen.
-            // NO button is EVASIVE: changes text and moves away.
-            // After enough "no" clicks, it becomes a YES.
-            // Fully mobile friendly (touch events, no double-tap zoom issues)
+            // --------------------  LISA EDITION: RUNAWAY NO BUTTON  --------------------
+            // 1. YES click → floods screen with love hearts.
+            // 2. NO button is IMPOSSIBLE to click: it moves to opposite side instantly 
+            //    when finger/cursor approaches. Never changes text, never becomes YES.
+            // 3. Removed "Valentine's Day" heading, removed "I hope you say yes" 
+            //    → message: "😂 you better say YES, Lisa!"
+            // 4. Only way to get hearts is clicking YES.
             
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             const messageBox = document.getElementById('messageBox');
             const canvasContainer = document.getElementById('heartCanvasContainer');
             const canvas = document.getElementById('heartCanvas');
+            const container = document.getElementById('buttonContainer');
             
-            // Array of funny "no" button texts – each time more insisting
-            const noTexts = [
-                'NO 🙅‍♀️', 
-                'you mean yes?', 
-                'really? 😅', 
-                'are you sure?', 
-                'maybe yes?', 
-                'click YES 💕', 
-                'Yes is better 💘', 
-                'be my valentine?', 
-                'I know you mean YES', 
-                'Lisa, say YES!', 
-                '💞 YES 💞',
-                'YES PLEASE!'
-            ];
-            
-            // Corresponding messages for Lisa under the buttons
-            const messageTexts = [
-                '😢 oh Lisa... click YES?',
-                '🙈 you mean YES, right?',
-                '🥺 pretty please?',
-                '💗 I know you want to say YES!',
-                '🌸 click YES for surprises!',
-                '💓 Lisa, be my Valentine!',
-                '💖 YES = more hearts!',
-                '✨ just one YES?',
-                '🎀 say YEEES!',
-                '🎈 your YES will make my day!',
-                '💝 almost there...',
-                '❤️❤️❤️ LISA ❤️❤️❤️'
-            ];
-
-            let noClickCount = 0;
-            const MAX_NO_CLICKS_BEFORE_YES = noTexts.length - 1; // last index becomes YES
-
-            // --- canvas hearts animation ---
+            // --- Canvas heart explosion ---
             let heartsArray = [];
             let animationFrame = null;
             let ctx = canvas.getContext('2d');
@@ -327,25 +283,24 @@
                 canvas.height = window.innerHeight;
             }
 
-            // Heart particle class
             class HeartParticle {
                 constructor(x, y) {
                     this.x = x || Math.random() * canvas.width;
                     this.y = y || Math.random() * canvas.height;
-                    this.size = Math.floor(Math.random() * 24) + 12; // 12-36px
-                    this.speedX = (Math.random() - 0.5) * 5;
-                    this.speedY = (Math.random() - 0.7) * 5 - 2; // mostly upwards
-                    this.opacity = Math.random() * 0.7 + 0.3;
-                    this.color = `hsl(${Math.floor(Math.random() * 20) + 330}, 85%, 65%)`; // pink/red hues
+                    this.size = Math.floor(Math.random() * 26) + 14; // 14-40px
+                    this.speedX = (Math.random() - 0.5) * 5.5;
+                    this.speedY = (Math.random() - 0.8) * 5 - 2.5; // upward bias
+                    this.opacity = Math.random() * 0.6 + 0.4;
+                    this.color = `hsl(${Math.floor(Math.random() * 25) + 330}, 90%, 70%)`;
                     this.rotation = Math.random() * 360;
                 }
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
-                    this.speedY += 0.08; // gravity
-                    this.opacity *= 0.995; // fade slowly
-                    this.size *= 0.998;
-                    return (this.opacity > 0.02 && this.y > -100 && this.y < canvas.height + 100 && this.x > -100 && this.x < canvas.width + 100);
+                    this.speedY += 0.09; 
+                    this.opacity *= 0.994;
+                    this.size *= 0.997;
+                    return (this.opacity > 0.02 && this.y > -150 && this.y < canvas.height + 150 && this.x > -150 && this.x < canvas.width + 150);
                 }
                 draw(ctx) {
                     ctx.save();
@@ -362,27 +317,23 @@
             }
 
             function drawHearts() {
-                if (!canvasContainer.style.display === 'block') return;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for (let i = heartsArray.length - 1; i >= 0; i--) {
-                    const heart = heartsArray[i];
-                    if (!heart.update()) {
+                    if (!heartsArray[i].update()) {
                         heartsArray.splice(i, 1);
                     } else {
-                        heart.draw(ctx);
+                        heartsArray[i].draw(ctx);
                     }
                 }
                 if (heartsArray.length > 0) {
                     animationFrame = requestAnimationFrame(drawHearts);
                 } else {
-                    // hide container when all hearts fade
                     canvasContainer.style.display = 'none';
                     animationFrame = null;
                 }
             }
 
-            function spawnHearts(count = 80) {
-                // end all previous animations
+            function spawnHearts(count = 140) {
                 if (animationFrame) {
                     cancelAnimationFrame(animationFrame);
                     animationFrame = null;
@@ -390,195 +341,208 @@
                 heartsArray = [];
                 initCanvasSize();
                 
-                // generate lots of hearts all over the screen
                 for (let i = 0; i < count; i++) {
                     heartsArray.push(new HeartParticle(
                         Math.random() * canvas.width,
                         Math.random() * canvas.height
                     ));
                 }
-                // also some hearts from the center (where YES button was)
-                for (let i = 0; i < 30; i++) {
+                // burst from center (where YES button lives)
+                for (let i = 0; i < 50; i++) {
                     heartsArray.push(new HeartParticle(canvas.width/2, canvas.height/2));
                 }
-
                 canvasContainer.style.display = 'block';
                 drawHearts();
             }
 
-            // --- YES button handler: LOVE EXPLOSION! ---
-            function onYesClick() {
-                // Final message for Lisa
-                messageBox.innerHTML = '💘💘💘 YAY! LOVE YOU LISA! 💘💘💘';
-                // Disable no button? not needed but we can grey it? Let it be there but we already won.
+            // --- YES CLICK: LOVE EXPLOSION + celebration message ---
+            function onYesClick(e) {
+                if (e) e.preventDefault();
+                messageBox.innerHTML = '💘💘💘 YAAAAAY! LOVE YOU LISA! 💘💘💘';
+                
+                // Disable NO button? better keep it but it's already uncatchable.
                 noBtn.disabled = true;
-                noBtn.style.opacity = '0.6';
-                noBtn.style.transform = 'scale(0.9)';
-                noBtn.innerHTML = 'YES! 💕';
+                noBtn.style.opacity = '0.5';
+                noBtn.style.cursor = 'not-allowed';
+                noBtn.style.pointerEvents = 'none'; // fully inert after YES
                 
-                // show canvas hearts all over!
-                spawnHearts(140);
-                
-                // additional love: pulse yes
-                yesBtn.style.transform = 'scale(1.2)';
+                // YES celebration
+                yesBtn.style.transform = 'scale(1.3)';
                 setTimeout(() => yesBtn.style.transform = 'scale(1)', 200);
                 
-                // also add hearts to background via canvas
-                // re-trigger resize
-                window.addEventListener('resize', function resizeHandler() {
-                    if (canvasContainer.style.display === 'block') {
-                        initCanvasSize();
-                    }
-                });
+                spawnHearts(180); // massive hearts
+                
+                // final message stays happy
             }
 
             yesBtn.addEventListener('click', onYesClick);
-            yesBtn.addEventListener('touchstart', (e) => {
-                // avoid double tap zoom on mobile
-                e.preventDefault();
-            }, { passive: false });
+            yesBtn.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
-            // --- EVASIVE NO BUTTON with text and position changes ---
-            function updateNoButton() {
-                noClickCount++;
+            // ---------- RUNAWAY NO BUTTON: TOTALLY UNCLICKABLE ----------
+            // Moves to opposite side of container relative to cursor/touch.
+            // No text change, always says "NO 🏃‍♀️"
+            
+            // ensure initial NO button text
+            noBtn.innerHTML = 'NO 🏃‍♀️';
+            
+            // Track if we're touching to avoid flicker
+            let evadeEnabled = true;
+            
+            function evadeCursor(e) {
+                // if YES already clicked, no need to run
+                if (noBtn.disabled) return;
                 
-                // If max tries reached -> turn into YES
-                if (noClickCount >= noTexts.length) {
-                    // become yes button!
-                    noBtn.innerHTML = '💖 YES 💖';
-                    noBtn.classList.remove('btn-no');
-                    noBtn.classList.add('btn-yes');
-                    noBtn.style.boxShadow = '0 12px 0 #b3415c';
-                    noBtn.disabled = false; 
-                    messageBox.innerHTML = '💗 Lisa wants to say YES! 💗';
-                    
-                    // make it actually trigger Yes function
-                    // remove old listeners, add new click
-                    noBtn.replaceWith(noBtn.cloneNode(true)); // simple way to remove all listeners
-                    const newNoBtn = document.getElementById('noBtn');
-                    newNoBtn.addEventListener('click', function(e) {
-                        onYesClick();
-                        e.preventDefault();
-                    });
-                    return;
-                }
-
-                // Update no button text
-                noBtn.innerHTML = noTexts[noClickCount];
-                
-                // Update message with corresponding sweet message
-                if (noClickCount <= messageTexts.length) {
-                    messageBox.innerHTML = messageTexts[noClickCount];
+                // Get pointer coordinates (touch or mouse)
+                let clientX, clientY;
+                if (e.touches) {
+                    // touch event
+                    if (e.touches.length === 0) return;
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
                 } else {
-                    messageBox.innerHTML = '💞 Please say YES, Lisa! 💞';
+                    clientX = e.clientX;
+                    clientY = e.clientY;
                 }
 
-                // EVASIVE MOVEMENT: move the NO button randomly within container
-                // Make it mobile friendly – relative to parent, avoid overflow
-                const container = document.getElementById('buttonContainer');
+                // get container and button rects
                 const containerRect = container.getBoundingClientRect();
-                const noBtnRect = noBtn.getBoundingClientRect();
-
-                // maximum offset so button stays inside container edges
-                const maxX = containerRect.width - noBtnRect.width - 8;  // 8px margin
-                const maxY = containerRect.height - noBtnRect.height - 8;
-
-                // random offsets, but keep it fully visible
-                let deltaX = 0, deltaY = 0;
-                if (maxX > 10) {
-                    deltaX = Math.floor(Math.random() * maxX) - (parseInt(noBtn.style.left) || 0);
-                }
-                if (maxY > 10) {
-                    deltaY = Math.floor(Math.random() * maxY) - (parseInt(noBtn.style.top) || 0);
-                }
-
-                // apply relative positioning
-                noBtn.style.position = 'relative';
-                noBtn.style.left = (parseInt(noBtn.style.left) || 0) + deltaX + 'px';
-                noBtn.style.top = (parseInt(noBtn.style.top) || 0) + deltaY + 'px';
+                const btnRect = noBtn.getBoundingClientRect();
                 
-                // add wiggle effect
-                noBtn.style.transform = `rotate(${Math.random() * 8 - 4}deg)`;
+                // Calculate button center
+                const btnCenterX = btnRect.left + btnRect.width / 2;
+                const btnCenterY = btnRect.top + btnRect.height / 2;
                 
-                // Also shrink a tiny bit? just for fun
-                noBtn.style.scale = 0.95 + (Math.random() * 0.1);
+                // Distance from pointer to button center
+                const distX = clientX - btnCenterX;
+                const distY = clientY - btnCenterY;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+                
+                // If pointer is within 150px — button FLEES to opposite side!
+                if (distance < 180) {
+                    // Determine escape direction: opposite to pointer
+                    let escapeX = 0, escapeY = 0;
+                    
+                    // Decide horizontal direction: if pointer is left of button → escape right, etc.
+                    if (distX > 0) {
+                        // pointer to the right → move left
+                        escapeX = - (containerRect.width - btnRect.width - 10);
+                    } else {
+                        // pointer to left → move right
+                        escapeX = containerRect.width - btnRect.width - 10;
+                    }
+                    
+                    if (distY > 0) {
+                        // pointer below → move up
+                        escapeY = - (containerRect.height - btnRect.height - 10);
+                    } else {
+                        // pointer above → move down
+                        escapeY = containerRect.height - btnRect.height - 10;
+                    }
+                    
+                    // But we must keep button fully inside container edges (relative positioning)
+                    // Convert to relative position inside container.
+                    const currentLeft = parseFloat(noBtn.style.left) || 0;
+                    const currentTop = parseFloat(noBtn.style.top) || 0;
+                    
+                    // Clamp to container boundaries
+                    let newLeft = currentLeft + escapeX * 0.7; // *0.7 for smooth but decisive
+                    let newTop = currentTop + escapeY * 0.7;
+                    
+                    const maxLeft = containerRect.width - btnRect.width - 5;
+                    const maxTop = containerRect.height - btnRect.height - 5;
+                    const minLeft = 5;
+                    const minTop = 5;
+                    
+                    newLeft = Math.min(Math.max(newLeft, minLeft), maxLeft);
+                    newTop = Math.min(Math.max(newTop, minTop), maxTop);
+                    
+                    // apply position
+                    noBtn.style.position = 'relative';
+                    noBtn.style.left = newLeft + 'px';
+                    noBtn.style.top = newTop + 'px';
+                    
+                    // little tilt for fun
+                    noBtn.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
+                }
             }
 
-            // NO button click handler – never says yes until exhausted, just updates and moves
-            function onNoClick(e) {
-                e.preventDefault(); // for touch
-                // if button already turned YES, then call yes handler
-                if (noBtn.classList.contains('btn-yes') || noClickCount >= noTexts.length) {
-                    onYesClick();
-                    return;
+            // Attach both mousemove and touchmove to container for performance
+            container.addEventListener('mousemove', function(e) {
+                if (!noBtn.disabled) evadeCursor(e);
+            });
+            
+            container.addEventListener('touchmove', function(e) {
+                if (!noBtn.disabled) {
+                    evadeCursor(e);
+                    e.preventDefault(); // prevent scrolling while chasing
                 }
-                updateNoButton();
-            }
-
-            noBtn.addEventListener('click', onNoClick);
-            noBtn.addEventListener('touchstart', (e) => {
-                // on mobile prevent pull-to-refresh or zoom
-                e.preventDefault();
             }, { passive: false });
 
-            // Reset no button position on window resize to avoid overflow
-            window.addEventListener('resize', function() {
-                if (!noBtn.classList.contains('btn-yes')) {
-                    noBtn.style.left = '0px';
-                    noBtn.style.top = '0px';
-                    noBtn.style.transform = 'rotate(0deg)';
-                    noBtn.style.scale = '1';
+            // Also directly on noBtn itself? We want it to flee even if finger near.
+            noBtn.addEventListener('mouseenter', function(e) {
+                if (!noBtn.disabled) evadeCursor(e);
+            });
+            
+            // For touch start, also flee immediately
+            noBtn.addEventListener('touchstart', function(e) {
+                if (!noBtn.disabled) {
+                    evadeCursor(e);
+                    e.preventDefault(); // crucial to block any accidental click
                 }
+            }, { passive: false });
+            
+            // Prevent any click on noBtn — never ever trigger
+            noBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                // also move away aggressively
+                if (!noBtn.disabled) {
+                    const fakeEvent = { clientX: 0, clientY: 0 }; // force escape to corner
+                    evadeCursor({ clientX: 0, clientY: 0 });
+                    messageBox.innerHTML = '😂 nope! you better say YES!';
+                }
+                return false;
+            });
+            
+            // Block all other attempts
+            noBtn.addEventListener('mousedown', (e) => e.preventDefault());
+            noBtn.addEventListener('mouseup', (e) => e.preventDefault());
+            
+            // Reset position on resize to keep in bounds
+            window.addEventListener('resize', function() {
+                noBtn.style.left = '0px';
+                noBtn.style.top = '0px';
+                noBtn.style.transform = 'rotate(0deg)';
             });
 
-            // additional initial messages for lisa
-            // Lisa special: if she tries to click near edges, it's fine.
-
-            // Pre-fill with nice message
-            messageBox.innerHTML = '😊 I hope you say YES, Lisa!';
-
-            // --- also pre-move a little bit to show it's playful? maybe not needed.
-            // ensure canvas resize on orientation change
+            // Ensure canvas resizes
             window.addEventListener('orientationchange', function() {
                 if (canvasContainer.style.display === 'block') {
-                    setTimeout(() => {
-                        initCanvasSize();
-                    }, 50);
+                    setTimeout(() => initCanvasSize(), 50);
                 }
             });
 
-            // disable context menu on buttons to make clean mobile experience
-            yesBtn.addEventListener('contextmenu', (e) => e.preventDefault());
+            // Disable long press / context menu on buttons
             noBtn.addEventListener('contextmenu', (e) => e.preventDefault());
+            yesBtn.addEventListener('contextmenu', (e) => e.preventDefault());
 
-            // one more: after final YES, the no button could already be YES. 
-            // if user clicks original YES all good. duplicate prevention 
-            // also if NO button becomes yes, add same listener.
-            // but we replaced node above, so we attach global if needed.
-            // we also want if the button is turned yes (via many no's) to call onYesClick
-            // but we already attached in the if condition inside onNoClick. plus the cloneNode approach.
-            // However after clone, we need to make sure it triggers yes. we did that.
-            // and also for safety: if no button turned yes and we click yes normally
-            const originalYes = yesBtn;
-            // it's fine
-
-            // Extra love: prevent zoom when double tapping buttons
-            document.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                }, { passive: false });
+            // Final message: set initial exactly as requested:
+            messageBox.innerHTML = '😂 you better say YES, Lisa!';
+            
+            // Also pre-move no button a little off center to show it's playful
+            window.addEventListener('load', function() {
+                noBtn.style.left = '20px';
+                noBtn.style.top = '10px';
+                noBtn.style.position = 'relative';
             });
-
-            // Styling to ensure canvas sits on top
-            // Set canvas container pointer events none, canvas will catch no events.
         })();
     </script>
 
-    <!-- manual touch tweak: avoid long press menu -->
+    <!-- disable callout and selection -->
     <script>
-        (function disableLongPress() {
-            const noTouchSelect = document.querySelectorAll('button, .message-area, .lisa-name');
-            noTouchSelect.forEach(el => {
+        (function disableTouchMenu() {
+            const elements = document.querySelectorAll('button, .message-area, .lisa-name');
+            elements.forEach(el => {
                 el.style.webkitTouchCallout = 'none';
                 el.style.webkitUserSelect = 'none';
                 el.style.userSelect = 'none';
@@ -586,10 +550,13 @@
         })();
     </script>
 
-    <!-- ensure canvas container is hidden initially -->
     <style>
         .heart-canvas-container {
             display: none;
+        }
+        /* Force no pull-to-refresh on button container */
+        .buttons-container {
+            overscroll-behavior: contain;
         }
     </style>
 </body>
