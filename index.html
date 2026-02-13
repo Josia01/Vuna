@@ -42,7 +42,7 @@
             align-items: center;
         }
 
-        /* ---------- DEAR LISA screen (only what you asked for) ---------- */
+        /* ---------- DEAR LISA screen ---------- */
         .dear-lisa {
             font-size: 3.8rem;
             font-weight: 800;
@@ -175,7 +175,7 @@
         <div class="card">
             <div class="big-heart">💘💌💘</div>
             <div class="dear-lisa">Dear Lisa,</div>
-            <!-- ONE YES BUTTON – WORKS 100% FIRST CLICK, NO MULTI-CLICK ISSUE -->
+            <!-- ONE YES BUTTON – WORKS 100% FIRST CLICK -->
             <button id="goToProposalBtn" class="btn btn-yes" style="font-size:2.2rem; padding:20px 50px; margin:24px 0 12px;">YES 💖</button>
             <p style="color:#b3455e; font-size:1.4rem; font-weight:600; margin-top:24px;">❤️ click yes to continue ❤️</p>
         </div>
@@ -189,13 +189,13 @@
             <div class="question">Will you be my Valentine?</div>
 
             <div id="proposalBtnContainer" class="btn-holder">
-                <!-- FINAL YES – CLICK ONCE = HEARTS EXPLOSION, NO SECOND CHANCE -->
+                <!-- FINAL YES – ONE CLICK = HEARTS + DATE MESSAGE -->
                 <button id="finalYesButton" class="btn btn-yes">YES 💞</button>
-                <!-- NO BUTTON – runs away, can't be clicked -->
+                <!-- NO BUTTON – runs away forever -->
                 <button id="runningNoBtn" class="btn btn-no">NO 🏃‍♀️</button>
             </div>
 
-            <!-- message exactly as requested -->
+            <!-- message changes to date confirmation after YES -->
             <div id="proposalMessage" class="message">
                 😂 you better say YES, Lisa!
             </div>
@@ -207,30 +207,29 @@
             "use strict";
 
             // ---------- SIMPLE, FOOLPROOF YES BUTTONS ----------
-            // No flags, no double‑listening, no nonsense.
-            // Each YES button does its job ONCE and is immediately disabled.
+            // Each YES button works ONCE and is immediately disabled.
 
             // ----- SCREEN 1: "Dear Lisa" → Show proposal -----
             const page1 = document.getElementById('page1');
             const page2 = document.getElementById('page2');
             const dearLisaBtn = document.getElementById('goToProposalBtn');
 
-            // DIRECT REPLACEMENT: remove any old listener, attach new one that disables itself
+            // Fresh clone to wipe listeners
             const newDearBtn = dearLisaBtn.cloneNode(true);
             dearLisaBtn.parentNode.replaceChild(newDearBtn, dearLisaBtn);
 
             newDearBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                // DISABLE immediately — prevents any second click
+                // Disable immediately — no second click
                 this.disabled = true;
                 this.style.opacity = '0.7';
                 this.style.pointerEvents = 'none';
-                // go to proposal screen
+                // Go to proposal screen
                 page1.classList.add('hidden');
                 page2.classList.remove('hidden');
             });
 
-            // ----- SCREEN 2: FINAL YES — HEARTS EXPLOSION, ONE CLICK ONLY -----
+            // ----- SCREEN 2: FINAL YES — HEARTS + NEW MESSAGE -----
             const finalYes = document.getElementById('finalYesButton');
             const noBtn = document.getElementById('runningNoBtn');
             const messageBox = document.getElementById('proposalMessage');
@@ -238,11 +237,11 @@
             const canvas = document.getElementById('loveCanvas');
             const ctx = canvas.getContext('2d');
 
-            // Replace with fresh button to erase any previous listeners
+            // Replace with fresh button to remove any old listeners
             const freshFinalYes = finalYes.cloneNode(true);
             finalYes.parentNode.replaceChild(freshFinalYes, finalYes);
 
-            // ---------- HEART EXPLOSION (full power) ----------
+            // ---------- HEART EXPLOSION ----------
             let hearts = [];
             let animFrame = null;
 
@@ -301,7 +300,7 @@
                 }
             }
 
-            function explodeHearts(count = 220) {
+            function explodeHearts(count = 240) {
                 if (animFrame) cancelAnimationFrame(animFrame);
                 hearts = [];
                 sizeCanvas();
@@ -315,23 +314,24 @@
                 drawLoop();
             }
 
-            // ---------- FINAL YES: ONE CLICK, ONE EXPLOSION ----------
+            // ---------- FINAL YES: ONE CLICK, ONE EXPLOSION, PERFECT MESSAGE ----------
             freshFinalYes.addEventListener('click', function(e) {
                 e.preventDefault();
+                
                 // ⚡️ GUARANTEED SINGLE CLICK: disable immediately ⚡️
                 this.disabled = true;
                 this.style.opacity = '0.8';
                 this.style.pointerEvents = 'none';
 
-                // joy message
-                messageBox.innerHTML = '💘💘💘 YAAAAAY! LOVE YOU LISA! 💘💘💘';
+                // 💌 EXACT MESSAGE YOU REQUESTED – no "love you Lisa" 💌
+                messageBox.innerHTML = 'YAAAY! can’t wait for our date when we are back 💘';
 
-                // disable NO button forever
+                // Disable NO button forever
                 noBtn.disabled = true;
                 noBtn.style.opacity = '0.5';
                 noBtn.style.pointerEvents = 'none';
 
-                // celebration pop
+                // Celebration pop
                 this.style.transform = 'scale(1.2)';
                 setTimeout(() => this.style.transform = 'scale(1)', 160);
 
@@ -403,43 +403,38 @@
                 e.preventDefault();
                 e.stopPropagation();
                 if (!noBtn.disabled) {
-                    // extreme flee
                     runAway({ clientX: 0, clientY: 0 });
                     messageBox.innerHTML = '😂 nope! you better say YES!';
                 }
                 return false;
             });
 
-            // block all other attempts
             noBtn.addEventListener('mousedown', (e) => e.preventDefault());
             noBtn.addEventListener('mouseup', (e) => e.preventDefault());
 
-            // reset position on resize
             window.addEventListener('resize', function() {
                 noBtn.style.left = '0px';
                 noBtn.style.top = '0px';
                 noBtn.style.transform = 'rotate(0deg)';
             });
 
-            // canvas orientation
             window.addEventListener('orientationchange', function() {
                 if (canvasWrap.style.display === 'block') {
                     setTimeout(() => sizeCanvas(), 30);
                 }
             });
 
-            // set initial no button offset
             window.addEventListener('load', function() {
                 noBtn.style.left = '18px';
                 noBtn.style.top = '12px';
                 noBtn.style.position = 'relative';
             });
 
-            // ensure message is perfect
+            // Set initial message exactly as requested
             messageBox.innerHTML = '😂 you better say YES, Lisa!';
         })();
     </script>
 
-    <!-- no footer, no extra text, no "click yes heart explodes" — pure Lisa -->
+    <!-- no footer, no extra text — just love for Lisa -->
 </body>
 </html>
