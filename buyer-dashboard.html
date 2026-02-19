@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard · Vuna Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ----- GLOBAL THEME (Vuna marketplace) + buyer dashboard custom ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #2d6a4f;
+            --primary-dark: #1b4332;
+            --primary-light: #40916c;
+            --secondary: #95d5b2;
+            --accent: #ffd166;
+            --accent-dark: #f4a261;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --text: #343a40;
+            --text-light: #6c757d;
+            --card-bg: #ffffff;
+            --sale: #e63946;
+            --new: #2a9d8f;
+            --popular: #457b9d;
+            --success: #38b000;
+            --warning: #ff9f1c;
+            --border: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-light));
+            --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        }
+
+        body {
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--light-gray); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* ----- BUYER SIDEBAR (different from seller) ----- */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        @media (max-width:992px){
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+        }
+        .logo-section {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo i {
+            font-size: 2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo h1 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        .logo span { color: var(--accent); font-weight: 900; }
+
+        .buyer-info {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .buyer-avatar {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center; justify-content: center;
+            color: var(--dark); font-weight: bold; font-size: 1.5rem;
+        }
+        .buyer-details h3 { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); }
+        .buyer-details p { color: var(--text-light); font-size: 0.9rem; display: flex; gap:6px; }
+        .buyer-details .member-badge { color: var(--primary-light); font-weight: 600; }
+
+        .nav-menu { flex:1; overflow-y: auto; padding: 24px 0; }
+        .nav-title { padding: 0 24px 12px; font-size:0.85rem; font-weight:600; color:var(--text-light); text-transform: uppercase; }
+        .nav-links { list-style: none; }
+        .nav-links li a {
+            display: flex; align-items: center; gap:16px; padding:16px 24px;
+            color: var(--text); text-decoration: none; font-weight: 500;
+            border-left: 4px solid transparent; transition: all 0.2s;
+        }
+        .nav-links li a:hover { background: rgba(45,106,79,0.05); color:var(--primary); border-left-color: var(--primary-light); }
+        .nav-links li a.active { background: rgba(45,106,79,0.1); color:var(--primary-dark); border-left-color: var(--primary); font-weight:600; }
+        .nav-links li a .badge { margin-left: auto; background: var(--sale); color:white; font-size:0.75rem; padding:4px 8px; border-radius:12px; }
+
+        .sidebar-footer {
+            padding: 24px;
+            border-top:1px solid var(--border);
+        }
+        .vuna-credit {
+            background: var(--gradient-accent);
+            color: var(--dark);
+            padding:16px;
+            border-radius:16px;
+            text-align:center;
+            font-weight:600;
+        }
+        .vuna-credit small { display:block; font-size:0.8rem; opacity:0.8; }
+
+        /* ----- MAIN CONTENT AREA (buyer) ----- */
+        .main-content {
+            flex:1;
+            margin-left: 280px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--light);
+        }
+        @media (max-width:992px){ .main-content { margin-left:0; } }
+
+        /* top bar (blended with marketplace header) */
+        .top-bar {
+            background: white;
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top:0; z-index:99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .mobile-menu-btn {
+            display: none; background: none; border: none; font-size:1.5rem; color:var(--primary); cursor:pointer; padding:8px;
+        }
+        .search-bar {
+            flex:1; max-width:400px; position:relative; margin:0 20px;
+        }
+        .search-bar input {
+            width:100%; padding:12px 48px 12px 20px; border:2px solid var(--light-gray); border-radius:12px; font-size:0.95rem;
+            transition:0.3s; background: var(--light);
+        }
+        .search-bar input:focus { border-color:var(--primary-light); outline:none; box-shadow:0 0 0 3px rgba(45,106,79,0.1); }
+        .search-bar i { position:absolute; right:20px; top:50%; transform:translateY(-50%); color:var(--text-light); }
+
+        .top-actions {
+            display: flex; align-items: center; gap:24px;
+        }
+        .cart-icon {
+            position:relative; background:none; border:none; font-size:1.4rem; color:var(--text); cursor:pointer; padding:8px;
+        }
+        .cart-count {
+            position:absolute; top:-4px; right:-4px; background:var(--sale); color:white; font-size:0.7rem;
+            width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white;
+        }
+        .notification-btn {
+            position:relative; background:none; border:none; font-size:1.3rem; color:var(--text); cursor:pointer; padding:8px;
+        }
+        .notification-badge {
+            position:absolute; top:0; right:0; background:var(--sale); color:white; font-size:0.7rem;
+            width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white;
+        }
+
+        @media (max-width:992px){
+            .mobile-menu-btn { display: flex; align-items:center; justify-content:center; width:44px; height:44px; }
+            .top-bar { padding:12px 16px; gap:10px; }
+            .search-bar { max-width:none; margin:0 10px; }
+            .top-actions { gap:12px; }
+        }
+
+        /* buyer dashboard panels */
+        .content-area { flex:1; padding:32px; background:var(--light); }
+        .page-header { margin-bottom:32px; }
+        .page-header h2 { font-size:2rem; font-weight:800; color:var(--primary-dark); }
+        .page-header p { color:var(--text-light); }
+
+        /* stats row (buyer overview) */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:24px; margin-bottom:32px;
+        }
+        .stat-card {
+            background:white; padding:24px; border-radius:20px; box-shadow:0 4px 20px var(--shadow);
+            border:1px solid var(--border); transition:0.3s; display:flex; align-items:center; gap:16px;
+        }
+        .stat-icon {
+            width:52px; height:52px; border-radius:16px; background:var(--gradient-primary);
+            display:flex; align-items:center; justify-content:center; color:white; font-size:1.8rem;
+        }
+        .stat-content h3 { font-size:1.8rem; font-weight:800; color:var(--primary-dark); line-height:1.2; }
+        .stat-content p { color:var(--text-light); font-weight:500; }
+
+        /* recent orders (buyer view) */
+        .recent-orders, .wishlist-panel, .recommended-grid {
+            background:white; padding:32px; border-radius:20px; box-shadow:0 4px 20px var(--shadow); border:1px solid var(--border); margin-bottom:32px;
+        }
+        .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+        .section-header h3 { font-size:1.5rem; font-weight:700; color:var(--primary-dark); }
+        .section-header a { color:var(--primary); font-weight:600; text-decoration:none; }
+
+        .orders-table { width:100%; border-collapse: collapse; }
+        .orders-table th { text-align:left; padding:16px; font-weight:600; color:var(--text-light); border-bottom:2px solid var(--border); }
+        .orders-table td { padding:20px 16px; border-bottom:1px solid var(--border); }
+        .order-status { padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display:inline-block; }
+        .status-delivered { background: rgba(56,176,0,0.1); color:var(--success); }
+        .status-shipped { background: rgba(42,157,143,0.1); color:var(--new); }
+        .status-processing { background: rgba(69,123,157,0.1); color:var(--popular); }
+        .track-btn { padding:8px 16px; border-radius:8px; border:2px solid var(--primary-light); background:white; color:var(--primary); font-weight:600; cursor:pointer; transition:0.3s; }
+        .track-btn:hover { background:var(--primary); color:white; }
+
+        /* wishlist / saved items */
+        .wishlist-grid {
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px;
+        }
+        .wishlist-item {
+            display:flex; align-items:center; gap:16px; padding:16px; background:var(--light); border-radius:16px; border:1px solid var(--border);
+        }
+        .item-img {
+            width:70px; height:70px; background:var(--light-gray); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:2rem; color:var(--primary);
+        }
+        .item-info h4 { font-weight:700; }
+        .item-info .price { color:var(--primary); font-weight:800; margin-top:4px; }
+        .remove-wish { margin-left:auto; color:var(--text-light); cursor:pointer; padding:8px; }
+        .remove-wish:hover { color:var(--sale); }
+
+        /* recommended products (carousel / grid) */
+        .products-grid {
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:20px;
+        }
+        .product-card {
+            border:1px solid var(--border); border-radius:16px; overflow:hidden; background:white; transition:0.3s;
+        }
+        .product-card:hover { transform:translateY(-4px); box-shadow:0 8px 32px var(--shadow-hover); }
+        .product-img {
+            height:140px; background:var(--light); display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:var(--primary);
+        }
+        .product-info { padding:16px; }
+        .product-name { font-weight:700; margin-bottom:8px; }
+        .product-price { color:var(--primary); font-weight:800; }
+        .add-cart-sm {
+            margin-top:12px; width:100%; padding:8px; background:var(--gradient-primary); color:white; border:none; border-radius:10px; font-weight:600; cursor:pointer;
+        }
+
+        /* overlay for mobile */
+        .overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:99; }
+        .overlay.active { display:block; }
+
+        /* footer (lightweight) */
+        .footer-market {
+            background: var(--dark); color: white; padding: 30px 0 20px; margin-top: 20px;
+        }
+        .footer-market .container { max-width:1400px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:30px; }
+        .footer-market a { color:#adb5bd; text-decoration:none; }
+        .footer-market h4 { color:var(--accent); margin-bottom:16px; }
+        .footer-bottom { text-align:center; padding-top:20px; border-top:1px solid #495057; margin-top:20px; color:#868e96; }
+
+        @media (max-width:992px){ .footer-market .container { grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:576px){ .footer-market .container { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+    <!-- Buyer Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <a href="index.html" class="logo">
+                <i class="fas fa-seedling"></i>
+                <h1>VU<span>NA</span></h1>
+            </a>
+            <p style="font-size:0.85rem; color:var(--text-light);">Buyer Dashboard</p>
+        </div>
+        <div class="buyer-info">
+            <div class="buyer-avatar">JD</div>
+            <div class="buyer-details">
+                <h3>Jane Doe</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+                <p><span class="member-badge"><i class="fas fa-crown"></i> Gold Member</span></p>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-title">My Account</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-shopping-bag"></i> My Orders <span class="badge">5</span></a></li>
+                <li><a href="#"><i class="fas fa-heart"></i> Wishlist <span class="badge">3</span></a></li>
+                <li><a href="#"><i class="fas fa-truck"></i> Track Shipments</a></li>
+                <li><a href="#"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="#"><i class="fas fa-gem"></i> Vuna Credit</a></li>
+            </ul>
+            <div class="nav-title">Settings</div>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-user-cog"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-map-pin"></i> Addresses</a></li>
+                <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="vuna-credit">
+                <i class="fas fa-coins"></i> Vuna Credit<br>
+                <strong>$124.50</strong>
+                <small>Earn 2% cashback</small>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar (buyer) -->
+        <div class="top-bar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products, sellers...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="top-actions">
+                <button class="notification-btn"><i class="fas fa-bell"></i><span class="notification-badge">2</span></button>
+                <button class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">3</span></button>
+            </div>
+        </div>
+
+        <!-- Buyer Dashboard Content -->
+        <div class="content-area">
+            <div class="page-header">
+                <h2>Welcome back, Jane! 👋</h2>
+                <p>Your next harvest is just a click away.</p>
+            </div>
+
+            <!-- Stats cards (buyer summary) -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-box-open"></i></div>
+                    <div class="stat-content">
+                        <h3>8</h3>
+                        <p>Active orders</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-truck"></i></div>
+                    <div class="stat-content">
+                        <h3>2</h3>
+                        <p>In transit</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                    <div class="stat-content">
+                        <h3>12</h3>
+                        <p>Wishlist</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-content">
+                        <h3>4.8</h3>
+                        <p>Avg. rating</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders (buyer) -->
+            <div class="recent-orders">
+                <div class="section-header">
+                    <h3>Recent Orders</h3>
+                    <a href="#">View all orders →</a>
+                </div>
+                <table class="orders-table">
+                    <thead><tr><th>Order #</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr></thead>
+                    <tbody>
+                        <tr><td>#VU-3281</td><td>Feb 18, 2025</td><td>Kenyan AA Coffee (2)</td><td>$49.98</td><td><span class="order-status status-shipped">Shipped</span></td><td><button class="track-btn">Track</button></td></tr>
+                        <tr><td>#VU-3275</td><td>Feb 12, 2025</td><td>Shea Butter, Berbere spice</td><td>$34.25</td><td><span class="order-status status-delivered">Delivered</span></td><td><button class="track-btn">Review</button></td></tr>
+                        <tr><td>#VU-3260</td><td>Feb 5, 2025</td><td>Moroccan Dates (3 packs)</td><td>$52.50</td><td><span class="order-status status-delivered">Delivered</span></td><td><button class="track-btn">Buy again</button></td></tr>
+                        <tr><td>#VU-3248</td><td>Jan 28, 2025</td><td>Ethiopian Yirgacheffe</td><td>$24.99</td><td><span class="order-status status-processing">Processing</span></td><td><button class="track-btn">Details</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Wishlist / Saved items -->
+            <div class="wishlist-panel">
+                <div class="section-header">
+                    <h3>Your Wishlist ❤️</h3>
+                    <a href="#">Manage wishlist →</a>
+                </div>
+                <div class="wishlist-grid">
+                    <div class="wishlist-item">
+                        <div class="item-img"><i class="fas fa-mug-hot"></i></div>
+                        <div class="item-info"><h4>Kenyan Peaberry</h4><div class="price">$27.99</div></div>
+                        <div class="remove-wish"><i class="fas fa-times"></i></div>
+                    </div>
+                    <div class="wishlist-item">
+                        <div class="item-img"><i class="fas fa-seedling"></i></div>
+                        <div class="item-info"><h4>Raw Shea Butter</h4><div class="price">$18.50</div></div>
+                        <div class="remove-wish"><i class="fas fa-times"></i></div>
+                    </div>
+                    <div class="wishlist-item">
+                        <div class="item-img"><i class="fas fa-apple-alt"></i></div>
+                        <div class="item-info"><h4>Dried Mangoes</h4><div class="price">$12.99</div></div>
+                        <div class="remove-wish"><i class="fas fa-times"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended for you (personalised) -->
+            <div class="recommended-grid">
+                <div class="section-header">
+                    <h3>Recommended for you</h3>
+                    <a href="#">View more →</a>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-img"><i class="fas fa-pepper-hot"></i></div>
+                        <div class="product-info">
+                            <div class="product-name">Ethiopian Berbere</div>
+                            <div class="product-price">$12.99</div>
+                            <button class="add-cart-sm"><i class="fas fa-cart-plus"></i> Add</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img"><i class="fas fa-wine-bottle"></i></div>
+                        <div class="product-info">
+                            <div class="product-name">Argan Oil</div>
+                            <div class="product-price">$24.99</div>
+                            <button class="add-cart-sm"><i class="fas fa-cart-plus"></i> Add</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img"><i class="fas fa-leaf"></i></div>
+                        <div class="product-info">
+                            <div class="product-name">Rooibos Tea</div>
+                            <div class="product-price">$9.50</div>
+                            <button class="add-cart-sm"><i class="fas fa-cart-plus"></i> Add</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img"><i class="fas fa-seedling"></i></div>
+                        <div class="product-info">
+                            <div class="product-name">Teff Grain</div>
+                            <div class="product-price">$16.75</div>
+                            <button class="add-cart-sm"><i class="fas fa-cart-plus"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer-market">
+            <div class="container">
+                <div><h4>Vuna Buyer</h4><p>© 2025 Vuna Marketplace</p></div>
+                <div><h4>Help</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Shipping</a></li></ul></div>
+                <div><h4>Account</h4><ul><li><a href="#">Orders</a></li><li><a href="#">Wishlist</a></li></ul></div>
+                <div><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+            </div>
+            <div class="footer-bottom">Fresh from African farms to your table</div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // Buyer dashboard interactivity
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+
+            // mobile menu toggle
+            mobileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : 'auto';
+            });
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // notification and cart demo
+            const notifBtn = document.querySelector('.notification-btn');
+            const cartBtn = document.querySelector('.cart-icon');
+            const notifBadge = document.querySelector('.notification-badge');
+            const cartCount = document.querySelector('.cart-count');
+
+            notifBtn.addEventListener('click', () => {
+                notifBadge.textContent = '0';
+                notifBadge.style.display = 'none';
+                showMessage('No new notifications', 'info');
+            });
+
+            cartBtn.addEventListener('click', () => {
+                showMessage('🛒 View cart (demo)', 'info');
+            });
+
+            // track buttons
+            document.querySelectorAll('.track-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    if (row) {
+                        const orderId = row.querySelector('td')?.textContent || 'order';
+                        showMessage(`Tracking ${orderId} (demo)`, 'info');
+                    } else {
+                        showMessage('Order action', 'info');
+                    }
+                });
+            });
+
+            // remove from wishlist
+            document.querySelectorAll('.remove-wish').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const item = this.closest('.wishlist-item');
+                    if (item) {
+                        item.style.opacity = '0.3';
+                        setTimeout(() => {
+                            item.remove();
+                            showMessage('Item removed from wishlist', 'success');
+                            // update wishlist badge
+                            const wishlistBadge = document.querySelector('.nav-links li a .badge');
+                            if (wishlistBadge) {
+                                let count = parseInt(wishlistBadge.textContent) || 3;
+                                if (count > 0) count--;
+                                wishlistBadge.textContent = count;
+                            }
+                        }, 200);
+                    }
+                });
+            });
+
+            // add to cart from recommended
+            document.querySelectorAll('.add-cart-sm').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const product = this.closest('.product-card')?.querySelector('.product-name')?.textContent || 'item';
+                    showMessage(`🛒 Added ${product} to cart`, 'success');
+                    // increment cart count
+                    if (cartCount) {
+                        let current = parseInt(cartCount.textContent) || 3;
+                        cartCount.textContent = current + 1;
+                    }
+                });
+            });
+
+            // sidebar navigation active state (demo)
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.hash) e.preventDefault();
+                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    const header = document.querySelector('.page-header h2');
+                    if (header) header.innerHTML = `📋 ${link.textContent.replace(/[0-9]/g,'')}`;
+                    if (window.innerWidth <= 992) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // search bar demo
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter' && searchInput.value.trim()) {
+                    showMessage(`Searching for "${searchInput.value}"`, 'info');
+                }
+            });
+
+            // message toast
+            function showMessage(msg, type = 'info') {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed; bottom: 30px; right: 30px; background: ${type === 'success' ? '#38b000' : '#2d6a4f'};
+                    color: white; padding: 14px 24px; border-radius: 40px; z-index: 10001;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 12px;
+                    animation: slideIn 0.3s;
+                `;
+                toast.innerHTML = `<i class="fas ${type==='success'?'fa-check-circle':'fa-info-circle'}"></i><span>${msg}</span>`;
+                document.body.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.animation = 'slideOut 0.3s';
+                    setTimeout(() => toast.remove(), 300);
+                }, 2800);
+            }
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+                @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+            `;
+            document.head.appendChild(style);
+
+            // update credit card demo
+            document.querySelector('.vuna-credit')?.addEventListener('click', () => {
+                showMessage('Vuna Credit balance: $124.50', 'info');
+            });
+        })();
+    </script>
+</body>
+</html>
