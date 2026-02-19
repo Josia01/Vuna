@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Dashboard - Vuna Premium African Marketplace</title>
+    <title>Seller Dashboard · Vuna Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ----- global theme (merged + seller extensions) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -36,8 +37,6 @@
             --shadow-hover: rgba(0, 0, 0, 0.12);
             --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-light));
             --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            --facebook-blue: #1877f2;
-            --google-red: #db4437;
         }
 
         body {
@@ -45,33 +44,17 @@
             background-color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
             display: flex;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--light-gray); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        ::-webkit-scrollbar-track {
-            background: var(--light-gray);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-light);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        /* Sidebar */
+        /* sidebar (seller) */
         .sidebar {
             width: 280px;
             background: white;
@@ -81,32 +64,23 @@
             position: fixed;
             height: 100vh;
             z-index: 100;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.03);
             transition: transform 0.3s ease;
         }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.active {
-                transform: translateX(0);
-            }
+        @media (max-width:992px){
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
         }
-
         .logo-section {
             padding: 24px;
             border-bottom: 1px solid var(--border);
         }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
-
         .logo i {
             color: var(--primary);
             font-size: 2rem;
@@ -114,20 +88,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .logo h1 {
             color: var(--primary-dark);
             font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.5px;
         }
-
-        .logo span {
-            background: var(--gradient-accent;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-        }
+        .logo span { color: var(--accent); font-weight: 900; }
 
         .seller-info {
             padding: 24px;
@@ -136,159 +103,48 @@
             align-items: center;
             gap: 16px;
         }
-
         .seller-avatar {
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 16px;
             background: var(--gradient-primary);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
+            align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-size: 1.5rem;
         }
+        .seller-details h3 { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); }
+        .seller-details p { color: var(--text-light); font-size: 0.9rem; display: flex; gap:6px; }
+        .seller-details .rating { color: var(--accent-dark); font-weight: 600; }
 
-        .seller-details h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 4px;
-        }
-
-        .seller-details p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .seller-details .rating {
-            color: var(--accent-dark);
-            font-weight: 600;
-        }
-
-        .nav-menu {
-            flex: 1;
-            padding: 24px 0;
-            overflow-y: auto;
-        }
-
-        .nav-title {
-            padding: 0 24px 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links {
-            list-style: none;
-        }
-
+        .nav-menu { flex:1; overflow-y: auto; padding: 24px 0; }
+        .nav-title { padding: 0 24px 12px; font-size:0.85rem; font-weight:600; color:var(--text-light); text-transform: uppercase; }
+        .nav-links { list-style: none; }
         .nav-links li a {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 24px;
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
+            display: flex; align-items: center; gap:16px; padding:16px 24px;
+            color: var(--text); text-decoration: none; font-weight: 500;
+            border-left: 4px solid transparent; transition: all 0.2s;
         }
+        .nav-links li a:hover { background: rgba(45,106,79,0.05); color:var(--primary); border-left-color: var(--primary-light); }
+        .nav-links li a.active { background: rgba(45,106,79,0.1); color:var(--primary-dark); border-left-color: var(--primary); font-weight:600; }
+        .nav-links li a .badge { margin-left: auto; background: var(--sale); color:white; font-size:0.75rem; padding:4px 8px; border-radius:12px; }
 
-        .nav-links li a:hover {
-            background: rgba(45, 106, 79, 0.05);
-            color: var(--primary);
-            border-left-color: var(--primary-light);
-        }
+        .sidebar-footer { padding: 24px; border-top:1px solid var(--border); }
+        .upgrade-card { background: var(--gradient-primary); color:white; padding:20px; border-radius:16px; text-align:center; }
+        .upgrade-card h4 { font-size:1rem; margin-bottom:8px; }
+        .upgrade-btn { background:white; color:var(--primary); border:none; padding:10px 20px; border-radius:12px; font-weight:700; width:100%; cursor:pointer; transition: 0.3s; }
+        .upgrade-btn:hover { transform: translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
 
-        .nav-links li a.active {
-            background: rgba(45, 106, 79, 0.1);
-            color: var(--primary-dark);
-            border-left-color: var(--primary);
-            font-weight: 600;
-        }
-
-        .nav-links li a i {
-            width: 20px;
-            font-size: 1.1rem;
-        }
-
-        .nav-links li a .badge {
-            margin-left: auto;
-            background: var(--sale);
-            color: white;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .sidebar-footer {
-            padding: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        .upgrade-card {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .upgrade-card h4 {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .upgrade-card p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            margin-bottom: 16px;
-        }
-
-        .upgrade-btn {
-            background: white;
-            color: var(--primary);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .upgrade-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Main Content */
+        /* main content area */
         .main-content {
-            flex: 1;
+            flex:1;
             margin-left: 280px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: var(--light);
         }
+        @media (max-width:992px){ .main-content { margin-left:0; } }
 
-        @media (max-width: 992px) {
-            .main-content {
-                margin-left: 0;
-            }
-        }
-
-        /* Top Bar - Updated for Mobile Responsiveness */
+        /* top bar (blended with marketplace header) */
         .top-bar {
             background: white;
             padding: 20px 32px;
@@ -296,937 +152,182 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky; top:0; z-index:99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
-
-        /* Mobile Menu Button - Always visible on mobile */
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary);
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            margin-right: 10px;
+            display: none; background: none; border: none; font-size:1.5rem; color:var(--primary); cursor:pointer; padding:8px;
         }
-
-        /* Search Bar - Responsive */
         .search-bar {
-            flex: 1;
-            max-width: 400px;
-            position: relative;
-            margin: 0 20px;
+            flex:1; max-width:400px; position:relative; margin:0 20px;
         }
-
         .search-bar input {
-            width: 100%;
-            padding: 12px 48px 12px 20px;
-            border: 2px solid var(--light-gray);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            color: var(--text);
-            background: var(--light);
-            transition: all 0.3s ease;
+            width:100%; padding:12px 48px 12px 20px; border:2px solid var(--light-gray); border-radius:12px; font-size:0.95rem;
+            transition:0.3s; background: var(--light);
         }
+        .search-bar input:focus { border-color:var(--primary-light); outline:none; box-shadow:0 0 0 3px rgba(45,106,79,0.1); }
+        .search-bar i { position:absolute; right:20px; top:50%; transform:translateY(-50%); color:var(--text-light); }
 
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
-        }
-
-        .search-bar i {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 1.1rem;
-        }
-
-        .top-actions {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
+        .top-actions { display: flex; align-items: center; gap:24px; }
         .notification-btn {
-            position: relative;
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            color: var(--text);
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            position:relative; background:none; border:none; font-size:1.3rem; color:var(--text); cursor:pointer; padding:8px;
         }
-
-        .notification-btn:hover {
-            background: rgba(45, 106, 79, 0.1);
-            color: var(--primary);
-        }
-
         .notification-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--sale);
-            color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            border: 2px solid white;
+            position:absolute; top:0; right:0; background:var(--sale); color:white; font-size:0.7rem;
+            width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white;
         }
-
         .add-product-btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
+            background:var(--gradient-primary); color:white; border:none; padding:12px 24px; border-radius:12px;
+            font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap;
+            transition:0.3s;
+        }
+        .add-product-btn:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(45,106,79,0.3); }
+
+        @media (max-width:992px){
+            .mobile-menu-btn { display: flex; align-items:center; justify-content:center; width:44px; height:44px; }
+            .top-bar { padding:12px 16px; gap:10px; }
+            .search-bar { max-width:none; margin:0 10px; }
+            .top-actions { gap:12px; }
+            .add-product-btn { padding:10px; min-width:44px; height:44px; }
+            .add-product-btn span { display: none; }
+        }
+        @media (max-width:576px){
+            .add-product-btn span { display:none; }
+            .notification-btn { font-size:1.1rem; }
         }
 
-        .add-product-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(45, 106, 79, 0.3);
-        }
+        /* content area (seller dashboard panels) */
+        .content-area { flex:1; padding:32px; background:var(--light); }
+        .page-header { margin-bottom:32px; }
+        .page-header h2 { font-size:2rem; font-weight:800; color:var(--primary-dark); }
+        .page-header p { color:var(--text-light); }
 
-        /* Mobile Responsive Adjustments */
-        @media (max-width: 992px) {
-            /* Show mobile menu button */
-            .mobile-menu-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 44px;
-                height: 44px;
-            }
-            
-            /* Adjust top bar padding */
-            .top-bar {
-                padding: 12px 16px;
-                gap: 10px;
-            }
-            
-            /* Make search bar expandable on mobile */
-            .search-bar {
-                flex: 1;
-                max-width: none;
-                margin: 0 10px;
-                display: block;
-            }
-            
-            .search-bar input {
-                padding: 10px 40px 10px 16px;
-                font-size: 0.9rem;
-            }
-            
-            .search-bar i {
-                right: 12px;
-                font-size: 1rem;
-            }
-            
-            /* Adjust top actions for mobile */
-            .top-actions {
-                gap: 12px;
-            }
-            
-            /* Show only icon for Add Product on very small screens */
-            .add-product-btn {
-                padding: 10px;
-                min-width: 44px;
-                height: 44px;
-                justify-content: center;
-            }
-            
-            .add-product-btn span {
-                display: inline;
-            }
-            
-            .notification-btn {
-                font-size: 1.2rem;
-                padding: 6px;
-            }
-            
-            .notification-badge {
-                width: 16px;
-                height: 16px;
-                font-size: 0.65rem;
-            }
-        }
-
-        /* Extra small screens */
-        @media (max-width: 576px) {
-            .top-bar {
-                padding: 10px 12px;
-            }
-            
-            .search-bar {
-                margin: 0 8px;
-            }
-            
-            .search-bar input {
-                padding: 8px 36px 8px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .search-bar i {
-                right: 10px;
-                font-size: 0.9rem;
-            }
-            
-            .top-actions {
-                gap: 8px;
-            }
-            
-            .add-product-btn span {
-                display: none;
-            }
-            
-            .add-product-btn {
-                padding: 8px;
-                width: 44px;
-                height: 44px;
-            }
-            
-            .notification-btn {
-                font-size: 1.1rem;
-                padding: 5px;
-            }
-            
-            .mobile-menu-btn {
-                margin-right: 5px;
-            }
-        }
-
-        /* Medium screens - tablet */
-        @media (min-width: 577px) and (max-width: 768px) {
-            .add-product-btn span {
-                display: inline;
-                font-size: 0.85rem;
-            }
-            
-            .add-product-btn {
-                padding: 10px 16px;
-            }
-        }
-
-        /* Ensure desktop view stays the same */
-        @media (min-width: 993px) {
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .search-bar {
-                display: block;
-            }
-            
-            .add-product-btn span {
-                display: inline;
-            }
-        }
-
-        /* Content Area */
-        .content-area {
-            flex: 1;
-            padding: 32px;
-            background: var(--light);
-        }
-
-        @media (max-width: 768px) {
-            .content-area {
-                padding: 20px;
-            }
-        }
-
-        /* Page Header */
-        .page-header {
-            margin-bottom: 32px;
-        }
-
-        .page-header h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: var(--text-light);
-            font-size: 1rem;
-        }
-
-        /* Stats Grid */
+        /* stats grid */
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:24px; margin-bottom:32px;
         }
-
         .stat-card {
-            background: white;
-            padding: 24px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
+            background:white; padding:24px; border-radius:20px; box-shadow:0 4px 20px var(--shadow);
+            border:1px solid var(--border); transition:0.3s;
         }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px var(--shadow-hover);
-        }
-
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
+        .stat-card:hover { transform:translateY(-4px); box-shadow:0 8px 32px var(--shadow-hover); }
+        .stat-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
         .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
+            width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:white;
         }
+        .stat-icon.orders { background:var(--gradient-primary); }
+        .stat-icon.revenue { background:var(--gradient-accent); }
+        .stat-icon.customers { background:linear-gradient(135deg, var(--new), #4cc9f0); }
+        .stat-icon.rating { background:linear-gradient(135deg, var(--sale), #ff7aa2); }
+        .stat-trend { display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:600; padding:4px 12px; border-radius:20px; background:rgba(56,176,0,0.1); color:var(--success); }
+        .stat-trend.negative { background:rgba(230,57,70,0.1); color:var(--sale); }
+        .stat-value { font-size:2.2rem; font-weight:800; color:var(--primary-dark); }
+        .stat-label { color:var(--text-light); }
 
-        .stat-icon.orders {
-            background: var(--gradient-primary);
+        /* quick actions */
+        .quick-actions, .recent-orders, .top-products {
+            background:white; padding:32px; border-radius:20px; box-shadow:0 4px 20px var(--shadow); border:1px solid var(--border); margin-bottom:32px;
         }
-
-        .stat-icon.revenue {
-            background: var(--gradient-accent);
-        }
-
-        .stat-icon.customers {
-            background: linear-gradient(135deg, var(--new), #4cc9f0);
-        }
-
-        .stat-icon.rating {
-            background: linear-gradient(135deg, var(--sale), #ff7aa2);
-        }
-
-        .stat-trend {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 20px;
-            background: rgba(56, 176, 0, 0.1);
-            color: var(--success);
-        }
-
-        .stat-trend.negative {
-            background: rgba(230, 57, 70, 0.1);
-            color: var(--sale);
-        }
-
-        .stat-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            background: white;
-            padding: 32px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-            margin-bottom: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .quick-actions h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 24px;
-        }
-
         .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:20px;
         }
-
         .action-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px;
-            background: var(--light);
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            display:flex; align-items:center; gap:16px; padding:20px; background:var(--light); border-radius:16px;
+            text-decoration:none; color:var(--text); transition:0.3s; border:2px solid transparent;
         }
-
-        .action-item:hover {
-            background: white;
-            border-color: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--shadow);
-            color: var(--primary);
-        }
-
+        .action-item:hover { background:white; border-color:var(--primary-light); transform:translateY(-2px); color:var(--primary); }
         .action-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.3rem;
+            width:50px; height:50px; border-radius:12px; background:var(--gradient-primary); display:flex; align-items:center; justify-content:center; color:white; font-size:1.3rem;
         }
+        .action-content h4 { font-weight:700; }
 
-        .action-content h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+        /* orders table */
+        .orders-table { width:100%; border-collapse: collapse; }
+        .orders-table th { text-align:left; padding:16px; font-weight:600; color:var(--text-light); border-bottom:2px solid var(--border); }
+        .orders-table td { padding:20px 16px; border-bottom:1px solid var(--border); }
+        .customer-info { display:flex; align-items:center; gap:12px; }
+        .customer-avatar { width:40px; height:40px; border-radius:10px; background:var(--light); display:flex; align-items:center; justify-content:center; color:var(--primary); }
+        .order-status { padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display:inline-block; }
+        .status-pending { background: rgba(255,159,28,0.1); color:var(--warning); }
+        .status-processing { background: rgba(69,123,157,0.1); color:var(--popular); }
+        .status-shipped { background: rgba(42,157,143,0.1); color:var(--new); }
+        .status-delivered { background: rgba(56,176,0,0.1); color:var(--success); }
+        .action-btn { padding:8px 16px; border-radius:8px; font-weight:600; border:2px solid var(--primary-light); background:white; color:var(--primary); cursor:pointer; transition:0.3s; }
+        .action-btn:hover { background:var(--primary); color:white; }
 
-        .action-content p {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
+        /* product cards (seller) */
+        .products-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:24px; }
+        .product-card { border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:0.3s; background:white; }
+        .product-card:hover { transform:translateY(-4px); box-shadow:0 8px 32px var(--shadow-hover); }
+        .product-image { height:160px; background:var(--light); display:flex; align-items:center; justify-content:center; font-size:3rem; color:var(--primary); }
+        .product-info { padding:20px; }
+        .product-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:12px; }
+        .product-title { font-weight:700; color:var(--primary-dark); }
+        .product-price { font-weight:800; color:var(--primary); }
+        .product-stats { display:flex; justify-content:space-between; margin:12px 0; }
+        .stat { text-align:center; }
+        .stat .stat-value { font-size:1rem; font-weight:700; color:var(--primary-dark); }
+        .stat .stat-label { font-size:0.8rem; }
 
-        /* Recent Orders */
-        .recent-orders {
-            background: white;
-            padding: 32px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-            margin-bottom: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .section-header h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-
-        .section-header a {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .section-header a:hover {
-            text-decoration: underline;
-        }
-
-        .orders-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .orders-table th {
-            text-align: left;
-            padding: 16px;
-            font-weight: 600;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .orders-table td {
-            padding: 20px 16px;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        .orders-table tr:hover {
-            background: rgba(45, 106, 79, 0.02);
-        }
-
-        .customer-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .customer-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .order-status {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .status-pending {
-            background: rgba(255, 159, 28, 0.1);
-            color: var(--warning);
-        }
-
-        .status-processing {
-            background: rgba(69, 123, 157, 0.1);
-            color: var(--popular);
-        }
-
-        .status-shipped {
-            background: rgba(42, 157, 143, 0.1);
-            color: var(--new);
-        }
-
-        .status-delivered {
-            background: rgba(56, 176, 0, 0.1);
-            color: var(--success);
-        }
-
-        .action-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: 2px solid var(--primary-light);
-            background: white;
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Top Products */
-        .top-products {
-            background: white;
-            padding: 32px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .product-card {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px var(--shadow-hover);
-        }
-
-        .product-image {
-            height: 180px;
-            background: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--primary);
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 12px;
-        }
-
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-
-        .product-price {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .product-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .product-actions button {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .edit-btn {
-            background: var(--light);
-            color: var(--primary);
-            border: 2px solid var(--primary-light);
-        }
-
-        .edit-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .view-btn {
-            background: white;
-            color: var(--text);
-            border: 2px solid var(--border);
-        }
-
-        .view-btn:hover {
-            background: var(--light);
-            border-color: var(--text-light);
-        }
-
-        /* Modal */
+        /* modal (add product) */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            display: none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:10000;
+            align-items:center; justify-content:center; padding:20px;
         }
-
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        .modal.active { display:flex; animation:fadeIn 0.3s; }
         .modal-content {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
+            background:white; border-radius:24px; padding:40px; max-width:800px; width:100%; max-height:90vh; overflow-y:auto;
+            box-shadow:0 20px 60px rgba(0,0,0,0.3);
         }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; }
+        .modal-header h2 { font-size:1.8rem; color:var(--primary-dark); }
+        .close-modal { background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-light); }
+        .form-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+        .form-group { margin-bottom:20px; }
+        .form-group label { display:flex; gap:8px; font-weight:600; margin-bottom:8px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width:100%; padding:14px 18px; border:2px solid var(--light-gray); border-radius:12px; font-size:0.95rem;
+        }
+        .image-upload { border:2px dashed var(--light-gray); border-radius:12px; padding:30px; text-align:center; cursor:pointer; }
+        .form-actions { display:flex; gap:16px; margin-top:32px; }
+        .submit-btn { background:var(--gradient-primary); color:white; border:none; border-radius:12px; padding:16px; font-weight:700; flex:1; cursor:pointer; }
+        .cancel-btn { background:var(--light); border:2px solid var(--border); border-radius:12px; padding:16px; font-weight:700; flex:1; cursor:pointer; }
 
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        .overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:99; }
+        .overlay.active { display:block; }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
+        /* fresh market elements from theme (compact) */
+        .footer-market {
+            background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 40px;
         }
+        .footer-market .container { max-width:1400px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:30px; }
+        .footer-market a { color:#adb5bd; text-decoration:none; }
+        .footer-market h4 { color:var(--accent); margin-bottom:16px; }
+        .social a { display:inline-block; margin-right:12px; font-size:1.3rem; color:white; }
+        .footer-bottom { text-align:center; padding-top:30px; border-top:1px solid #495057; margin-top:30px; color:#868e96; }
 
-        .modal-header h2 {
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            font-weight: 800;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-light);
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .close-modal:hover {
-            background: var(--light);
-            color: var(--sale);
-        }
-
-        /* Form Styles */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-group label i {
-            color: var(--primary-light);
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--light-gray);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text);
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary-light);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .image-upload {
-            border: 2px dashed var(--light-gray);
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .image-upload:hover {
-            border-color: var(--primary-light);
-            background: rgba(45, 106, 79, 0.02);
-        }
-
-        .image-upload i {
-            font-size: 3rem;
-            color: var(--primary-light);
-            margin-bottom: 16px;
-        }
-
-        .image-upload p {
-            color: var(--text-light);
-            margin-bottom: 8px;
-        }
-
-        .image-upload span {
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        /* Form Actions */
-        .form-actions {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .submit-btn {
-            flex: 1;
-            padding: 16px;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(45, 106, 79, 0.3);
-        }
-
-        .cancel-btn {
-            flex: 1;
-            padding: 16px;
-            background: var(--light);
-            color: var(--text);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cancel-btn:hover {
-            background: white;
-            border-color: var(--text-light);
-        }
-
-        /* Overlay for mobile menu */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 99;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .orders-table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width:992px){ .footer-market .container { grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:576px){ .footer-market .container { grid-template-columns:1fr; } }
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
+    <!-- Seller Sidebar (identical structure but with correct logo link) -->
     <div class="sidebar" id="sidebar">
         <div class="logo-section">
             <a href="index.html" class="logo">
                 <i class="fas fa-seedling"></i>
                 <h1>VU<span>NA</span></h1>
             </a>
-            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 8px;">Seller Center</p>
+            <p style="font-size:0.85rem; color:var(--text-light);">Seller Center</p>
         </div>
-
         <div class="seller-info">
             <div class="seller-avatar">AK</div>
             <div class="seller-details">
                 <h3>AfroKing Farms</h3>
                 <p><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
-                <p><i class="fas fa-star rating"></i> 4.8 <span class="rating">Rating</span></p>
+                <p><i class="fas fa-star rating"></i> 4.8 Rating</p>
             </div>
         </div>
-
         <nav class="nav-menu">
             <div class="nav-title">Dashboard</div>
             <ul class="nav-links">
@@ -1237,763 +338,262 @@
                 <li><a href="#"><i class="fas fa-users"></i> Customers</a></li>
                 <li><a href="#"><i class="fas fa-comment-dollar"></i> Marketing</a></li>
             </ul>
-
-            <div class="nav-title" style="margin-top: 24px;">Settings</div>
+            <div class="nav-title">Settings</div>
             <ul class="nav-links">
                 <li><a href="#"><i class="fas fa-store"></i> Store Settings</a></li>
                 <li><a href="#"><i class="fas fa-shipping-fast"></i> Shipping</a></li>
                 <li><a href="#"><i class="fas fa-credit-card"></i> Payments</a></li>
                 <li><a href="#"><i class="fas fa-user-cog"></i> Account</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
             </ul>
         </nav>
-
         <div class="sidebar-footer">
             <div class="upgrade-card">
                 <h4>Upgrade to Pro</h4>
-                <p>Get advanced analytics and premium features</p>
+                <p>Advanced analytics & premium features</p>
                 <button class="upgrade-btn">Upgrade Now</button>
             </div>
         </div>
     </div>
-
-    <!-- Overlay for mobile -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Main Content -->
+    <!-- Main Content (seller dashboard) -->
     <div class="main-content">
-        <!-- Top Bar -->
+        <!-- Top bar with market-style search & actions -->
         <div class="top-bar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
             <div class="search-bar">
                 <input type="text" placeholder="Search orders, products, customers...">
                 <i class="fas fa-search"></i>
             </div>
-            
             <div class="top-actions">
-                <button class="notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </button>
-                
-                <button class="add-product-btn" id="addProductBtn">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Product</span>
-                </button>
+                <button class="notification-btn"><i class="fas fa-bell"></i><span class="notification-badge">3</span></button>
+                <button class="add-product-btn" id="addProductBtn"><i class="fas fa-plus"></i><span>Add Product</span></button>
             </div>
         </div>
 
-        <!-- Content Area -->
         <div class="content-area">
-            <!-- Page Header -->
             <div class="page-header">
                 <h2>Welcome back, AfroKing Farms! 👋</h2>
                 <p>Here's what's happening with your store today</p>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- stats grid (revenue etc) -->
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon orders">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                        <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            +12%
-                        </div>
-                    </div>
-                    <div class="stat-value">154</div>
-                    <div class="stat-label">Total Orders</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon revenue">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            +24%
-                        </div>
-                    </div>
-                    <div class="stat-value">$8,425</div>
-                    <div class="stat-label">Revenue (30 days)</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon customers">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            +8%
-                        </div>
-                    </div>
-                    <div class="stat-value">892</div>
-                    <div class="stat-label">Total Customers</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon rating">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="stat-trend negative">
-                            <i class="fas fa-arrow-down"></i>
-                            -2%
-                        </div>
-                    </div>
-                    <div class="stat-value">4.8</div>
-                    <div class="stat-label">Average Rating</div>
-                </div>
+                <div class="stat-card"><div class="stat-header"><div class="stat-icon orders"><i class="fas fa-shopping-bag"></i></div><div class="stat-trend"><i class="fas fa-arrow-up"></i>+12%</div></div><div class="stat-value">154</div><div class="stat-label">Total Orders</div></div>
+                <div class="stat-card"><div class="stat-header"><div class="stat-icon revenue"><i class="fas fa-dollar-sign"></i></div><div class="stat-trend"><i class="fas fa-arrow-up"></i>+24%</div></div><div class="stat-value">$8,425</div><div class="stat-label">Revenue (30d)</div></div>
+                <div class="stat-card"><div class="stat-header"><div class="stat-icon customers"><i class="fas fa-users"></i></div><div class="stat-trend"><i class="fas fa-arrow-up"></i>+8%</div></div><div class="stat-value">892</div><div class="stat-label">Customers</div></div>
+                <div class="stat-card"><div class="stat-header"><div class="stat-icon rating"><i class="fas fa-star"></i></div><div class="stat-trend negative"><i class="fas fa-arrow-down"></i>-2%</div></div><div class="stat-value">4.8</div><div class="stat-label">Avg Rating</div></div>
             </div>
 
-            <!-- Quick Actions -->
+            <!-- Quick actions -->
             <div class="quick-actions">
                 <h3>Quick Actions</h3>
                 <div class="action-grid">
-                    <a href="#" class="action-item">
-                        <div class="action-icon">
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="action-content">
-                            <h4>Add Product</h4>
-                            <p>List new items for sale</p>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="action-item">
-                        <div class="action-icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <div class="action-content">
-                            <h4>Process Orders</h4>
-                            <p>8 orders pending shipment</p>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="action-item">
-                        <div class="action-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <div class="action-content">
-                            <h4>View Reports</h4>
-                            <p>Sales analytics & insights</p>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="action-item">
-                        <div class="action-icon">
-                            <i class="fas fa-bullhorn"></i>
-                        </div>
-                        <div class="action-content">
-                            <h4>Create Promotion</h4>
-                            <p>Boost sales with discounts</p>
-                        </div>
-                    </a>
+                    <a href="#" class="action-item"><div class="action-icon"><i class="fas fa-plus"></i></div><div class="action-content"><h4>Add Product</h4><p>List new items</p></div></a>
+                    <a href="#" class="action-item"><div class="action-icon"><i class="fas fa-truck"></i></div><div class="action-content"><h4>Process Orders</h4><p>8 pending</p></div></a>
+                    <a href="#" class="action-item"><div class="action-icon"><i class="fas fa-chart-bar"></i></div><div class="action-content"><h4>View Reports</h4><p>Analytics</p></div></a>
+                    <a href="#" class="action-item"><div class="action-icon"><i class="fas fa-bullhorn"></i></div><div class="action-content"><h4>Create Promotion</h4><p>Boost sales</p></div></a>
                 </div>
             </div>
 
-            <!-- Recent Orders -->
+            <!-- Recent orders -->
             <div class="recent-orders">
-                <div class="section-header">
-                    <h3>Recent Orders</h3>
-                    <a href="#">View All Orders →</a>
-                </div>
-                
+                <div class="section-header" style="display:flex; justify-content:space-between;"><h3>Recent Orders</h3><a href="#">View All →</a></div>
                 <table class="orders-table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td>#VU-7842</td>
-                            <td>
-                                <div class="customer-info">
-                                    <div class="customer-avatar">JD</div>
-                                    <div>
-                                        <div>John Doe</div>
-                                        <div style="font-size: 0.85rem; color: var(--text-light);">New York, USA</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Feb 12, 2024</td>
-                            <td>$245.99</td>
-                            <td><span class="order-status status-pending">Pending</span></td>
-                            <td><button class="action-btn">Process</button></td>
-                        </tr>
-                        
-                        <tr>
-                            <td>#VU-7841</td>
-                            <td>
-                                <div class="customer-info">
-                                    <div class="customer-avatar">AS</div>
-                                    <div>
-                                        <div>Amina Said</div>
-                                        <div style="font-size: 0.85rem; color: var(--text-light);">Dubai, UAE</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Feb 11, 2024</td>
-                            <td>$189.50</td>
-                            <td><span class="order-status status-processing">Processing</span></td>
-                            <td><button class="action-btn">Ship</button></td>
-                        </tr>
-                        
-                        <tr>
-                            <td>#VU-7840</td>
-                            <td>
-                                <div class="customer-info">
-                                    <div class="customer-avatar">TB</div>
-                                    <div>
-                                        <div>Tomas Berg</div>
-                                        <div style="font-size: 0.85rem; color: var(--text-light);">Berlin, Germany</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Feb 10, 2024</td>
-                            <td>$325.75</td>
-                            <td><span class="order-status status-shipped">Shipped</span></td>
-                            <td><button class="action-btn">Track</button></td>
-                        </tr>
-                        
-                        <tr>
-                            <td>#VU-7839</td>
-                            <td>
-                                <div class="customer-info">
-                                    <div class="customer-avatar">MK</div>
-                                    <div>
-                                        <div>Maria Kone</div>
-                                        <div style="font-size: 0.85rem; color: var(--text-light);">Paris, France</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Feb 9, 2024</td>
-                            <td>$156.20</td>
-                            <td><span class="order-status status-delivered">Delivered</span></td>
-                            <td><button class="action-btn">Review</button></td>
-                        </tr>
+                        <tr><td>#VU-7842</td><td><div class="customer-info"><div class="customer-avatar">JD</div><div>John Doe<br><span style="font-size:0.85rem;">New York</span></div></div></td><td>Feb 12</td><td>$245.99</td><td><span class="order-status status-pending">Pending</span></td><td><button class="action-btn">Process</button></td></tr>
+                        <tr><td>#VU-7841</td><td><div class="customer-info"><div class="customer-avatar">AS</div><div>Amina Said<br><span style="font-size:0.85rem;">Dubai</span></div></div></td><td>Feb 11</td><td>$189.50</td><td><span class="order-status status-processing">Processing</span></td><td><button class="action-btn">Ship</button></td></tr>
+                        <tr><td>#VU-7840</td><td><div class="customer-info"><div class="customer-avatar">TB</div><div>Tomas Berg<br><span style="font-size:0.85rem;">Berlin</span></div></div></td><td>Feb 10</td><td>$325.75</td><td><span class="order-status status-shipped">Shipped</span></td><td><button class="action-btn">Track</button></td></tr>
+                        <tr><td>#VU-7839</td><td><div class="customer-info"><div class="customer-avatar">MK</div><div>Maria Kone<br><span style="font-size:0.85rem;">Paris</span></div></div></td><td>Feb 9</td><td>$156.20</td><td><span class="order-status status-delivered">Delivered</span></td><td><button class="action-btn">Review</button></td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Top Products -->
+            <!-- top products (seller's own) -->
             <div class="top-products">
-                <div class="section-header">
-                    <h3>Top Performing Products</h3>
-                    <a href="#">View All Products →</a>
-                </div>
-                
+                <div class="section-header"><h3>Your Top Products</h3><a href="#">Manage</a></div>
                 <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-mug-hot"></i>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-header">
-                                <h4 class="product-title">Kenyan AA Coffee</h4>
-                                <div class="product-price">$24.99</div>
-                            </div>
-                            <div class="product-stats">
-                                <div class="stat">
-                                    <div class="stat-value">148</div>
-                                    <div class="stat-label">Sold</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-value">4.9</div>
-                                    <div class="stat-label">Rating</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-value">$3,452</div>
-                                    <div class="stat-label">Revenue</div>
-                                </div>
-                            </div>
-                            <div class="product-actions">
-                                <button class="edit-btn">Edit</button>
-                                <button class="view-btn">View</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-pepper-hot"></i>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-header">
-                                <h4 class="product-title">Ethiopian Berbere</h4>
-                                <div class="product-price">$12.99</div>
-                            </div>
-                            <div class="product-stats">
-                                <div class="stat">
-                                    <div class="stat-value">89</div>
-                                    <div class="stat-label">Sold</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-value">4.7</div>
-                                    <div class="stat-label">Rating</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-value">$1,156</div>
-                                    <div class="stat-label">Revenue</div>
-                                </div>
-                            </div>
-                            <div class="product-actions">
-                                <button class="edit-btn">Edit</button>
-                                <button class="view-btn">View</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-header">
-                                <h4 class="product-title">Shea Butter</h4>
-                                <div class="product-price">$18.50</div>
-                            </div>
-                            <div class="product-stats">
-                                <div class="stat">
-                                    <div class="stat-value">67</div>
-                                    <div class="stat-label">Sold</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-value">4.8</div>
-                                    <div class="stat-label">Rating</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-value">$1,240</div>
-                                    <div class="stat-label">Revenue</div>
-                                </div>
-                            </div>
-                            <div class="product-actions">
-                                <button class="edit-btn">Edit</button>
-                                <button class="view-btn">View</button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="product-card"><div class="product-image"><i class="fas fa-mug-hot"></i></div><div class="product-info"><div class="product-header"><h4 class="product-title">Kenyan AA Coffee</h4><div class="product-price">$24.99</div></div><div class="product-stats"><div class="stat"><span class="stat-value">148</span> <span class="stat-label">Sold</span></div><div class="stat"><span class="stat-value">4.9</span> <span class="stat-label">★</span></div><div class="stat"><span class="stat-value">$3.4k</span> <span class="stat-label">Rev</span></div></div><div class="product-actions"><button class="edit-btn">Edit</button><button class="view-btn">View</button></div></div></div>
+                    <div class="product-card"><div class="product-image"><i class="fas fa-pepper-hot"></i></div><div class="product-info"><div class="product-header"><h4 class="product-title">Ethiopian Berbere</h4><div class="product-price">$12.99</div></div><div class="product-stats"><div class="stat"><span class="stat-value">89</span> <span class="stat-label">Sold</span></div><div class="stat"><span class="stat-value">4.7</span> <span class="stat-label">★</span></div><div class="stat"><span class="stat-value">$1.1k</span> <span class="stat-label">Rev</span></div></div><div><button class="edit-btn">Edit</button><button class="view-btn">View</button></div></div></div>
+                    <div class="product-card"><div class="product-image"><i class="fas fa-seedling"></i></div><div class="product-info"><div class="product-header"><h4 class="product-title">Shea Butter</h4><div class="product-price">$18.50</div></div><div class="product-stats"><div class="stat"><span class="stat-value">67</span> <span class="stat-label">Sold</span></div><div class="stat"><span class="stat-value">4.8</span> <span class="stat-label">★</span></div><div class="stat"><span class="stat-value">$1.2k</span> <span class="stat-label">Rev</span></div></div><div><button class="edit-btn">Edit</button><button class="view-btn">View</button></div></div></div>
                 </div>
             </div>
         </div>
+        <!-- footer from original theme (compact) -->
+        <footer class="footer-market">
+            <div class="container">
+                <div><h4>Vuna Seller</h4><p>© 2025 Vuna Marketplace</p><div class="social"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+                <div><h4>Resources</h4><ul><li><a href="#">Seller guide</a></li><li><a href="#">Fees</a></li></ul></div>
+                <div><h4>Support</h4><ul><li><a href="#">Help center</a></li><li><a href="#">Contact</a></li></ul></div>
+                <div><h4>Legal</h4><ul><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li></ul></div>
+            </div>
+            <div class="footer-bottom">Certified B Corporation | Climate Neutral</div>
+        </footer>
     </div>
 
-    <!-- Add Product Modal -->
+    <!-- Add product modal (functional) -->
     <div class="modal" id="addProductModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add New Product</h2>
-                <button class="close-modal" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
+            <div class="modal-header"><h2>Add New Product</h2><button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button></div>
             <form id="productForm">
                 <div class="form-grid">
-                    <div class="form-group">
-                        <label for="productName"><i class="fas fa-tag"></i> Product Name</label>
-                        <input type="text" id="productName" placeholder="Enter product name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productCategory"><i class="fas fa-layer-group"></i> Category</label>
-                        <select id="productCategory" required>
-                            <option value="">Select category</option>
-                            <option value="coffee">Coffee & Tea</option>
-                            <option value="spices">Spices</option>
-                            <option value="fruits">Fresh Fruits</option>
-                            <option value="grains">Grains & Cereals</option>
-                            <option value="nuts">Nuts & Seeds</option>
-                            <option value="herbs">Herbs & Botanicals</option>
-                            <option value="oils">Oils & Butters</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productPrice"><i class="fas fa-dollar-sign"></i> Price</label>
-                        <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productStock"><i class="fas fa-boxes"></i> Stock Quantity</label>
-                        <input type="number" id="productStock" placeholder="Enter quantity" min="0" required>
-                    </div>
+                    <div class="form-group"><label><i class="fas fa-tag"></i>Product Name</label><input type="text" id="productName" required></div>
+                    <div class="form-group"><label><i class="fas fa-layer-group"></i>Category</label><select id="productCategory"><option>Coffee</option><option>Spices</option></select></div>
+                    <div class="form-group"><label><i class="fas fa-dollar-sign"></i>Price</label><input type="number" id="productPrice" step="0.01" required></div>
+                    <div class="form-group"><label><i class="fas fa-boxes"></i>Stock</label><input type="number" id="productStock" required></div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="productDescription"><i class="fas fa-align-left"></i> Description</label>
-                    <textarea id="productDescription" placeholder="Describe your product..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label><i class="fas fa-image"></i> Product Images</label>
-                    <div class="image-upload" id="imageUpload">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Drag & drop product images here</p>
-                        <span>or click to browse</span>
-                    </div>
-                </div>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="productWeight"><i class="fas fa-weight"></i> Weight (kg)</label>
-                        <input type="number" id="productWeight" placeholder="0.00" min="0" step="0.01">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productOrigin"><i class="fas fa-flag"></i> Country of Origin</label>
-                        <select id="productOrigin">
-                            <option value="">Select country</option>
-                            <option value="kenya">Kenya</option>
-                            <option value="ethiopia">Ethiopia</option>
-                            <option value="ghana">Ghana</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="south-africa">South Africa</option>
-                            <option value="tanzania">Tanzania</option>
-                            <option value="uganda">Uganda</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="submit-btn">Add Product</button>
-                    <button type="button" class="cancel-btn" id="cancelForm">Cancel</button>
-                </div>
+                <div class="form-group"><label>Description</label><textarea id="productDescription"></textarea></div>
+                <div class="form-group"><label>Images</label><div class="image-upload" id="imageUpload"><i class="fas fa-cloud-upload-alt"></i><p>Click to browse</p></div></div>
+                <div class="form-actions"><button type="submit" class="submit-btn">Add Product</button><button type="button" class="cancel-btn" id="cancelForm">Cancel</button></div>
             </form>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
+        (function() {
+            // ----- seller dashboard functionality + theme integration -----
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const addProductBtn = document.getElementById('addProductBtn');
-            const addProductModal = document.getElementById('addProductModal');
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const addBtn = document.getElementById('addProductBtn');
+            const modal = document.getElementById('addProductModal');
             const closeModal = document.getElementById('closeModal');
             const cancelForm = document.getElementById('cancelForm');
             const productForm = document.getElementById('productForm');
             const imageUpload = document.getElementById('imageUpload');
-            
-            // Navigation Links
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
-            // Toggle Mobile Menu
-            mobileMenuBtn.addEventListener('click', function() {
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
-                document.body.style.overflow = 'hidden';
-            });
-            
-            // Close mobile menu when clicking overlay
-            overlay.addEventListener('click', function() {
+
+            // mobile menu toggle
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : 'auto';
+                });
+            }
+            overlay.addEventListener('click', () => {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
-            
-            // Handle navigation link clicks
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (this.hash) {
-                        e.preventDefault();
-                        
-                        // Update active state
-                        navLinks.forEach(l => l.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        // Close mobile menu if open
-                        if (window.innerWidth <= 992) {
-                            sidebar.classList.remove('active');
-                            overlay.classList.remove('active');
-                            document.body.style.overflow = 'auto';
-                        }
-                        
-                        // In a real app, this would load different content
-                        const pageTitle = this.textContent.trim();
-                        document.querySelector('.page-header h2').textContent = pageTitle;
-                        
-                        // Show notification
-                        showNotification(`Navigating to ${pageTitle}...`, 'info');
-                    }
-                });
+
+            // modal controls
+            function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeModalFunc() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+            addBtn.addEventListener('click', openModal);
+            closeModal.addEventListener('click', closeModalFunc);
+            cancelForm.addEventListener('click', closeModalFunc);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
+
+            // image upload simulation
+            imageUpload.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.click();
+                input.onchange = () => {
+                    imageUpload.innerHTML = '<i class="fas fa-check-circle" style="color:var(--success);"></i><p>File selected</p>';
+                };
             });
-            
-            // Open Add Product Modal
-            addProductBtn.addEventListener('click', function() {
-                addProductModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-            
-            // Close Modal
-            function closeModals() {
-                addProductModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-            
-            closeModal.addEventListener('click', closeModals);
-            cancelForm.addEventListener('click', closeModals);
-            
-            // Close modal on outside click
-            addProductModal.addEventListener('click', function(e) {
-                if (e.target === addProductModal) {
-                    closeModals();
-                }
-            });
-            
-            // Handle Product Form Submission
-            productForm.addEventListener('submit', function(e) {
+
+            // form submit (simulate)
+            productForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                
-                // Get form data
-                const productName = document.getElementById('productName').value;
-                const productPrice = document.getElementById('productPrice').value;
-                
-                // Show loading state
+                const name = document.getElementById('productName').value;
+                if (!name) return;
                 const submitBtn = productForm.querySelector('.submit-btn');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Adding Product...';
-                submitBtn.disabled = true;
-                
-                // Simulate API call
+                submitBtn.textContent = 'Adding...';
                 setTimeout(() => {
-                    // Reset button
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    
-                    // Close modal
-                    closeModals();
-                    
-                    // Reset form
+                    closeModalFunc();
                     productForm.reset();
-                    
-                    // Show success notification
-                    showNotification(`"${productName}" added successfully!`, 'success');
-                    
-                    // Update product count in sidebar
-                    const productBadge = document.querySelector('.nav-links a[href="#"]:nth-child(2) .badge');
-                    const currentCount = parseInt(productBadge.textContent);
-                    productBadge.textContent = currentCount + 1;
-                    
-                    // In a real app, you would refresh the product list
-                }, 1500);
+                    imageUpload.innerHTML = '<i class="fas fa-cloud-upload-alt"></i><p>Click to browse</p>';
+                    submitBtn.textContent = 'Add Product';
+                    // update product badge
+                    const badge = document.querySelector('.nav-links li a .badge');
+                    if (badge) badge.textContent = (parseInt(badge.textContent) + 1).toString();
+                    showNotification(`"${name}" added`, 'success');
+                }, 800);
             });
-            
-            // Image Upload Interaction
-            imageUpload.addEventListener('click', function() {
-                // In a real app, this would trigger file input
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = 'image/*';
-                fileInput.multiple = true;
-                
-                fileInput.addEventListener('change', function(e) {
-                    const files = e.target.files;
-                    if (files.length > 0) {
-                        imageUpload.innerHTML = `
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                            <p>${files.length} image(s) selected</p>
-                            <span>Click to change</span>
-                        `;
-                    }
-                });
-                
-                fileInput.click();
-            });
-            
-            // Handle order action buttons
+
+            // order action buttons simulation
             document.querySelectorAll('.action-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const orderId = this.closest('tr').querySelector('td:first-child').textContent;
-                    const action = this.textContent;
-                    
-                    showNotification(`Processing order ${orderId}...`, 'info');
-                    
-                    // Simulate processing
-                    setTimeout(() => {
-                        showNotification(`Order ${orderId} ${action.toLowerCase()} successfully!`, 'success');
-                        
-                        // Update status in table
-                        const statusSpan = this.closest('tr').querySelector('.order-status');
-                        const newStatus = getNextStatus(statusSpan.textContent);
-                        statusSpan.textContent = newStatus;
-                        statusSpan.className = `order-status status-${newStatus.toLowerCase()}`;
-                        
-                        // Update button text
-                        this.textContent = getNextAction(newStatus);
-                    }, 1000);
+                    const row = this.closest('tr');
+                    const statusSpan = row?.querySelector('.order-status');
+                    const action = this.textContent.trim();
+                    showNotification(`Order ${action} initiated`, 'info');
+                    if (statusSpan) {
+                        if (statusSpan.classList.contains('status-pending')) {
+                            statusSpan.className = 'order-status status-processing';
+                            statusSpan.textContent = 'Processing';
+                            this.textContent = 'Ship';
+                        } else if (statusSpan.classList.contains('status-processing')) {
+                            statusSpan.className = 'order-status status-shipped';
+                            statusSpan.textContent = 'Shipped';
+                            this.textContent = 'Track';
+                        } else if (statusSpan.classList.contains('status-shipped')) {
+                            statusSpan.className = 'order-status status-delivered';
+                            statusSpan.textContent = 'Delivered';
+                            this.textContent = 'Review';
+                        }
+                    }
                 });
             });
-            
-            // Helper function to get next status
-            function getNextStatus(currentStatus) {
-                switch(currentStatus) {
-                    case 'Pending': return 'Processing';
-                    case 'Processing': return 'Shipped';
-                    case 'Shipped': return 'Delivered';
-                    default: return 'Delivered';
-                }
-            }
-            
-            // Helper function to get next action
-            function getNextAction(status) {
-                switch(status) {
-                    case 'Pending': return 'Process';
-                    case 'Processing': return 'Ship';
-                    case 'Shipped': return 'Track';
-                    default: return 'Review';
-                }
-            }
-            
-            // Handle product edit/view buttons
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const productName = this.closest('.product-card').querySelector('.product-title').textContent;
-                    showNotification(`Editing "${productName}"...`, 'info');
-                    
-                    // In a real app, open edit modal with product data
-                    setTimeout(() => {
-                        addProductModal.classList.add('active');
-                        document.getElementById('productName').value = productName;
-                        // ... populate other fields
-                    }, 500);
-                });
-            });
-            
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const productName = this.closest('.product-card').querySelector('.product-title').textContent;
-                    showNotification(`Viewing "${productName}" details...`, 'info');
-                });
-            });
-            
-            // Handle upgrade button
-            document.querySelector('.upgrade-btn').addEventListener('click', function() {
-                showNotification('Redirecting to upgrade page...', 'info');
-                // In real app: window.location.href = 'upgrade.html';
-            });
-            
-            // Handle notification button
-            document.querySelector('.notification-btn').addEventListener('click', function() {
-                showNotification('Notifications panel coming soon!', 'info');
-                // Reset badge
+
+            // edit/view product sim
+            document.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click',()=>showNotification('Edit product (demo)','info')));
+            document.querySelectorAll('.view-btn').forEach(b => b.addEventListener('click',()=>showNotification('View details (demo)','info')));
+
+            // upgrade button
+            document.querySelector('.upgrade-btn')?.addEventListener('click', ()=>showNotification('Upgrade flow (demo)','warning'));
+
+            // notification button
+            document.querySelector('.notification-btn')?.addEventListener('click', function() {
                 const badge = this.querySelector('.notification-badge');
                 badge.textContent = '0';
                 badge.style.display = 'none';
+                showNotification('No new notifications','info');
             });
-            
-            // Show notification function
-            function showNotification(message, type = 'info') {
-                // Create notification element
-                const notification = document.createElement('div');
-                
-                // Set colors based on type
-                let bgColor, icon;
-                switch(type) {
-                    case 'success':
-                        bgColor = 'var(--success)';
-                        icon = 'fas fa-check-circle';
-                        break;
-                    case 'warning':
-                        bgColor = 'var(--warning)';
-                        icon = 'fas fa-exclamation-triangle';
-                        break;
-                    case 'error':
-                        bgColor = 'var(--sale)';
-                        icon = 'fas fa-times-circle';
-                        break;
-                    default:
-                        bgColor = 'var(--primary)';
-                        icon = 'fas fa-info-circle';
-                }
-                
-                notification.style.cssText = `
-                    position: fixed;
-                    bottom: 30px;
-                    right: 30px;
-                    background: ${bgColor};
-                    color: white;
-                    padding: 18px 24px;
-                    border-radius: 16px;
-                    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-                    z-index: 9999;
-                    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    max-width: 400px;
-                    backdrop-filter: blur(10px);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                `;
-                
-                // Add animation
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes slideIn {
-                        from { transform: translateX(100%) translateY(20px); opacity: 0; }
-                        to { transform: translateX(0) translateY(0); opacity: 1; }
-                    }
-                    @keyframes slideOut {
-                        from { transform: translateX(0) translateY(0); opacity: 1; }
-                        to { transform: translateX(100%) translateY(20px); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
-                
-                notification.innerHTML = `
-                    <i class="${icon}" style="font-size: 1.4rem;"></i>
-                    <span>${message}</span>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Remove after 4 seconds
-                setTimeout(() => {
-                    notification.style.animation = 'slideOut 0.4s ease';
-                    setTimeout(() => {
-                        if (notification.parentNode) {
-                            document.body.removeChild(notification);
-                        }
-                    }, 400);
-                }, 4000);
-            }
-            
-            // Optional: Make search bar expandable on mobile
-            const searchBarInput = document.querySelector('.search-bar input');
-            
-            if (window.innerWidth <= 576) {
-                searchBarInput.addEventListener('focus', function() {
-                    this.style.width = 'calc(100vw - 160px)';
+
+            // nav links (prevent hash jump)
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.hash) e.preventDefault();
+                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    const title = link.textContent.trim().replace(/\d+/g,'');
+                    const header = document.querySelector('.page-header h2');
+                    if (header) header.innerHTML = `📋 ${title}`;
+                    if (window.innerWidth <=992) { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
                 });
-                
-                searchBarInput.addEventListener('blur', function() {
-                    this.style.width = '100%';
-                });
+            });
+
+            // notification toast
+            function showNotification(msg, type='info') {
+                const n = document.createElement('div');
+                n.style.cssText = `position:fixed; bottom:30px; right:30px; background:${type==='success'?'#38b000':type==='warning'?'#ff9f1c':'#2d6a4f'}; color:white; padding:16px 24px; border-radius:16px; z-index:10001; box-shadow:0 12px 40px rgba(0,0,0,0.25); display:flex; align-items:center; gap:12px; animation:slideIn 0.3s;`;
+                n.innerHTML = `<i class="fas ${type==='success'?'fa-check-circle':type==='warning'?'fa-exclamation-triangle':'fa-info-circle'}"></i><span>${msg}</span>`;
+                document.body.appendChild(n);
+                setTimeout(() => { n.style.animation='slideOut 0.3s'; setTimeout(()=>{ n.remove(); },300); }, 3000);
             }
-            
-            // Initialize chart (mock data - in real app use Chart.js)
-            function initializeCharts() {
-                // This would initialize actual charts in a real app
-                console.log('Charts initialized');
-            }
-            
-            // Initialize everything
-            initializeCharts();
-        });
+            const style = document.createElement('style');
+            style.textContent = `@keyframes slideIn{from{transform:translateX(100%); opacity:0;}to{transform:translateX(0);opacity:1;}}@keyframes slideOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(100%);opacity:0;}}`;
+            document.head.appendChild(style);
+
+            // mobile search placeholder
+            const searchInputs = document.querySelectorAll('.search-bar input');
+            searchInputs.forEach(i => i.addEventListener('keyup', (e) => { if(e.key==='Enter') showNotification(`Search: "${i.value}"`,'info'); }));
+
+            // header signin button simulated (not present but we add to top-actions maybe? no need)
+            // ensure cart badge from theme is not here; keep seller.
+
+            // also handle product quick action links
+            document.querySelectorAll('.action-item').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); showNotification('Quick action (demo)','info'); }));
+
+            // final: slideshow not needed in seller dashboard, but we keep minimal
+        })();
     </script>
 </body>
 </html>
