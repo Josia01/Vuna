@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book an Appointment — Aurelle Dental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --mint: #d6ede8; --mint-deep: #2e6e5e; --mint-mid: #5a9e8f; --cream: #faf7f2; --warm: #f0ebe0; --charcoal: #1e2220; --muted: #6b7570; --accent: #c5a97d; --white: #ffffff; --border: rgba(30,34,32,0.1); }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: rgba(250,247,242,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.02em; color: var(--charcoal); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-logo svg { width: 28px; height: 28px; }
+  .nav-logo span { color: var(--mint-deep); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.85rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--charcoal); }
+  .nav-cta { background: var(--mint-deep) !important; color: var(--white) !important; padding: 0.55rem 1.4rem !important; border-radius: 100px !important; font-weight: 500 !important; letter-spacing: 0.02em !important; text-transform: none !important; transition: background 0.25s, transform 0.2s !important; }
+  .nav-cta:hover { background: var(--charcoal) !important; }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+
+  /* HERO */
+  .page-hero {
+    min-height: 60vh;
+    background: var(--charcoal);
+    display: flex; align-items: flex-end;
+    padding: 0 4rem 5rem;
+    padding-top: 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.15; }
+  .hero-accent { position: absolute; top: -120px; right: -120px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(90,158,143,0.2) 0%, transparent 70%); pointer-events: none; }
+  .hero-accent2 { position: absolute; bottom: -80px; left: 30%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(46,110,94,0.15) 0%, transparent 70%); pointer-events: none; }
+
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .page-breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .page-breadcrumb a { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+  .page-breadcrumb a:hover { color: rgba(255,255,255,0.8); }
+  .page-breadcrumb span { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+  .page-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mint-mid); font-weight: 500; margin-bottom: 1rem; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.8rem); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 1.25rem; }
+  .page-title em { font-style: italic; color: var(--mint-mid); }
+  .page-subtitle { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 560px; line-height: 1.8; }
+
+  /* TRUST PILLS */
+  .trust-pills { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
+  .trust-pill { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 0.45rem 1rem; font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+  .trust-pill svg { width: 13px; height: 13px; stroke: var(--mint-mid); fill: none; stroke-width: 2; flex-shrink: 0; }
+
+  /* MAIN LAYOUT */
+  .booking-layout { display: grid; grid-template-columns: 1fr 420px; gap: 3rem; padding: 5rem 4rem; align-items: start; }
+
+  /* STEP FORM */
+  .booking-form-card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 12px 56px rgba(0,0,0,0.08); overflow: hidden; }
+
+  /* Step progress */
+  .step-progress { display: flex; border-bottom: 1px solid var(--border); }
+  .step-tab { flex: 1; padding: 1.25rem; text-align: center; position: relative; }
+  .step-tab::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
+  .step-tab.active::after { background: var(--mint-deep); }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin: 0 auto 0.35rem; transition: all 0.3s; }
+  .step-tab.active .step-num { background: var(--mint-deep); border-color: var(--mint-deep); color: var(--white); }
+  .step-tab.done .step-num { background: var(--mint); border-color: var(--mint-deep); color: var(--mint-deep); }
+  .step-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .step-tab.active .step-label { color: var(--mint-deep); font-weight: 500; }
+
+  /* Step panels */
+  .step-panel { display: none; padding: 2.5rem; }
+  .step-panel.active { display: block; }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--charcoal); margin-bottom: 0.35rem; }
+  .step-subtitle { font-size: 0.83rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+
+  /* Service selector cards */
+  .service-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem; }
+  .service-opt { padding: 1rem 1.1rem; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s; position: relative; }
+  .service-opt:hover { border-color: var(--mint-mid); background: rgba(214,237,232,0.2); }
+  .service-opt.selected { border-color: var(--mint-deep); background: var(--mint); }
+  .service-opt input[type="radio"] { position: absolute; opacity: 0; }
+  .service-opt-name { font-size: 0.88rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.15rem; }
+  .service-opt-price { font-size: 0.72rem; color: var(--mint-deep); }
+  .service-opt.selected .service-opt-name { color: var(--mint-deep); }
+  .service-check { position: absolute; top: 0.6rem; right: 0.6rem; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .service-opt.selected .service-check { background: var(--mint-deep); border-color: var(--mint-deep); }
+  .service-check::after { content: '✓'; font-size: 0.6rem; color: transparent; transition: color 0.2s; }
+  .service-opt.selected .service-check::after { color: var(--white); }
+
+  /* Doctor selector */
+  .doctor-selector { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+  .doctor-opt { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s; position: relative; }
+  .doctor-opt:hover { border-color: var(--mint-mid); background: rgba(214,237,232,0.2); }
+  .doctor-opt.selected { border-color: var(--mint-deep); background: var(--mint); }
+  .doctor-opt input[type="radio"] { position: absolute; opacity: 0; }
+  .doctor-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .doctor-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .doctor-info-text { flex: 1; }
+  .doctor-info-name { font-size: 0.9rem; font-weight: 500; color: var(--charcoal); }
+  .doctor-info-spec { font-size: 0.75rem; color: var(--muted); }
+  .doctor-opt.selected .doctor-info-name { color: var(--mint-deep); }
+  .doctor-avail { font-size: 0.7rem; color: var(--mint-deep); background: rgba(46,110,94,0.08); padding: 0.2rem 0.55rem; border-radius: 100px; font-weight: 500; }
+
+  /* Date/time picker */
+  .date-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem; margin-bottom: 1.5rem; }
+  .day-label { text-align: center; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-bottom: 0.4rem; }
+  .date-btn { padding: 0.65rem 0.3rem; border-radius: 10px; border: 1.5px solid transparent; text-align: center; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--charcoal); background: var(--warm); }
+  .date-btn:hover:not(.disabled) { border-color: var(--mint-mid); background: rgba(214,237,232,0.3); }
+  .date-btn.selected { background: var(--mint-deep); color: var(--white); border-color: var(--mint-deep); font-weight: 500; }
+  .date-btn.disabled { opacity: 0.3; cursor: not-allowed; }
+  .date-btn.today { font-weight: 600; }
+  .month-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .month-nav button { background: var(--warm); border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 1rem; color: var(--charcoal); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .month-nav button:hover { background: var(--mint); }
+  .month-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--charcoal); }
+
+  .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 2rem; }
+  .time-btn { padding: 0.65rem 0.5rem; border-radius: 10px; border: 1.5px solid var(--border); text-align: center; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--charcoal); background: var(--cream); transition: all 0.2s; }
+  .time-btn:hover:not(.booked) { border-color: var(--mint-mid); background: rgba(214,237,232,0.3); }
+  .time-btn.selected { background: var(--mint-deep); color: var(--white); border-color: var(--mint-deep); font-weight: 500; }
+  .time-btn.booked { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+
+  /* Patient details form */
+  .form-group { margin-bottom: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.45rem; font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.85rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--charcoal); background: var(--cream); outline: none; transition: border-color 0.2s, background 0.2s; appearance: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--mint-deep); background: var(--white); }
+  .form-group textarea { resize: none; height: 90px; }
+  .insurance-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; background: var(--cream); cursor: pointer; transition: border-color 0.2s; }
+  .insurance-row:hover { border-color: var(--mint-mid); }
+  .insurance-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--mint-deep); cursor: pointer; }
+  .insurance-row span { font-size: 0.88rem; color: var(--charcoal); }
+
+  /* Step navigation */
+  .step-nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2.5rem; border-top: 1px solid var(--border); background: var(--cream); }
+  .btn-back { background: transparent; color: var(--muted); border: 1.5px solid var(--border); padding: 0.8rem 1.75rem; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.2s; }
+  .btn-back:hover { border-color: var(--charcoal); color: var(--charcoal); }
+  .btn-next { background: var(--mint-deep); color: var(--white); border: none; padding: 0.85rem 2rem; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.25s, transform 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+  .btn-next:hover { background: var(--charcoal); transform: translateY(-1px); }
+  .btn-next svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .step-indicator { font-size: 0.78rem; color: var(--muted); }
+
+  /* Confirmation panel */
+  .confirmation { padding: 3rem 2.5rem; text-align: center; }
+  .confirm-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--mint); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+  .confirm-icon svg { width: 32px; height: 32px; stroke: var(--mint-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .confirm-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .confirm-subtitle { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; max-width: 380px; margin-left: auto; margin-right: auto; }
+  .confirm-summary { background: var(--warm); border-radius: 14px; padding: 1.5rem; text-align: left; margin-bottom: 2rem; }
+  .confirm-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .confirm-row:last-child { border-bottom: none; }
+  .confirm-row span:first-child { color: var(--muted); }
+  .confirm-row span:last-child { font-weight: 500; color: var(--charcoal); }
+  .confirm-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+  .btn-confirm-primary { background: var(--mint-deep); color: var(--white); border: none; padding: 0.95rem; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.25s; text-decoration: none; display: block; text-align: center; }
+  .btn-confirm-primary:hover { background: var(--charcoal); }
+  .btn-confirm-secondary { background: transparent; color: var(--mint-deep); border: 1.5px solid var(--mint-deep); padding: 0.9rem; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: block; text-align: center; }
+  .btn-confirm-secondary:hover { background: var(--mint); }
+
+  /* SIDEBAR */
+  .booking-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .sidebar-card { background: var(--white); border-radius: 18px; padding: 1.75rem; border: 1px solid var(--border); }
+  .sidebar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--charcoal); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem; }
+  .sidebar-title svg { width: 18px; height: 18px; stroke: var(--mint-deep); fill: none; stroke-width: 1.5; flex-shrink: 0; }
+
+  .contact-item { display: flex; gap: 0.9rem; align-items: flex-start; margin-bottom: 1.1rem; }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--mint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-icon svg { width: 16px; height: 16px; stroke: var(--mint-deep); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-detail strong { display: block; font-size: 0.85rem; font-weight: 500; color: var(--charcoal); }
+  .contact-detail span { font-size: 0.78rem; color: var(--muted); }
+  .contact-detail a { color: var(--mint-deep); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+
+  /* Hours table */
+  .hours-row { display: flex; justify-content: space-between; padding: 0.55rem 0; border-bottom: 1px solid var(--border); font-size: 0.83rem; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row span:first-child { color: var(--muted); }
+  .hours-row span:last-child { font-weight: 500; color: var(--charcoal); }
+  .hours-row.today-row span { color: var(--mint-deep); font-weight: 600; }
+
+  /* Map card */
+  .map-card { background: var(--white); border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
+  .map-img { height: 160px; position: relative; overflow: hidden; }
+  .map-img img { width: 100%; height: 100%; object-fit: cover; }
+  .map-img-overlay { position: absolute; inset: 0; background: rgba(30,34,32,0.3); display: flex; align-items: center; justify-content: center; }
+  .map-directions { background: var(--white); color: var(--charcoal); font-size: 0.78rem; font-weight: 500; padding: 0.45rem 1rem; border-radius: 100px; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: background 0.2s; }
+  .map-directions:hover { background: var(--mint); }
+  .map-directions svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .map-address { padding: 1.1rem 1.25rem; }
+  .map-address strong { display: block; font-size: 0.88rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.2rem; }
+  .map-address span { font-size: 0.78rem; color: var(--muted); }
+
+  /* Insurance logos */
+  .insurance-logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+  .ins-badge { background: var(--warm); border-radius: 8px; padding: 0.6rem 0.5rem; text-align: center; font-size: 0.7rem; color: var(--muted); font-weight: 500; border: 1px solid var(--border); }
+
+  /* Reassurance list */
+  .reassurance-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.9rem; font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+  .reassurance-item:last-child { margin-bottom: 0; }
+  .reassurance-item svg { width: 16px; height: 16px; stroke: var(--mint-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 0.2rem; }
+
+  /* Emergency banner */
+  .emergency-banner { background: linear-gradient(135deg, var(--mint-deep), #1a4d40); border-radius: 14px; padding: 1.5rem; color: var(--white); }
+  .emergency-banner h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .emergency-banner p { font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 1rem; }
+  .emergency-btn { background: var(--white); color: var(--mint-deep); padding: 0.65rem 1.25rem; border-radius: 100px; font-size: 0.82rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: background 0.2s; }
+  .emergency-btn:hover { background: var(--mint); }
+  .emergency-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* WHAT TO EXPECT */
+  .expect-section { padding: 7rem 4rem; background: var(--warm); }
+  .expect-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .expect-card { position: relative; }
+  .expect-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--mint); line-height: 1; margin-bottom: 0.75rem; }
+  .expect-title { font-size: 0.95rem; font-weight: 600; color: var(--charcoal); margin-bottom: 0.5rem; }
+  .expect-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+  .expect-connector { position: absolute; top: 1.5rem; right: -0.75rem; width: 1.5rem; height: 1px; background: var(--border); }
+  .expect-card:last-child .expect-connector { display: none; }
+
+  /* FAQ */
+  .faq-section { padding: 7rem 4rem; background: var(--cream); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3.5rem; }
+  .faq-item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--white); }
+  .faq-question { padding: 1.25rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 500; color: var(--charcoal); transition: background 0.2s; }
+  .faq-question:hover { background: var(--warm); }
+  .faq-icon { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; }
+  .faq-icon svg { width: 12px; height: 12px; stroke: var(--muted); fill: none; stroke-width: 2; }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; padding: 0 1.5rem; font-size: 0.85rem; color: var(--muted); line-height: 1.75; }
+  .faq-item.open .faq-answer { max-height: 200px; padding: 0 1.5rem 1.25rem; }
+  .faq-item.open .faq-icon { background: var(--mint-deep); border-color: var(--mint-deep); transform: rotate(45deg); }
+  .faq-item.open .faq-icon svg { stroke: var(--white); }
+
+  /* SECTION SHARED */
+  .section-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mint-deep); font-weight: 500; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.1; }
+
+  footer { background: var(--charcoal); color: rgba(255,255,255,0.5); padding: 4rem 4rem 2rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--white); margin-bottom: 0.75rem; }
+  .footer-brand span { color: var(--mint-mid); }
+  .footer-tagline { font-size: 0.83rem; line-height: 1.7; max-width: 240px; }
+  .footer-col h5 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; font-size: 0.83rem; }
+  .footer-col ul li a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; flex-wrap: wrap; gap: 1rem; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeInUp 0.7s ease both; }
+  .page-breadcrumb { animation-delay: 0.05s; } .page-tag { animation-delay: 0.1s; } .page-title { animation-delay: 0.2s; } .page-subtitle { animation-delay: 0.3s; } .trust-pills { animation-delay: 0.4s; }
+
+  @media (max-width: 1100px) { .booking-layout { grid-template-columns: 1fr 360px; } }
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 72px 0 0 0; background: var(--cream); padding: 2rem 1.5rem; gap: 1.5rem; align-items: flex-start; border-top: 1px solid var(--border); z-index: 99; }
+    .nav-toggle { display: flex; }
+    .page-hero { padding: 80px 1.5rem 4rem; min-height: 50vh; }
+    .booking-layout { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+    .booking-sidebar { order: -1; }
+    .service-selector { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .expect-section { padding: 4rem 1.5rem; }
+    .expect-grid { grid-template-columns: 1fr 1fr; }
+    .faq-section { padding: 4rem 1.5rem; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    footer { padding: 3rem 1.5rem 2rem; }
+  }
+  @media (max-width: 500px) { .expect-grid { grid-template-columns: 1fr; } .date-grid { grid-template-columns: repeat(7,1fr); } }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="aurelle-dental.html" class="nav-logo">
+    <svg viewBox="0 0 28 28" fill="none"><path d="M14 3C9.6 3 6 6.6 6 11c0 4.5 2.5 7.5 5.5 10.5 1 1 2 2.5 2.5 3.5.5-1 1.5-2.5 2.5-3.5C19.5 18.5 22 15.5 22 11c0-4.4-3.6-8-8-8z" fill="#d6ede8" stroke="#2e6e5e" stroke-width="1.4"/><path d="M14 7c-2 0-3.5 1.5-3.5 3.5 0 1.5.8 2.8 1.8 3.8.6.6 1.1 1.4 1.4 2.5h.6c.3-1.1.8-1.9 1.4-2.5 1-.9 1.8-2.3 1.8-3.8C17.5 8.5 16 7 14 7z" fill="#2e6e5e" opacity=".3"/></svg>
+    Aurelle <span>Dental</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="team.html">Our Team</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="book.html" class="nav-cta active">Book Appointment</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&q=50&auto=format&fit=crop" alt=""></div>
+  <div class="hero-accent"></div>
+  <div class="hero-accent2"></div>
+  <div class="hero-content">
+    <div class="page-breadcrumb"><a href="aurelle-dental.html">Home</a><span>/</span><a href="book.html" style="color:rgba(255,255,255,0.8)">Book</a></div>
+    <p class="page-tag">Appointments</p>
+    <h1 class="page-title">Book your visit in<br><em>under 2 minutes</em></h1>
+    <p class="page-subtitle">Choose your service, pick a specialist, select a time that works for you. We'll confirm by SMS within the hour and send a reminder the day before.</p>
+    <div class="trust-pills">
+      <div class="trust-pill"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Instant SMS confirmation</div>
+      <div class="trust-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Same-day slots available</div>
+      <div class="trust-pill"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Free to reschedule</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING LAYOUT -->
+<div class="booking-layout">
+
+  <!-- MULTI-STEP FORM -->
+  <div class="booking-form-card reveal">
+    <!-- Progress tabs -->
+    <div class="step-progress" id="stepProgress">
+      <div class="step-tab active" id="tab1"><div class="step-num">1</div><div class="step-label">Service</div></div>
+      <div class="step-tab" id="tab2"><div class="step-num">2</div><div class="step-label">Specialist</div></div>
+      <div class="step-tab" id="tab3"><div class="step-num">3</div><div class="step-label">Date & Time</div></div>
+      <div class="step-tab" id="tab4"><div class="step-num">4</div><div class="step-label">Your Details</div></div>
+    </div>
+
+    <!-- Step 1: Service -->
+    <div class="step-panel active" id="step1">
+      <h2 class="step-title">What brings you in?</h2>
+      <p class="step-subtitle">Select the service you'd like to book. Not sure? Choose General Check-up and we'll take it from there.</p>
+      <div class="service-selector" id="serviceSelector">
+        <div class="service-opt selected" onclick="selectService(this, 'General Check-up & Cleaning')">
+          <input type="radio" name="service" checked>
+          <div class="service-check"></div>
+          <div class="service-opt-name">General Check-up & Cleaning</div>
+          <div class="service-opt-price">From KSh 2,500</div>
+        </div>
+        <div class="service-opt" onclick="selectService(this, 'Teeth Whitening')">
+          <input type="radio" name="service">
+          <div class="service-check"></div>
+          <div class="service-opt-name">Teeth Whitening</div>
+          <div class="service-opt-price">From KSh 12,000</div>
+        </div>
+        <div class="service-opt" onclick="selectService(this, 'Dental Implants')">
+          <input type="radio" name="service">
+          <div class="service-check"></div>
+          <div class="service-opt-name">Dental Implants</div>
+          <div class="service-opt-price">From KSh 85,000</div>
+        </div>
+        <div class="service-opt" onclick="selectService(this, 'Orthodontics / Clear Aligners')">
+          <input type="radio" name="service">
+          <div class="service-check"></div>
+          <div class="service-opt-name">Orthodontics / Aligners</div>
+          <div class="service-opt-price">From KSh 45,000</div>
+        </div>
+        <div class="service-opt" onclick="selectService(this, 'Root Canal Therapy')">
+          <input type="radio" name="service">
+          <div class="service-check"></div>
+          <div class="service-opt-name">Root Canal Therapy</div>
+          <div class="service-opt-price">From KSh 18,000</div>
+        </div>
+        <div class="service-opt" onclick="selectService(this, 'Cosmetic Veneers')">
+          <input type="radio" name="service">
+          <div class="service-check"></div>
+          <div class="service-opt-name">Cosmetic Veneers</div>
+          <div class="service-opt-price">From KSh 22,000/tooth</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Specialist -->
+    <div class="step-panel" id="step2">
+      <h2 class="step-title">Choose your specialist</h2>
+      <p class="step-subtitle">All our clinicians are experts — pick someone you've seen before or let us assign the best match for your treatment.</p>
+      <div class="doctor-selector" id="doctorSelector">
+        <div class="doctor-opt selected" onclick="selectDoctor(this, 'Dr. Wanjiku Nganga')">
+          <input type="radio" name="doctor" checked>
+          <div class="doctor-avatar"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=120&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Nganga"></div>
+          <div class="doctor-info-text">
+            <div class="doctor-info-name">Dr. Wanjiku Nganga</div>
+            <div class="doctor-info-spec">Lead Dentist & Implant Surgeon</div>
+          </div>
+          <span class="doctor-avail">Available</span>
+        </div>
+        <div class="doctor-opt" onclick="selectDoctor(this, 'Dr. Brian Omondi')">
+          <input type="radio" name="doctor">
+          <div class="doctor-avatar"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Omondi"></div>
+          <div class="doctor-info-text">
+            <div class="doctor-info-name">Dr. Brian Omondi</div>
+            <div class="doctor-info-spec">Orthodontist</div>
+          </div>
+          <span class="doctor-avail">Available</span>
+        </div>
+        <div class="doctor-opt" onclick="selectDoctor(this, 'Dr. Aisha Farah')">
+          <input type="radio" name="doctor">
+          <div class="doctor-avatar"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Farah"></div>
+          <div class="doctor-info-text">
+            <div class="doctor-info-name">Dr. Aisha Farah</div>
+            <div class="doctor-info-spec">Cosmetic & Restorative</div>
+          </div>
+          <span class="doctor-avail">Available</span>
+        </div>
+        <div class="doctor-opt" onclick="selectDoctor(this, 'Best Match for My Treatment')">
+          <input type="radio" name="doctor">
+          <div class="doctor-avatar" style="background:var(--mint);display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint-deep)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="doctor-info-text">
+            <div class="doctor-info-name">Assign Best Match</div>
+            <div class="doctor-info-spec">We'll pair you with the right specialist</div>
+          </div>
+          <span class="doctor-avail">Recommended</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Date & Time -->
+    <div class="step-panel" id="step3">
+      <h2 class="step-title">Pick a date & time</h2>
+      <p class="step-subtitle">Select an available slot. Greyed-out times are already booked.</p>
+      <div class="month-nav">
+        <button onclick="changeMonth(-1)">‹</button>
+        <div class="month-name" id="monthName">June 2025</div>
+        <button onclick="changeMonth(1)">›</button>
+      </div>
+      <div class="date-grid" id="dateGrid">
+        <div class="day-label">Mo</div><div class="day-label">Tu</div><div class="day-label">We</div>
+        <div class="day-label">Th</div><div class="day-label">Fr</div><div class="day-label">Sa</div><div class="day-label">Su</div>
+      </div>
+      <p style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.75rem;font-weight:500;">Available Times</p>
+      <div class="time-grid" id="timeGrid"></div>
+    </div>
+
+    <!-- Step 4: Details -->
+    <div class="step-panel" id="step4">
+      <h2 class="step-title">Your details</h2>
+      <p class="step-subtitle">Just a few details so we can confirm your booking and send you a reminder.</p>
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="Jane" autocomplete="given-name"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Doe" autocomplete="family-name"></div>
+      </div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" placeholder="+254 7xx xxx xxx" autocomplete="tel"></div>
+      <div class="form-group"><label>Email Address (optional)</label><input type="email" id="email" placeholder="jane@example.com" autocomplete="email"></div>
+      <div class="form-group">
+        <label>Are you a new or returning patient?</label>
+        <select id="patientType">
+          <option value="">Select…</option>
+          <option>New patient</option>
+          <option>Returning patient</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Notes (optional)</label><textarea id="notes" placeholder="Any concerns, previous dental history, or special requirements…"></textarea></div>
+      <label class="insurance-row">
+        <input type="checkbox" id="hasInsurance">
+        <span>I have dental insurance I'd like to use for this appointment</span>
+      </label>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="step-panel" id="stepConfirm">
+      <div class="confirmation">
+        <div class="confirm-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h2 class="confirm-title">You're all booked!</h2>
+        <p class="confirm-subtitle">We've received your appointment request and will confirm via SMS within the hour. See you soon!</p>
+        <div class="confirm-summary" id="confirmSummary"></div>
+        <div class="confirm-actions">
+          <a href="aurelle-dental.html" class="btn-confirm-primary">Back to Home</a>
+          <a href="services.html" class="btn-confirm-secondary">Explore More Services</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav buttons -->
+    <div class="step-nav" id="stepNav">
+      <button class="btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden">← Back</button>
+      <div class="step-indicator" id="stepIndicator">Step 1 of 4</div>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">Next <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="booking-sidebar reveal" style="transition-delay:0.15s">
+
+    <!-- Emergency -->
+    <div class="emergency-banner">
+      <h4>🦷 Dental Emergency?</h4>
+      <p>Toothache, broken tooth, or lost filling? We keep slots reserved every day for urgent cases. Call us now.</p>
+      <a href="tel:+254700123456" class="emergency-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92V19.92a2 2 0 01-2.18 2A19.79 19.79 0 012 4.18 2 2 0 014.09 2h3a2 2 0 012 1.72c.127 1.01.36 2 .7 2.95a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.95.34 1.94.572 2.95.7A2 2 0 0122 16.92z"/></svg>+254 700 123 456</a>
+    </div>
+
+    <!-- Contact -->
+    <div class="sidebar-card">
+      <div class="sidebar-title"><svg viewBox="0 0 24 24"><path d="M22 16.92V19.92a2 2 0 01-2.18 2A19.79 19.79 0 012 4.18 2 2 0 014.09 2h3a2 2 0 012 1.72c.127 1.01.36 2 .7 2.95a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.95.34 1.94.572 2.95.7A2 2 0 0122 16.92z"/></svg>Contact Us</div>
+      <div class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92V19.92a2 2 0 01-2.18 2A19.79 19.79 0 012 4.18 2 2 0 014.09 2h3a2 2 0 012 1.72c.127 1.01.36 2 .7 2.95a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.95.34 1.94.572 2.95.7A2 2 0 0122 16.92z"/></svg></div>
+        <div class="contact-detail"><a href="tel:+254700123456">+254 700 123 456</a><span>Mon–Sat, 8am–6pm</span></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="contact-detail"><a href="mailto:hello@aurelle.dental">hello@aurelle.dental</a><span>Reply within 1 hour</span></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="contact-detail"><strong>Sarit Centre, Westlands</strong><span>Ground Floor, Ring Road Westlands, Nairobi</span></div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-card">
+      <div class="map-img">
+        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=700&q=70&auto=format&fit=crop" alt="Westlands Nairobi map">
+        <div class="map-img-overlay">
+          <a href="https://maps.google.com/?q=Sarit+Centre+Westlands+Nairobi" target="_blank" class="map-directions">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Get Directions
+          </a>
+        </div>
+      </div>
+      <div class="map-address">
+        <strong>Aurelle Dental — Westlands</strong>
+        <span>Ground Floor, Sarit Centre, Ring Road, Nairobi 00100</span>
+      </div>
+    </div>
+
+    <!-- Hours -->
+    <div class="sidebar-card">
+      <div class="sidebar-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Opening Hours</div>
+      <div class="hours-row today-row"><span>Monday</span><span>8:00am – 6:00pm</span></div>
+      <div class="hours-row today-row"><span>Tuesday</span><span>8:00am – 6:00pm</span></div>
+      <div class="hours-row today-row"><span>Wednesday</span><span>8:00am – 6:00pm</span></div>
+      <div class="hours-row today-row"><span>Thursday</span><span>8:00am – 6:00pm</span></div>
+      <div class="hours-row today-row"><span>Friday</span><span>8:00am – 6:00pm</span></div>
+      <div class="hours-row"><span>Saturday</span><span>8:00am – 4:00pm</span></div>
+      <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+    </div>
+
+    <!-- Insurance -->
+    <div class="sidebar-card">
+      <div class="sidebar-title"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Accepted Insurance</div>
+      <div class="insurance-logos">
+        <div class="ins-badge">Jubilee</div>
+        <div class="ins-badge">AAR</div>
+        <div class="ins-badge">Britam</div>
+        <div class="ins-badge">CIC</div>
+        <div class="ins-badge">NHIF</div>
+        <div class="ins-badge">UAP</div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;line-height:1.6;">We process claims directly with your insurer. Bring your insurance card and member number to your appointment.</p>
+    </div>
+
+    <!-- Reassurance -->
+    <div class="sidebar-card">
+      <div class="sidebar-title"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Our Promise to You</div>
+      <div class="reassurance-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>No hidden fees — written estimate before any treatment begins</div>
+      <div class="reassurance-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Free to reschedule up to 2 hours before your appointment</div>
+      <div class="reassurance-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>SMS reminder sent the evening before your visit</div>
+      <div class="reassurance-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Pain-free, anxiety-free care guaranteed</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHAT TO EXPECT -->
+<section class="expect-section">
+  <div class="reveal" style="text-align:center;max-width:580px;margin:0 auto;">
+    <p class="section-tag">Your First Visit</p>
+    <h2 class="section-title">What to expect when you arrive</h2>
+  </div>
+  <div class="expect-grid">
+    <div class="expect-card reveal">
+      <div class="expect-connector"></div>
+      <div class="expect-num">01</div>
+      <div class="expect-title">Warm welcome</div>
+      <p class="expect-desc">Our front desk team greets you by name. Your medical history form is sent digitally in advance so there's no clipboard paperwork on arrival.</p>
+    </div>
+    <div class="expect-card reveal" style="transition-delay:0.1s">
+      <div class="expect-connector"></div>
+      <div class="expect-num">02</div>
+      <div class="expect-title">Your consultation</div>
+      <p class="expect-desc">Your clinician takes time to understand your concerns, review your X-rays, and explain exactly what they're seeing — no rushing, no jargon.</p>
+    </div>
+    <div class="expect-card reveal" style="transition-delay:0.2s">
+      <div class="expect-connector"></div>
+      <div class="expect-num">03</div>
+      <div class="expect-title">Written treatment plan</div>
+      <p class="expect-desc">Before anything happens, you receive a written treatment plan with itemised costs. You decide what, when, and how — always in control.</p>
+    </div>
+    <div class="expect-card reveal" style="transition-delay:0.3s">
+      <div class="expect-num">04</div>
+      <div class="expect-title">Aftercare & follow-up</div>
+      <p class="expect-desc">After treatment, you'll receive written aftercare instructions and a direct line to your clinician for any questions in the days that follow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="reveal">
+    <p class="section-tag">Common Questions</p>
+    <h2 class="section-title">Booking FAQs</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How quickly can I get an appointment? <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+      <div class="faq-answer">For routine appointments, we typically have slots within 2–3 days. For emergencies, we keep daily slots reserved — call us directly for same-day urgent care.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Can I reschedule or cancel? <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+      <div class="faq-answer">Yes — free to reschedule or cancel up to 2 hours before your appointment by calling us or replying to your SMS confirmation. No cancellation fee applies.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What should I bring to my appointment? <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+      <div class="faq-answer">Your insurance card and member number (if applicable), any previous dental X-rays or records, and a list of current medications. Arrive 5 minutes early for your first visit.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Do you see children? <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+      <div class="faq-answer">Absolutely. Dr. Grace Otieno is our paediatric specialist, and we have a dedicated children's zone designed to make young patients feel safe and excited about dental visits.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Is parking available? <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+      <div class="faq-answer">Yes — Sarit Centre has ample covered parking. We validate parking for all patients — just bring your ticket to reception. The clinic is also a 5-minute walk from the Westlands matatu stage.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How do I pay for my treatment? <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+      <div class="faq-answer">We accept M-Pesa, Visa, Mastercard, cash, and all major insurance providers. For larger treatment plans, we can discuss phased payment arrangements with our patient coordinator.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">Aurelle <span>Dental</span></div><p class="footer-tagline">Modern dentistry in the heart of Nairobi. Bringing you exceptional care with a gentle touch since 2009.</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a href="services.html">General Dentistry</a></li><li><a href="services.html">Teeth Whitening</a></li><li><a href="services.html">Dental Implants</a></li><li><a href="services.html">Orthodontics</a></li><li><a href="services.html">Veneers</a></li></ul></div>
+    <div class="footer-col"><h5>Clinic</h5><ul><li><a href="about.html">About Us</a></li><li><a href="team.html">Our Team</a></li><li><a href="reviews.html">Patient Reviews</a></li><li><a href="book.html">Book Appointment</a></li></ul></div>
+    <div class="footer-col"><h5>Hours</h5><ul><li><a href="#">Mon–Fri: 8am – 6pm</a></li><li><a href="#">Saturday: 8am – 4pm</a></li><li><a href="#">Sunday: Closed</a></li><li style="margin-top:0.75rem;"><a href="tel:+254700123456" style="color:var(--mint-mid);">+254 700 123 456</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Aurelle Dental. All rights reserved.</span><span>Privacy Policy · Terms of Service</span></div>
+</footer>
+
+<script>
+  // NAV
+  window.addEventListener('scroll', () => { document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20); });
+  const toggle = document.getElementById('navToggle'); const navLinks = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // REVEAL
+  const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // STEP FORM
+  let currentStep = 1;
+  const totalSteps = 4;
+  let selectedService = 'General Check-up & Cleaning';
+  let selectedDoctor = 'Dr. Wanjiku Nganga';
+  let selectedDate = '';
+  let selectedTime = '';
+
+  function goToStep(step) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.step-tab').forEach((t, i) => {
+      t.classList.remove('active', 'done');
+      if (i + 1 < step) t.classList.add('done');
+      if (i + 1 === step) t.classList.add('active');
+    });
+    if (step <= totalSteps) {
+      document.getElementById('step' + step).classList.add('active');
+      document.getElementById('stepIndicator').textContent = 'Step ' + step + ' of ' + totalSteps;
+      document.getElementById('btnBack').style.visibility = step > 1 ? 'visible' : 'hidden';
+      document.getElementById('btnNext').textContent = step === totalSteps ? '' : 'Next';
+      if (step === totalSteps) {
+        document.getElementById('btnNext').innerHTML = 'Confirm Booking <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+      } else {
+        document.getElementById('btnNext').innerHTML = 'Next <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      }
+    } else {
+      // Show confirmation
+      document.getElementById('stepConfirm').classList.add('active');
+      document.getElementById('stepNav').style.display = 'none';
+      document.getElementById('stepProgress').style.display = 'none';
+      const fname = document.getElementById('fname').value || 'Patient';
+      document.getElementById('confirmSummary').innerHTML = `
+        <div class="confirm-row"><span>Service</span><span>${selectedService}</span></div>
+        <div class="confirm-row"><span>Specialist</span><span>${selectedDoctor}</span></div>
+        <div class="confirm-row"><span>Date</span><span>${selectedDate || 'To be confirmed'}</span></div>
+        <div class="confirm-row"><span>Time</span><span>${selectedTime || 'To be confirmed'}</span></div>
+        <div class="confirm-row"><span>Patient</span><span>${fname} ${document.getElementById('lname').value || ''}</span></div>
+        <div class="confirm-row"><span>Confirmation</span><span>SMS to ${document.getElementById('phone').value || '—'}</span></div>
+      `;
+    }
+    currentStep = step;
+  }
+
+  function nextStep() {
+    if (currentStep === 4) {
+      const fname = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!fname || !phone) { alert('Please enter your name and phone number to confirm.'); return; }
+    }
+    goToStep(currentStep + 1);
+  }
+  function prevStep() { if (currentStep > 1) goToStep(currentStep - 1); }
+
+  // Service selector
+  function selectService(el, name) {
+    document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedService = name;
+  }
+
+  // Doctor selector
+  function selectDoctor(el, name) {
+    document.querySelectorAll('.doctor-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedDoctor = name;
+  }
+
+  // Calendar
+  let calMonth = 5; // June (0-indexed)
+  let calYear = 2025;
+  const bookedSlots = { '2025-6-3': ['9:00 AM', '11:00 AM'], '2025-6-5': ['2:00 PM'], '2025-6-10': ['10:00 AM', '3:00 PM'] };
+  const times = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+
+  function renderCalendar() {
+    const grid = document.getElementById('dateGrid');
+    const labels = grid.querySelectorAll('.day-label');
+    grid.innerHTML = '';
+    ['Mo','Tu','We','Th','Fr','Sa','Su'].forEach(d => {
+      const el = document.createElement('div'); el.className = 'day-label'; el.textContent = d; grid.appendChild(el);
+    });
+    document.getElementById('monthName').textContent = new Date(calYear, calMonth, 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+    for (let i = 0; i < offset; i++) { const blank = document.createElement('div'); grid.appendChild(blank); }
+    const today = new Date();
+    for (let d = 1; d <= daysInMonth; d++) {
+      const btn = document.createElement('div');
+      btn.className = 'date-btn';
+      btn.textContent = d;
+      const dateStr = `${calYear}-${calMonth+1}-${d}`;
+      const dateObj = new Date(calYear, calMonth, d);
+      const isSunday = dateObj.getDay() === 0;
+      const isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      if (isSunday || isPast) { btn.classList.add('disabled'); }
+      else {
+        btn.onclick = () => {
+          document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedDate = dateObj.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+          renderTimes(dateStr);
+        };
+      }
+      if (d === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear()) btn.classList.add('today');
+      grid.appendChild(btn);
+    }
+  }
+
+  function renderTimes(dateKey) {
+    const booked = bookedSlots[dateKey] || [];
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '';
+    times.forEach(t => {
+      const btn = document.createElement('div');
+      btn.className = 'time-btn';
+      btn.textContent = t;
+      if (booked.includes(t)) { btn.classList.add('booked'); }
+      else {
+        btn.onclick = () => {
+          document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedTime = t;
+        };
+      }
+      grid.appendChild(btn);
+    });
+  }
+
+  function changeMonth(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+  }
+
+  // FAQ
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Init
+  renderCalendar();
+  renderTimes('');
+</script>
+</body>
+</html>

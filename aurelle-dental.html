@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelle Dental — Modern Care for Every Smile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --mint: #d6ede8;
+    --mint-deep: #2e6e5e;
+    --mint-mid: #5a9e8f;
+    --cream: #faf7f2;
+    --warm: #f0ebe0;
+    --charcoal: #1e2220;
+    --muted: #6b7570;
+    --accent: #c5a97d;
+    --white: #ffffff;
+    --border: rgba(30,34,32,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--charcoal);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-logo svg { width: 28px; height: 28px; }
+  .nav-logo span { color: var(--mint-deep); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 400;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--charcoal); }
+  .nav-cta {
+    background: var(--mint-deep) !important;
+    color: var(--white) !important;
+    padding: 0.55rem 1.4rem !important;
+    border-radius: 100px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+    transition: background 0.25s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--charcoal) !important; transform: translateY(-1px) !important; }
+
+  /* hamburger */
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--mint); color: var(--mint-deep);
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.4rem 1rem; border-radius: 100px;
+    width: fit-content; margin-bottom: 2rem;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--mint-deep); border-radius: 50%;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300; line-height: 1.05; letter-spacing: -0.01em;
+    color: var(--charcoal); margin-bottom: 1.5rem;
+  }
+  .hero-title em { font-style: italic; color: var(--mint-deep); }
+  .hero-subtitle {
+    font-size: 1.05rem; font-weight: 300; color: var(--muted);
+    max-width: 420px; line-height: 1.75; margin-bottom: 3rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--charcoal); color: var(--white); border: none;
+    padding: 0.9rem 2.2rem; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; transition: background 0.25s, transform 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--mint-deep); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent; color: var(--charcoal);
+    border: 1.5px solid var(--charcoal);
+    padding: 0.9rem 2.2rem; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 400;
+    cursor: pointer; transition: all 0.25s;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-outline:hover { border-color: var(--mint-deep); color: var(--mint-deep); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    margin-top: 4rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600;
+    color: var(--charcoal); display: block; line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-top: 0.3rem; display: block;
+  }
+
+  /* hero right — photo grid */
+  .hero-right {
+    background: var(--mint);
+    position: relative; overflow: hidden;
+  }
+  .hero-photo-grid {
+    width: 100%; height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+  }
+  .hero-photo-grid img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .hero-photo-grid img:hover { transform: scale(1.04); }
+  .hero-photo-grid .photo-main {
+    grid-row: 1 / 3;
+  }
+
+  .floating-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    z-index: 10;
+    animation: float 6s ease-in-out infinite;
+  }
+  .floating-card.fc1 { bottom: 14%; right: 5%; width: 180px; animation-delay: 0s; }
+  .floating-card.fc2 { top: 12%; left: 5%; width: 165px; animation-delay: 3s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .fc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; }
+  .fc-value { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--charcoal); }
+  .fc-sub { font-size: 0.75rem; color: var(--mint-deep); margin-top: 0.15rem; }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--charcoal);
+    padding: 1.2rem 4rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: rgba(255,255,255,0.65); font-size: 0.82rem;
+  }
+  .trust-item svg { width: 16px; height: 16px; stroke: var(--mint-mid); fill: none; stroke-width: 2; flex-shrink: 0; }
+
+  /* ── SERVICES ── */
+  #services { padding: 7rem 4rem; background: var(--cream); }
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .section-tag {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--mint-deep); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1.1; max-width: 500px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+  .service-img {
+    width: 100%; height: 200px; overflow: hidden;
+    position: relative;
+  }
+  .service-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .service-card:hover .service-img img { transform: scale(1.06); }
+  .service-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(30,34,32,0.3));
+  }
+
+  .service-body { padding: 1.75rem 1.5rem; }
+  .service-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--mint);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .service-icon svg {
+    width: 22px; height: 22px;
+    stroke: var(--mint-deep); fill: none;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 600;
+    margin-bottom: 0.6rem; color: var(--charcoal);
+  }
+  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.8rem; font-weight: 500;
+    color: var(--mint-deep); text-decoration: none;
+    margin-top: 1rem;
+    transition: gap 0.2s;
+  }
+  .service-link:hover { gap: 0.55rem; }
+  .service-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* ── GALLERY STRIP ── */
+  .gallery-strip {
+    padding: 0 4rem 5rem;
+    background: var(--cream);
+  }
+  .gallery-strip-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 1rem;
+    border-radius: 20px; overflow: hidden;
+    height: 320px;
+  }
+  .gallery-strip-inner img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform 0.5s;
+  }
+  .gallery-strip-inner img:hover { transform: scale(1.04); }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--charcoal); color: var(--white);
+    padding: 7rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+  .about-left .section-tag { color: var(--mint-mid); }
+  .about-left .section-title { color: var(--white); max-width: none; }
+  .about-body {
+    font-size: 0.95rem; color: rgba(255,255,255,0.6);
+    line-height: 1.85; margin-top: 1.5rem; margin-bottom: 2.5rem;
+  }
+  .about-photo-block {
+    position: relative; border-radius: 20px; overflow: hidden;
+    height: 420px;
+  }
+  .about-photo-block img { width: 100%; height: 100%; object-fit: cover; }
+  .about-photo-badge {
+    position: absolute; bottom: 1.5rem; left: 1.5rem;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 0.9rem 1.25rem;
+    color: var(--white);
+  }
+  .about-photo-badge strong { display: block; font-size: 1.1rem; font-weight: 500; }
+  .about-photo-badge span { font-size: 0.78rem; color: rgba(255,255,255,0.65); }
+
+  .about-right { display: flex; flex-direction: column; gap: 1.25rem; }
+  .feature-row {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.4rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .feature-row:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
+  .feature-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300;
+    color: var(--mint-mid); line-height: 1; min-width: 40px;
+  }
+  .feature-text h4 { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-bottom: 0.3rem; }
+  .feature-text p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── TEAM ── */
+  #team { padding: 7rem 4rem; background: var(--warm); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .team-card {
+    background: var(--white); border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+  .team-photo { width: 100%; height: 260px; overflow: hidden; }
+  .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.5s; }
+  .team-card:hover .team-photo img { transform: scale(1.05); }
+  .team-info { padding: 1.5rem; }
+  .team-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--charcoal); margin-bottom: 0.25rem; }
+  .team-role { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mint-deep); font-weight: 500; margin-bottom: 0.6rem; }
+  .team-bio { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── TESTIMONIALS ── */
+  #reviews { padding: 7rem 4rem; background: var(--cream); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .review-card {
+    background: var(--white); border-radius: 16px;
+    padding: 2rem 1.75rem;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .review-card:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
+  .stars { display: flex; gap: 3px; margin-bottom: 1.25rem; }
+  .star {
+    width: 14px; height: 14px; background: var(--accent);
+    clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  }
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem; font-weight: 300;
+    line-height: 1.7; color: var(--charcoal); margin-bottom: 1.5rem;
+  }
+  .reviewer { display: flex; align-items: center; gap: 0.75rem; }
+  .reviewer-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .reviewer-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .reviewer-avatar-initials {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--mint);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 500; color: var(--mint-deep);
+    flex-shrink: 0;
+  }
+  .reviewer-name { font-size: 0.88rem; font-weight: 500; color: var(--charcoal); }
+  .reviewer-meta { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── BOOKING ── */
+  #book {
+    padding: 7rem 4rem; background: var(--warm);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: start;
+  }
+  .book-info .section-title { margin-bottom: 1rem; }
+  .book-info > p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; }
+
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem; }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--mint);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-icon svg {
+    width: 18px; height: 18px; stroke: var(--mint-deep);
+    fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .contact-details strong { display: block; font-size: 0.88rem; font-weight: 500; color: var(--charcoal); }
+  .contact-details span { font-size: 0.82rem; color: var(--muted); }
+
+  .map-preview {
+    margin-top: 2rem; border-radius: 14px; overflow: hidden;
+    height: 180px; border: 1px solid var(--border);
+    position: relative;
+  }
+  .map-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .map-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(30,34,32,0.35);
+  }
+  .map-overlay a {
+    background: var(--white); color: var(--charcoal);
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.5rem 1rem; border-radius: 100px;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.4rem;
+    transition: background 0.2s;
+  }
+  .map-overlay a:hover { background: var(--mint); }
+  .map-overlay a svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* form */
+  .booking-form {
+    background: var(--white); border-radius: 20px;
+    padding: 2.5rem; border: 1px solid var(--border);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  }
+  .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .form-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 2rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.5rem; font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    color: var(--charcoal); background: var(--cream);
+    transition: border-color 0.2s; outline: none;
+    appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--mint-deep); background: var(--white);
+  }
+  .form-group textarea { resize: none; height: 90px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    width: 100%; background: var(--mint-deep); color: var(--white);
+    border: none; padding: 1rem; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; transition: background 0.25s, transform 0.2s; margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--charcoal); transform: translateY(-1px); }
+  .success-msg {
+    display: none; background: var(--mint); color: var(--mint-deep);
+    padding: 0.8rem 1rem; border-radius: 10px;
+    font-size: 0.88rem; font-weight: 500;
+    margin-top: 0.75rem; text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer { background: var(--charcoal); color: rgba(255,255,255,0.5); padding: 4rem 4rem 2rem; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--white); margin-bottom: 0.75rem; }
+  .footer-brand span { color: var(--mint-mid); }
+  .footer-tagline { font-size: 0.83rem; line-height: 1.7; max-width: 240px; }
+  .footer-social { display: flex; gap: 0.6rem; margin-top: 1.25rem; }
+  .social-btn {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; cursor: pointer;
+    text-decoration: none;
+  }
+  .social-btn:hover { background: rgba(255,255,255,0.14); }
+  .social-btn svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 2; }
+  .footer-col h5 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; font-size: 0.83rem; }
+  .footer-col ul li a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; flex-wrap: wrap; gap: 1rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeInUp 0.7s ease both; }
+  .hero-badge { animation-delay: 0.1s; }
+  .hero-title { animation-delay: 0.2s; }
+  .hero-subtitle { animation-delay: 0.3s; }
+  .hero-actions { animation-delay: 0.4s; }
+  .hero-stats { animation-delay: 0.5s; }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: fixed; inset: 72px 0 0 0;
+      background: var(--cream); padding: 2rem 1.5rem;
+      gap: 1.5rem; align-items: flex-start;
+      border-top: 1px solid var(--border);
+      z-index: 99;
+    }
+    .nav-links.open .nav-cta { margin-top: 0.5rem; }
+    .nav-toggle { display: flex; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 360px; }
+    .hero-photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .hero-photo-grid .photo-main { grid-row: 1 / 3; }
+    .hero-left { padding: 5rem 1.5rem 3rem; }
+    .hero-stats { gap: 1.5rem; }
+
+    #services, #reviews, #team, .gallery-strip { padding: 4rem 1.5rem; }
+    #about { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+    .about-photo-block { height: 280px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-img { height: 180px; }
+    .gallery-strip-inner { grid-template-columns: 1fr 1fr; height: auto; }
+    .gallery-strip-inner img { height: 150px; }
+    .gallery-strip-inner .gallery-main { display: none; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    #book { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .trust-bar { padding: 1rem 1.5rem; gap: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .gallery-strip-inner { grid-template-columns: 1fr; height: auto; }
+    .gallery-strip-inner img { height: 180px; }
+    .gallery-strip-inner .gallery-skip { display: none; }
+    .footer-top { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 3C9.6 3 6 6.6 6 11c0 4.5 2.5 7.5 5.5 10.5 1 1 2 2.5 2.5 3.5.5-1 1.5-2.5 2.5-3.5C19.5 18.5 22 15.5 22 11c0-4.4-3.6-8-8-8z" fill="#d6ede8" stroke="#2e6e5e" stroke-width="1.4"/>
+      <path d="M14 7c-2 0-3.5 1.5-3.5 3.5 0 1.5.8 2.8 1.8 3.8.6.6 1.1 1.4 1.4 2.5h.6c.3-1.1.8-1.9 1.4-2.5 1-.9 1.8-2.3 1.8-3.8C17.5 8.5 16 7 14 7z" fill="#2e6e5e" opacity=".3"/>
+    </svg>
+    Aurelle <span>Dental</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#book" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Est. 2009 · Nairobi, Kenya</div>
+    <h1 class="hero-title">
+      Your <em>smile</em>,<br>
+      crafted with<br>
+      precision &amp; care
+    </h1>
+    <p class="hero-subtitle">
+      Aurelle Dental blends advanced clinical expertise with a calm, welcoming environment — so every visit feels like a step toward your best self.
+    </p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Explore Services
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">4,800+</span>
+        <span class="stat-label">Happy Patients</span>
+      </div>
+      <div>
+        <span class="stat-num">15+</span>
+        <span class="stat-label">Years of Practice</span>
+      </div>
+      <div>
+        <span class="stat-num">98%</span>
+        <span class="stat-label">Satisfaction Rate</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-grid">
+      <img class="photo-main" src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop" alt="Modern dental clinic interior" loading="eager">
+      <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&q=80&auto=format&fit=crop" alt="Dentist and patient consultation" loading="eager">
+      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80&auto=format&fit=crop" alt="Dental treatment" loading="eager">
+    </div>
+    <div class="floating-card fc2">
+      <div class="fc-label">Next Available</div>
+      <div class="fc-value">Today, 2pm</div>
+      <div class="fc-sub">✓ Slot open</div>
+    </div>
+    <div class="floating-card fc1">
+      <div class="fc-label">Patient Rating</div>
+      <div class="fc-value">4.9 / 5</div>
+      <div class="fc-sub">Based on 620 reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Registered with Kenya Dental Association
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    All major insurance accepted
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Same-day emergency appointments
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    Pain-free, anxiety-free care
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-tag">What We Offer</p>
+      <h2 class="section-title">Comprehensive dental care under one roof</h2>
+    </div>
+    <a href="#book" class="btn-outline" style="flex-shrink:0">Book a Service</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-img">
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffbb172c6f2?w=700&q=80&auto=format&fit=crop" alt="General Dentistry" loading="lazy">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="service-body">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 4 3 7 7 9 4-2 7-5 7-9 0-4-3-7-7-7z"/><path d="M12 6v6l3 2"/></svg>
+        </div>
+        <h3 class="service-name">General Dentistry</h3>
+        <p class="service-desc">Routine check-ups, professional cleanings, fillings and preventive care to keep your natural teeth healthy for life.</p>
+        <a href="#book" class="service-link">Book a check-up <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.08s">
+      <div class="service-img">
+        <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=700&q=80&auto=format&fit=crop" alt="Teeth Whitening" loading="lazy">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="service-body">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M2 12h4M18 12h4M12 2v4M12 18v4"/></svg>
+        </div>
+        <h3 class="service-name">Teeth Whitening</h3>
+        <p class="service-desc">Professional-grade in-chair whitening that lifts stains and brightens your smile by up to 8 shades in a single session.</p>
+        <a href="#book" class="service-link">Whiten your smile <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.16s">
+      <div class="service-img">
+        <img src="https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=700&q=80&auto=format&fit=crop" alt="Dental Implants" loading="lazy">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="service-body">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h3 class="service-name">Dental Implants</h3>
+        <p class="service-desc">Permanent, natural-looking implants that restore your bite, speech and confidence with precision placement by our specialists.</p>
+        <a href="#book" class="service-link">Learn more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.24s">
+      <div class="service-img">
+        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=700&q=80&auto=format&fit=crop" alt="Orthodontics" loading="lazy">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="service-body">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3"/><path d="M21 8V5a2 2 0 00-2-2h-3"/><path d="M3 16v3a2 2 0 002 2h3"/><path d="M16 21h3a2 2 0 002-2v-3"/></svg>
+        </div>
+        <h3 class="service-name">Orthodontics</h3>
+        <p class="service-desc">Clear aligners and traditional braces to gently straighten teeth and align your bite — for teens and adults alike.</p>
+        <a href="#book" class="service-link">Start your journey <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.32s">
+      <div class="service-img">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80&auto=format&fit=crop" alt="Root Canal" loading="lazy">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="service-body">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="service-name">Root Canal Therapy</h3>
+        <p class="service-desc">Comfortable, same-visit root canal treatments using rotary instrumentation and local anaesthesia — completely painless.</p>
+        <a href="#book" class="service-link">Book now <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.40s">
+      <div class="service-img">
+        <img src="https://images.unsplash.com/photo-1651008364003-a35c7a2b13e3?w=700&q=80&auto=format&fit=crop" alt="Cosmetic Veneers" loading="lazy">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="service-body">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3 class="service-name">Cosmetic Veneers</h3>
+        <p class="service-desc">Ultra-thin porcelain veneers crafted to mask chips, gaps, and discolouration — giving you a Hollywood-quality smile.</p>
+        <a href="#book" class="service-link">Transform your smile <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLINIC PHOTO GALLERY -->
+<div class="gallery-strip">
+  <div class="gallery-strip-inner reveal">
+    <img class="gallery-main" src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=900&q=80&auto=format&fit=crop" alt="Clinic interior" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=500&q=80&auto=format&fit=crop" alt="Dental consultation" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1588776814546-1ffbb172c6f2?w=500&q=80&auto=format&fit=crop" alt="Dental equipment" loading="lazy">
+    <img class="gallery-skip" src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500&q=80&auto=format&fit=crop" alt="Happy patient" loading="lazy">
+  </div>
+</div>
+
+<!-- ABOUT / WHY US -->
+<section id="about">
+  <div class="about-photo-block reveal">
+    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=80&auto=format&fit=crop" alt="Dental team at Aurelle Dental" loading="lazy">
+    <div class="about-photo-badge">
+      <strong>15+ Years of Excellence</strong>
+      <span>Serving Nairobi since 2009</span>
+    </div>
+  </div>
+  <div class="about-right reveal" style="transition-delay:0.15s">
+    <p class="section-tag">Why Aurelle Dental</p>
+    <h2 class="section-title" style="color:var(--white);max-width:none;">A practice built on trust, technology &amp; tenderness</h2>
+    <p class="about-body">
+      We believe going to the dentist shouldn't feel like a chore. Our clinic is designed to calm anxiety from the moment you walk through the door — with modern equipment, transparent pricing, and a team that truly listens.
+    </p>
+    <div class="feature-row">
+      <div class="feature-num">01</div>
+      <div class="feature-text">
+        <h4>State-of-the-art technology</h4>
+        <p>Digital X-rays, 3D cone-beam imaging, and same-day CAD/CAM crowns keep your treatment fast and precise.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-num">02</div>
+      <div class="feature-text">
+        <h4>Gentle, anxiety-free approach</h4>
+        <p>Sedation options, warm blankets, and a calm team trained in pain management — zero dread, guaranteed.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-num">03</div>
+      <div class="feature-text">
+        <h4>Transparent, all-inclusive fees</h4>
+        <p>No surprise costs. Written estimates before every procedure, all major insurers accepted.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-num">04</div>
+      <div class="feature-text">
+        <h4>Flexible weekend hours</h4>
+        <p>Open Monday to Saturday, with early-morning and evening slots so dental care fits around your life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-tag">Our Specialists</p>
+      <h2 class="section-title">Meet the team behind your smile</h2>
+    </div>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Wanjiku Nganga" loading="lazy">
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Wanjiku Nganga</div>
+        <div class="team-role">Lead Dentist &amp; Implant Specialist</div>
+        <p class="team-bio">15+ years of experience in restorative and cosmetic dentistry. Fellow of the Royal College of Surgeons, Edinburgh. Passionate about pain-free patient care.</p>
+      </div>
+    </div>
+    <div class="team-card reveal" style="transition-delay:0.1s">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Brian Omondi" loading="lazy">
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Brian Omondi</div>
+        <div class="team-role">Orthodontist</div>
+        <p class="team-bio">Clear aligner and braces specialist with a decade of experience transforming smiles across all ages. Certified Invisalign provider.</p>
+      </div>
+    </div>
+    <div class="team-card reveal" style="transition-delay:0.2s">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Aisha Farah" loading="lazy">
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Aisha Farah</div>
+        <div class="team-role">Cosmetic &amp; Restorative Dentist</div>
+        <p class="team-bio">Specialist in porcelain veneers, whitening, and smile design. Known for her artistic eye and meticulous attention to natural-looking results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-tag">Patient Stories</p>
+      <h2 class="section-title">What our patients say</h2>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <div style="display:flex;gap:3px;">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <span style="font-size:0.85rem;color:var(--muted);">4.9 · 620 Google reviews</span>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="review-text">"I had been avoiding the dentist for years out of fear. Aurelle Dental changed everything — the team was patient, gentle, and I felt completely at ease throughout my implant procedure."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">
+          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80&auto=format&fit=crop&crop=faces" alt="Amina Kariuki">
+        </div>
+        <div>
+          <div class="reviewer-name">Amina Kariuki</div>
+          <div class="reviewer-meta">Dental Implants Patient</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal" style="transition-delay:0.1s">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="review-text">"My whitening results were incredible — eight shades lighter in one session. The clinic is beautiful and spotlessly clean. I've already referred five friends!"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar-initials">MW</div>
+        <div>
+          <div class="reviewer-name">Martin Waweru</div>
+          <div class="reviewer-meta">Whitening Patient</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal" style="transition-delay:0.2s">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="review-text">"The clear aligner treatment took 9 months and my smile is completely transformed. Dr. Nganga explained every step clearly and the pricing was totally transparent."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&auto=format&fit=crop&crop=faces" alt="Sylvia Nderitu">
+        </div>
+        <div>
+          <div class="reviewer-name">Sylvia Nderitu</div>
+          <div class="reviewer-meta">Orthodontics Patient</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book">
+  <div class="book-info reveal">
+    <p class="section-tag">Get in Touch</p>
+    <h2 class="section-title">Ready for a healthier smile?</h2>
+    <p>Book your appointment online or contact us directly. We aim to respond to all enquiries within one business hour.</p>
+
+    <div class="contact-item">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92V19.92a2 2 0 01-2.18 2A19.79 19.79 0 012 4.18 2 2 0 014.09 2h3a2 2 0 012 1.72c.127 1.01.36 2 .7 2.95a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.95.34 1.94.572 2.95.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div class="contact-details">
+        <strong>+254 700 123 456</strong>
+        <span>Mon–Sat, 8am–6pm</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="contact-details">
+        <strong>hello@aurelle.dental</strong>
+        <span>We reply within 1 hour</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="contact-details">
+        <strong>Westlands, Nairobi</strong>
+        <span>Ground Floor, Sarit Centre, Ring Road</span>
+      </div>
+    </div>
+
+    <div class="map-preview">
+      <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80&auto=format&fit=crop" alt="Nairobi Westlands location map" loading="lazy">
+      <div class="map-overlay">
+        <a href="https://maps.google.com/?q=Sarit+Centre+Westlands+Nairobi" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-form reveal" style="transition-delay:0.15s">
+    <h3 class="form-title">Book an Appointment</h3>
+    <p class="form-sub">Fill in the form and we'll confirm your slot by SMS within the hour.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="Jane" id="fname" autocomplete="given-name">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" placeholder="Doe" id="lname" autocomplete="family-name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+254 7xx xxx xxx" id="phone" autocomplete="tel">
+    </div>
+    <div class="form-group">
+      <label>Service Required</label>
+      <select id="service">
+        <option value="">Select a service…</option>
+        <option>General Check-up &amp; Cleaning</option>
+        <option>Teeth Whitening</option>
+        <option>Dental Implants</option>
+        <option>Orthodontics / Clear Aligners</option>
+        <option>Root Canal Therapy</option>
+        <option>Cosmetic Veneers</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date" id="date">
+      </div>
+      <div class="form-group">
+        <label>Preferred Time</label>
+        <select id="time">
+          <option value="">Select time…</option>
+          <option>8:00 AM</option>
+          <option>9:00 AM</option>
+          <option>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>12:00 PM</option>
+          <option>2:00 PM</option>
+          <option>3:00 PM</option>
+          <option>4:00 PM</option>
+          <option>5:00 PM</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Additional Notes (optional)</label>
+      <textarea placeholder="Any concerns or special requirements…" id="notes"></textarea>
+    </div>
+    <button class="form-submit" onclick="submitForm()">Confirm Appointment →</button>
+    <div class="success-msg" id="successMsg">✓ Thank you! We'll confirm your appointment shortly via SMS.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Aurelle <span>Dental</span></div>
+      <p class="footer-tagline">Modern dentistry in the heart of Nairobi. Bringing you exceptional care with a gentle touch since 2009.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.6)" stroke="none"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://wa.me/254700123456" class="social-btn" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">General Dentistry</a></li>
+        <li><a href="#services">Teeth Whitening</a></li>
+        <li><a href="#services">Dental Implants</a></li>
+        <li><a href="#services">Orthodontics</a></li>
+        <li><a href="#services">Veneers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Clinic</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#reviews">Patient Reviews</a></li>
+        <li><a href="#book">Book Appointment</a></li>
+        <li><a href="#">Insurance</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Hours</h5>
+      <ul>
+        <li><a href="#">Mon–Fri: 8am – 6pm</a></li>
+        <li><a href="#">Saturday: 8am – 4pm</a></li>
+        <li><a href="#">Sunday: Closed</a></li>
+        <li style="margin-top:0.75rem;"><a href="tel:+254700123456" style="color:var(--mint-mid);">+254 700 123 456</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Aurelle Dental. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => links.classList.remove('open'));
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form
+  function submitForm() {
+    var fname = document.getElementById('fname').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var service = document.getElementById('service').value;
+    if (!fname || !phone || !service) {
+      alert('Please fill in your name, phone number and select a service.');
+      return;
+    }
+    document.getElementById('successMsg').style.display = 'block';
+    var btn = document.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    btn.textContent = 'Appointment Requested ✓';
+  }
+
+  // Date min
+  document.getElementById('date').setAttribute('min', new Date().toISOString().split('T')[0]);
+</script>
+</body>
+</html>
